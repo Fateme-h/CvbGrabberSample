@@ -1,0 +1,3763 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.GevServer</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.GevServer.BooleanNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.BooleanNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>BooleanNode</b> with the given <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>BooleanNode</b> with the given <paramref name="name"/>
+            and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.GetAccessMode">
+            <summary>
+            Gets the access mode by querying all <see cref="P:Stemmer.Cvb.GevServer.BooleanNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.GetCacheMode">
+            <summary>
+            Gets the cache mode by querying all <see cref="P:Stemmer.Cvb.GevServer.BooleanNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective cache mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.GetPollingTime">
+            <summary>
+            Gets the polling time by querying all <see cref="P:Stemmer.Cvb.GevServer.BooleanNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective polling time.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.BooleanNode.OffValue">
+            <summary>
+            Gets and sets the value to be written if 
+            <see cref="P:Stemmer.Cvb.GenApi.IBooleanNode.Value"/> is set to <see langword="false"/>.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.BooleanNode.OnValue">
+            <summary>
+            Gets and sets the value to be written if 
+            <see cref="P:Stemmer.Cvb.GenApi.IBooleanNode.Value"/> is set to <see langword="true"/>.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.BooleanNode.Value">
+            <summary>
+            Gets/sets the value of this boolean node.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.BooleanNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this boolean node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this boolean stores the value or the value is 
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.FromString(System.String)">
+            <summary>
+            Sets this node's value from the string <paramref name="value"/>.
+            </summary>
+            <param name="value">New value as a string.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.BooleanNode.ToString">
+            <summary>
+            Gets the string representation of this node.
+            </summary>
+            <returns>
+            Same as <see cref="P:Stemmer.Cvb.GevServer.BooleanNode.Value"/>.<see cref="M:Stemmer.Cvb.GevServer.BooleanNode.ToString"/>.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.CategoryNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GevServer.Node"/> that groups other nodes.
+            </summary>
+            <remarks>
+            This has influence on the <see cref="P:Stemmer.Cvb.GevServer.Node.IsFeature"/> property (a node
+            under the <i>Root</i> <b>CategoryNode</b>) and is used in graphical user
+            interfaces.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>CategoryNode</b> with the given <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.CategoryNode.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>CategoryNode</b> with the given <paramref name="name"/>
+            and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.CategoryNode.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CategoryNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.GetAccessMode">
+            <summary>
+            Categories are always read only.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.AccessMode.RO"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.GetCacheMode">
+            <summary>
+            Nothing to cache here.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.CacheMode.NoCache"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.GetPollingTime">
+            <summary>
+            Nothing to poll.
+            </summary>
+            <returns><see cref="F:System.TimeSpan.Zero"/>.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CategoryNode.IsStreamable">
+            <summary>
+            Categories are never streamable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CategoryNode.Nodes">
+            <summary>
+            Gets the node collection of nodes categorized by this node.
+            </summary>
+            <value>Collection to enumerate all categorized nodes.</value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.FromString(System.String)">
+            <summary>
+            Not supported.
+            </summary>
+            <param name="value">Ignored.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CategoryNode.ToString">
+            <summary>
+            Gets the value of the alias node, if any is present. Empty string 
+            otherwise.
+            </summary>
+            <returns>Alias value or empty string.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ChunkImageBufferDescription">
+            <summary>
+            Describes a GenICam Pixel Format Naming Convention (PFNC) compatible 
+            image memory buffer with possibly additional data.
+            </summary>
+            <remarks>
+            This buffer needn't be CVB <see cref="T:Stemmer.Cvb.Image"/> compatible. You can use
+            all PFNC values even packed ones.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ChunkImageBufferDescription.#ctor(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,System.Int32)">
+            <summary>
+            Creates a default chunk image buffer description.
+            </summary>
+            <remarks>
+            Tries to map the given <paramref name="colorModel"/> and 
+            <paramref name="dataType"/> to a <see cref="T:Stemmer.Cvb.PfncFormat"/>.
+            </remarks>
+            <param name="size">Width and height in pixels.</param>
+            <param name="colorModel">Color model of the image to send.</param>
+            <param name="dataType">CVB data type of the image to send.</param>
+            <param name="totalPayloadSize">Size of the valid payload over all 
+            chunks (including the image).</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ChunkImageBufferDescription.#ctor(Stemmer.Cvb.Size2D,Stemmer.Cvb.PfncFormat,System.Int32)">
+            <summary>
+            Creates a default chunk image buffer description.
+            </summary>
+            <param name="size">Width and height in pixels.</param>
+            <param name="pixelFormat">GenICam PFNC format value.</param>
+            <param name="totalPayloadSize">Size of the valid payload over all 
+            chunks (including the image).</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ChunkImageBufferDescription.ChunkImageDataBlock">
+            <summary>
+            Gets the native data for the server call.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ChunkImageBufferDescription.TotalPayloadSize">
+            <summary>
+            Valid payload size over all chunks including the image chunk.
+            </summary>
+            <value>
+            Size in bytes.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ChunkImageBufferDescription.LayoutId">
+            <summary>
+            Gets or sets the layout identifier for the chunks.
+            </summary>
+            <remarks>
+            <para>
+            Change the identifier if the layout/size of the chunks you send changes.
+            This is to reduce parse time on the client side. An easy way to define
+            such an identifier is to use a bit field for all supported chunks.
+            </para><para>
+            A value of 0 means that the layout mechanism is not used and the client
+            must parse the chunk layout for each buffer.
+            </para>
+            </remarks>
+            <value>
+            Positive or 0 identifier.
+            </value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.CollectionWrapper`2">
+            <summary>
+            Wraps one collection as a base class collection.
+            </summary>
+            <typeparam name="TOuter"></typeparam>
+            <typeparam name="TInner"></typeparam>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.#ctor(System.Collections.Generic.ICollection{`1})">
+            <summary>
+            Creates the wrapper around the <paramref name="innerCollection"/>.
+            </summary>
+            <param name="innerCollection">Collection to wrap.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CollectionWrapper`2.InnerCollection">
+            <summary>
+            Gets the inner collection.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CollectionWrapper`2.Count">
+            <summary>
+            Gets the number of elements.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CollectionWrapper`2.IsReadOnly">
+            <summary>
+            Gets whether this collection is read only.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.Add(`0)">
+            <summary>
+            Adds one <paramref name="item"/>.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.Clear">
+            <summary>
+            Removes all items.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.Contains(`0)">
+            <summary>
+            Tests if <paramref name="item"/> is in this collection.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies all elements of this collection to the given 
+            <paramref name="array"/>.
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.GetEnumerator">
+            <summary>
+            Gets the enumerator.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CollectionWrapper`2.Remove(`0)">
+            <summary>
+            Removes the given <paramref name="item"/>.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.CommandNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.CommandNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>CommandNode</b> with the given <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>CommandNode</b> with the given <paramref name="name"/>
+            and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.GetAccessMode">
+            <summary>
+            Gets the access mode by querying all <see cref="P:Stemmer.Cvb.GevServer.CommandNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.GetCacheMode">
+            <summary>
+            Gets the cache mode by querying all <see cref="P:Stemmer.Cvb.GevServer.CommandNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective cache mode.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CommandNode.IsStreamable">
+            <summary>
+            Commands are never streamable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CommandNode.IsDone">
+            <summary>
+            If this command is readable, the execution state can be queried.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.Execute">
+            <summary>
+            Executes this command.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CommandNode.PollingTime">
+            <summary>
+            Gets or sets the polling time of this value.
+            </summary>
+            <value  >
+            If this node is not intended to be polled <see cref="F:System.TimeSpan.Zero"/>
+            is used.
+            </value>    
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.GetPollingTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CommandNode.CommandConfig">
+            <summary>
+            Gets and sets the command value configuration of this command node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this command stores the command value or the value 
+            is referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.CommandNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this command node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this command stores the value or the value is
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.FromString(System.String)">
+            <summary>
+            Executes if <paramref name="value"/> is "true".
+            </summary>
+            <param name="value">"true" to execute.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.CommandNode.ToString">
+            <summary>
+            Gets the <see cref="P:Stemmer.Cvb.GevServer.CommandNode.IsDone"/> status as a string.
+            </summary>
+            <returns>"true" if is done.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.EnumEntryNode">
+            <summary>
+            An entry for an <see cref="T:Stemmer.Cvb.GevServer.EnumerationNode"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>EnumEntryNode</b> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>EnumEntryNode</b> with the given 
+            <paramref name="name"/> and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.GetAccessMode">
+            <summary>
+            Enum entries are always read only.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.AccessMode.RO"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.GetCacheMode">
+            <summary>
+            Nothing to cache here.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.CacheMode.NoCache"/>.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumEntryNode.IsStreamable">
+            <summary>
+            EnumEntry nodes are never streamable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.GetPollingTime">
+            <summary>
+            Nothing to poll.
+            </summary>
+            <returns><see cref="F:System.TimeSpan.Zero"/>.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumEntryNode.NumericValue">
+            <summary>
+            Gets or sets the numeric value of this entry.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumEntryNode.SymbolicValue">
+            <summary>
+            Gets or sets the symbolic value of this entry.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.FromString(System.String)">
+            <summary>
+            Not supported.
+            </summary>
+            <param name="value">Ignored.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumEntryNode.ToString">
+            <summary>
+            Returns <see cref="P:Stemmer.Cvb.GevServer.EnumEntryNode.SymbolicValue"/>. 
+            </summary>
+            <returns>The symbolic value.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.EnumerationNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.EnumerationNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>EnumerationNode</b> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>EnumerationNode</b> with the given 
+            <paramref name="name"/> and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.GetAccessMode">
+            <summary>
+            Gets the access mode by querying all <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.GetCacheMode">
+            <summary>
+            Gets the cache mode by querying all <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective cache mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.GetPollingTime">
+            <summary>
+            Gets the polling time by querying all <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective polling time.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumerationNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumerationNode.Entries">
+            <summary>
+            Gets all enum entries of this enumeration.
+            </summary>
+            <returns>
+            Enumerator to enumerate all enum entries of this enumeration.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumerationNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this enumeration node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this integer stores the value or the value is 
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.EnumerationNode.Value">
+            <summary>
+            Gets/sets the symbolic value of this enumeration.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.FromString(System.String)">
+            <summary>
+            Same as assigning <paramref name="value"/> to <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.Value"/>.
+            </summary>
+            <param name="value">The symbolic value to assign.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.EnumerationNode.ToString">
+            <summary>
+            Same as getting the <see cref="P:Stemmer.Cvb.GevServer.EnumerationNode.Value"/>.
+            </summary>
+            <returns>The symbolic value.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GenApiEvent">
+            <summary>
+            Identifies a GenApi event that can be sent via a <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>'s
+            <see cref="T:Stemmer.Cvb.GevServer.MessageChannel"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GenApiEvent.Parent">
+            <summary>
+            Gets the parent message channel.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GenApiEvent.Token">
+            <summary>
+            Gets the native event token.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GenApiEvent.IsActive">
+            <summary>
+            Gets whether this event has been activated by the remote client.
+            </summary>
+            <remarks>
+            Sending of this event is only possible if has been activated.
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GevServerState">
+            <summary>
+            The possible states this <b>GevServer</b> can be in.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.GevServerState.Configuration">
+            <summary>
+            Not running.
+            </summary>
+            <remarks>
+            In this state e.g. GenApi nodes can be added/removed/changed.
+            </remarks>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.GevServerState.Disconnected">
+            <summary>
+            Running, but not connected to any remote client.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.GevServerState.Connected">
+            <summary>
+            Running and connected to a remote client.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.GevServerState.AcquisitionEnabled">
+            <summary>
+            Running, connected and the remote client started acquisition.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GevServerStateChangedEventArgs">
+            <summary>
+            Event arguments for <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> state changes.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServerStateChangedEventArgs.#ctor(Stemmer.Cvb.GevServer.GevServerState,Stemmer.Cvb.GevServer.GevServerState)">
+            <summary>
+            Creates a new <b>GevServerStateChangedEventArgs</b> object.
+            </summary>
+            <param name="oldState">The old state.</param>
+            <param name="newState">The new state.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServerStateChangedEventArgs.OldState">
+            <summary>
+            The state prior to the change.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServerStateChangedEventArgs.NewState">
+            <summary>
+            The current state.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GevServer">
+            <summary>
+            Common Vision Blox GigE Vision Server implements a GigE Vision camera in
+            software.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.CreateWithConstSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)">
+            <summary>
+            Creates a new <b>GevServer</b> object with a constant width and height.
+            </summary>
+            <remarks>
+            <para>
+            Tries to map the given <paramref name="colorModel"/> and 
+            <paramref name="dataType"/> to a <see cref="T:Stemmer.Cvb.PfncFormat"/>.
+            </para><para>
+            If you wish to change the payload size (e.g. because you want to send
+            chunk data), you can set it on the "PayloadSizeValue" node in
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+            <param name="size">Width and height in pixels.</param>
+            <param name="colorModel">Color model of the image to send.</param>
+            <param name="dataType">CVB data type of the image to send.</param>
+            <param name="driverType">The <see cref="P:Stemmer.Cvb.GevServer.GevServer.DriverType"/> to use.</param>
+            <returns>Newly created server object in 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.CreateWithConstSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.PfncFormat,Stemmer.Cvb.GevServer.DriverType)">
+            <summary>
+            Creates a new <b>GevServer</b> object with a constant width and height.
+            </summary>
+            <remarks>
+            If you wish to change the payload size (e.g. because you want to send
+            chunk data), you can set it on the "PayloadSizeValue" node in
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </remarks>
+            <param name="size">Width and height in pixels.</param>
+            <param name="pixelFormat">GenICam PFNC format value.</param>
+            <param name="driverType">The <see cref="P:Stemmer.Cvb.GevServer.GevServer.DriverType"/> to use.</param>
+            <returns>Newly created server object in 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.CreateWithVariableSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)">
+            <summary>
+            Creates a new <b>GevServer</b> object with a client configurable width, 
+            height and offsets.
+            </summary>
+            <remarks>
+            <para>
+            Tries to map the given <paramref name="colorModel"/> and 
+            <paramref name="dataType"/> to a <see cref="T:Stemmer.Cvb.PfncFormat"/>.
+            </para><para>
+            If you wish to change the payload size (e.g. because you want to send
+            chunk data), you can set it on the "PayloadSizeValue" node in
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+            <param name="maxSize">Maximal width and height in pixels.</param>
+            <param name="colorModel">Color model of the image to send.</param>
+            <param name="dataType">CVB data type of the image to send.</param>
+            <param name="driverType">The <see cref="P:Stemmer.Cvb.GevServer.GevServer.DriverType"/> to use.</param>
+            <returns>Newly created server object in 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.CreateWithVariableSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.PfncFormat,Stemmer.Cvb.GevServer.DriverType)">
+            <summary>
+            Creates a new <b>GevServer</b> object with a client configurable width, 
+            height and offsets.
+            </summary>
+            <remarks>
+            If you wish to change the payload size (e.g. because you want to send
+            chunk data), you can set it on the "PayloadSizeValue" node in
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </remarks>
+            <param name="maxSize">Maximal width and height in pixels.</param>
+            <param name="pixelFormat">GenICam PFNC format value.</param>
+            <param name="driverType">The <see cref="P:Stemmer.Cvb.GevServer.GevServer.DriverType"/> to use.</param>
+            <returns>Newly created server object in 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.#ctor">
+            <summary>
+            Creates a non-streaming GigE Vision server object.
+            </summary>
+            <remarks>
+            <para>
+            For stream-capable variants see 
+            <see cref="M:Stemmer.Cvb.GevServer.GevServer.CreateWithConstSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)"/> 
+            or
+            <see cref="M:Stemmer.Cvb.GevServer.GevServer.CreateWithVariableSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)"/>.
+            </para><para>
+            You can use this server for pure communication use cases via the GenApi
+            (think e.g. of a lighting controller or motor lens).
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.Finalize">
+            <summary>
+            Frees native resources.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.Handle">
+            <summary>
+            Native CVB GevServer handle.
+            </summary>
+            <remarks>It is normally not necessary to work with this handle in 
+            CVB.Net. Note that using this handle in connection with the legacy
+            CVB managed wrappers may actually be disruptive to your application.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.IsDisposed">
+            <summary>
+            Tests whether the native handle has been disposed.
+            </summary>
+        </member>
+        <member name="E:Stemmer.Cvb.GevServer.GevServer.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the 
+            <see cref="M:System.IDisposable.Dispose"/> method.  
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.Dispose">
+            <summary>
+            Disposes the native object wrapped by this object immediately.
+            </summary>
+            <remark>Call this method to release the resources allocated by this
+            node immediately. Remember that after calling Dispose, any subsequent
+            access to references to this image will result in an 
+            <see cref="T:System.ObjectDisposedException"/>.</remark>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.Dispose(System.Boolean)">
+            <summary>
+            IDispose helper function.
+            </summary>
+            <param name="disposing"><b>true</b> when called via 
+            <see cref="M:System.IDisposable.Dispose"/>, <b>false</b> when called by the
+            finalizer.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.State">
+            <summary>
+            Gets the the current state this server is in.
+            </summary>
+            <remarks>
+            Access to this property is thread-safe.
+            </remarks>
+        </member>
+        <member name="E:Stemmer.Cvb.GevServer.GevServer.StateChanged">
+            <summary>
+            Fired when the <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> changes.
+            </summary>
+            <remarks>
+            State changes on the server side can only happen through the 
+            <see cref="M:Stemmer.Cvb.GevServer.GevServer.Start(System.Net.IPAddress)"/> and <see cref="M:Stemmer.Cvb.GevServer.GevServer.Stop"/> methods. All other state
+            changes originate from the remote client.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.DriverType">
+            <summary>
+            Gets the GigE Vision driver used by this server object.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.UserVersion">
+            <summary>
+            Gets or sets the user defined version that is appended to the device
+            version.
+            </summary>
+            <remarks>
+            <para>
+            This property is mandatory as soon as you change anything about the
+            GenApi nodes! As the GenApi XML description is auto-generated the 
+            client needs a way to distinguish between different <b>GevServer</b> 
+            instances with differing feature sets.
+            </para><para>
+            If you change anything about the GenApi nodes on certain user version,
+            you must increase the <see cref="P:Stemmer.Cvb.GevServer.NodeMap.XmlFileVersion"/>. 
+            </para><para>
+            This version information is appended to the <em>CVGevServer</em>
+            version. The available memory for the overall information is limited by
+            the GigE Vision standard to 32 bytes which results in up to 31 ASCII 
+            characters text (actual encoding is UTF-8) as strings must be 
+            nul-terminated. Longer version information is silently cropped!
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.LocalEndPoint">
+            <summary>
+            Gets the local end point this server is bound to.
+            </summary>
+            <remarks>
+            This value is only set if <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>  is not 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:System.Net.IPEndPoint"/> containing the current <see cref="T:System.Net.IPAddress"/> 
+            and port. <see langword="null"/> if not bound.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.RemoteEndPoint">
+            <summary>
+            Gets the remote end point this server is connected to.
+            </summary>
+            <remarks>
+            This value is only set if <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Connected"/> or
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.AcquisitionEnabled"/>.
+            </remarks>
+            <value>
+            <see cref="T:System.Net.IPEndPoint"/> containing the current <see cref="T:System.Net.IPAddress"/> 
+            and port. <see langword="null"/> if not connected.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.NodeMap">
+            <summary>
+            Gets this <b>GevServer</b> <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.Start(System.Net.IPAddress)">
+            <summary>
+            Starts this server and binds it to the given <paramref name="address"/>.
+            </summary>
+            <remarks>
+            <para>
+            All communication channels are bound and the GenApi XML description is
+            generated.
+            </para><para>
+            On success the state changes to <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Disconnected"/>.
+            </para>
+            </remarks>
+            <param name="address">IP address version 4 to bind to.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.GevServer.Stop">
+            <summary>
+            Stops this server.
+            </summary>
+            <remarks>
+            Stopping the server results, depending on the current state, in a chain
+            from <see cref="F:Stemmer.Cvb.GevServer.GevServerState.AcquisitionEnabled"/> to 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Connected"/> to
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Disconnected"/> to 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.GevServer.Stream">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.GevServer.Stream"/> for sending <see cref="T:Stemmer.Cvb.Image"/>s
+            or other data.
+            </summary>
+            <remarks>
+            This property is only non-<see langword="null"/> if you created the 
+            server object via
+            <see cref="M:Stemmer.Cvb.GevServer.GevServer.CreateWithConstSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)"/> 
+            or
+            <see cref="M:Stemmer.Cvb.GevServer.GevServer.CreateWithVariableSize(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType,Stemmer.Cvb.GevServer.DriverType)"/>.
+            </remarks>
+            <value>
+            The <see cref="T:Stemmer.Cvb.GevServer.Stream"/> object if this server object is
+            streaming capable; <see langword="null"/> for non-streaming server.
+            </value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableBooleanNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IBooleanNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableBooleanNode.OnValue">
+            <summary>
+            Gets and sets the value to be written if 
+            <see cref="P:Stemmer.Cvb.GenApi.IBooleanNode.Value"/> is set to <see langword="true"/>.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableBooleanNode.OffValue">
+            <summary>
+            Gets and sets the value to be written if 
+            <see cref="P:Stemmer.Cvb.GenApi.IBooleanNode.Value"/> is set to <see langword="false"/>.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableBooleanNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this boolean node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this boolean stores the value or the value is 
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableCategoryNode">
+            <summary>
+            A <see cref="T:Stemmer.Cvb.GenApi.ICategoryNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableCategoryNode.Nodes">
+            <summary>
+            Gets the node collection of nodes categorized by this node.
+            </summary>
+            <value>Collection to enumerate all categorized nodes.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableCommandNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.ICommandNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableCommandNode.PollingTime">
+            <summary>
+            Gets or sets the polling time of this value.
+            </summary>
+            <value  >
+            If this node is not intended to be polled <see cref="F:System.TimeSpan.Zero"/>
+            is used.
+            </value>    
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableCommandNode.CommandConfig">
+            <summary>
+            Gets and sets the command value configuration of this command node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this command stores the command value or the value 
+            is referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableCommandNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this command node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this command stores the value or the value is
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableEnumEntryNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IEnumEntryNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableEnumEntryNode.SymbolicValue">
+            <summary>
+            Gets or sets the symbolic value of this entry.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableEnumEntryNode.NumericValue">
+            <summary>
+            Gets or sets the numeric value of this entry.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableEnumerationNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IEnumerationNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableEnumerationNode.Entries">
+            <summary>
+            Gets all enum entries of this enumeration.
+            </summary>
+            <returns>
+            Enumerator to enumerate all enum entries of this enumeration.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableIntegerBaseNode">
+            <summary>
+            Base class interface for all configurable integer nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntegerBaseNode.Representation">
+            <summary>
+            Gets or sets how the value is to be represented.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IIntegerNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntegerNode.MinConfig">
+            <summary>
+            Gets and sets the minimum configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the minimal possible value.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntegerNode.MaxConfig">
+            <summary>
+            Gets and sets the maximum configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the maximum possible value.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntegerNode.IncrementConfig">
+            <summary>
+            Gets and sets the increment configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the value from which the <see cref="P:Stemmer.Cvb.GenApi.IIntegerNode.Value"/> 
+            must be a multiple of.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntegerNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this integer stores the value or the value is 
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableIntRegNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableRegisterNode"/> for integer registers.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableIntRegNode.IsSigned">
+            <summary>
+            Gets or sets whether this integer register is signed.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableRegisterNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IRegisterNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableRegisterNode.AccessMode">
+            <summary>
+            Gets or sets the <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/> of this node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableRegisterNode.CacheMode">
+            <summary>
+            Gets or sets the caching mode of this register node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableRegisterNode.PollingTime">
+            <summary>
+            Gets or sets the polling time of this value.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value  >
+            If this node is not intended to be polled <see cref="F:System.TimeSpan.Zero"/>
+            is returned/to be set.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableRegisterNode.InvalidatorNodes">
+            <summary>
+            Gets the collection of nodes which, when changed, invalidate this 
+            node's cache.
+            </summary>
+            <remarks>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>Collection containing all invalidator nodes.</value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableRegisterNode.AddressNodes">
+            <summary>
+            Gets the collection of nodes which define the nodes address.
+            </summary>
+            <remarks>
+            <para>
+            This collection does not contain the address constant from the creation 
+            of the node; only the additional nodes for dynamic addresses. The
+            <see cref="P:Stemmer.Cvb.GenApi.IRegisterNode.Address"/> property is the 
+            sum of the initial address constant and the current values of the 
+            nodes of this collection.
+            </para><para>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+            <value>Collection containing all address nodes.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableSelectorNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.ISelectorNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableSelectorNode.SelectedNodes">
+            <summary>
+            Gets the collection of all nodes selected by this one.
+            </summary>
+            <value>Collection to enumerate all selected nodes.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableValueNode">
+            <summary>
+            Configurable <see cref="T:Stemmer.Cvb.GenApi.IValueNode"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableValueNode.IsStreamable">
+            <summary>
+            Gets or sets whether this node should be used when the camera settings 
+            are stored.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IHasValueConfig`2">
+            <summary>
+            Helper to perform operations on nodes that have a 
+            <see cref="P:Stemmer.Cvb.GevServer.IHasValueConfig`2.ValueConfig"/>.
+            </summary>
+            <typeparam name="TNode">
+            Node type for <see cref="T:Stemmer.Cvb.GevServer.ValueVariant`2"/>.
+            </typeparam>
+            <typeparam name="TValue">
+            Value type for <see cref="T:Stemmer.Cvb.GevServer.ValueVariant`2"/> .
+            </typeparam>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IHasValueConfig`2.ValueConfig">
+            <summary>
+            The value configuration.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Int32RegNode">
+            <summary>
+            An <see cref="T:System.Int32"/> <see cref="T:Stemmer.Cvb.GevServer.IntRegNode"/> node.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int32RegNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>Int32RegNode</b> with the given 
+            <paramref name="name"/> and and automatically assigned address.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int32RegNode.#ctor(System.String,System.Int64)">
+            <summary>
+            Creates a new <b>Int32RegNode</b> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+            <param name="address">
+            Address for this register; -1 for auto assignment.
+            </param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int32RegNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>Int32RegNode</b> with the given 
+            <paramref name="name"/>, <paramref name="nameSpace"/> and an 
+            automatically assigned address.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int32RegNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace,System.Int64)">
+            <summary>
+            Creates a new <b>Int32RegNode</b> with the given 
+            <paramref name="name"/> and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+            <param name="address">
+            Address for this register; -1 for auto assignment.
+            </param>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Int64RegNode">
+            <summary>
+            An <see cref="T:System.Int64"/> <see cref="T:Stemmer.Cvb.GevServer.IntRegNode"/> node.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int64RegNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>Int64RegNode</b> with the given 
+            <paramref name="name"/> and and automatically assigned address.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int64RegNode.#ctor(System.String,System.Int64)">
+            <summary>
+            Creates a new <b>Int64RegNode</b> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+            <param name="address">
+            Address for this register; -1 for auto assignment.
+            </param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int64RegNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>Int64RegNode</b> with the given 
+            <paramref name="name"/>, <paramref name="nameSpace"/> and an 
+            automatically assigned address.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Int64RegNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace,System.Int64)">
+            <summary>
+            Creates a new <b>Int64RegNode</b> with the given 
+            <paramref name="name"/> and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+            <param name="address">
+            Address for this register; -1 for auto assignment.
+            </param>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IntegerBaseNode">
+            <summary>
+            Base class for all integer based nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Increment">
+            <summary>
+            Gets the increment of this <see cref="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value"/>.
+            </summary>
+            <value>
+            The <see cref="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value"/> can take values that are multiples of this one. 
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Max">
+            <summary>
+            Gets the maximal allowed number for this <see cref="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Min">
+            <summary>
+            Gets the minimal allowed number for this <see cref="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Representation">
+            <summary>
+            Gets or sets how the value is to be represented.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Unit">
+            <summary>
+            Gets the unit of this node's value.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value">
+            <summary>
+            Gets/Sets the value of this integer node.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerBaseNode.FromString(System.String)">
+            <summary>
+            Sets this node's value from the string <paramref name="value"/>.
+            </summary>
+            <param name="value">New value as a string.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerBaseNode.ToString">
+            <summary>
+            Gets the string representation of this node.
+            </summary>
+            <returns>
+            Same as <see cref="P:Stemmer.Cvb.GevServer.IntegerBaseNode.Value"/>.<see cref="M:Stemmer.Cvb.GevServer.IntegerBaseNode.ToString"/>.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IntegerNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.IntegerNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>IntegerNode</b> with the given <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>IntegerNode</b> with the given <paramref name="name"/>
+            and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerNode.IncrementConfig">
+            <summary>
+            Gets and sets the increment configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the value from which the <see cref="P:Stemmer.Cvb.GenApi.IIntegerNode.Value"/> 
+            must be a multiple of.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerNode.GetAccessMode">
+            <summary>
+            Gets the access mode by querying all <see cref="P:Stemmer.Cvb.GevServer.IntegerNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerNode.GetCacheMode">
+            <summary>
+            Gets the cache mode by querying all <see cref="P:Stemmer.Cvb.GevServer.IntegerNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective cache mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntegerNode.GetPollingTime">
+            <summary>
+            Gets the polling time by querying all <see cref="P:Stemmer.Cvb.GevServer.IntegerNode.ValueConfig"/>s for it.
+            </summary>
+            <returns>The effective polling time.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerNode.MaxConfig">
+            <summary>
+            Gets and sets the maximum configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the maximum possible value.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerNode.MinConfig">
+            <summary>
+            Gets and sets the minimum configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines the minimal possible value.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntegerNode.ValueConfig">
+            <summary>
+            Gets and sets the value configuration of this integer node.
+            </summary>
+            <remarks>
+            <para>
+            This defines whether this integer stores the value or the value is 
+            referenced to another node.
+            </para><para>
+            Set operation is only possible as long as the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            is in <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IntRegNode">
+            <summary>
+            An <see langword="int"/> typed, configurable <see cref="T:Stemmer.Cvb.GenApi.IRegisterNode"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntRegNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.AccessMode">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/> of this node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntRegNode.GetAccessMode">
+            <summary>
+            Reads the access mode directly from this register node.
+            </summary>
+            <returns>The current access mode.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.Address">
+            <summary>
+            Gets the registers address.
+            </summary>
+            <remarks>
+            <b>Attention:</b> the register address may change dependent on
+            selecting nodes or other states.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.AddressNodes">
+            <summary>
+            Gets the collection of nodes which define the nodes address.
+            </summary>
+            <remarks>
+            <para>
+            This collection does not contain the address constant from the creation 
+            of the node; only the additional nodes for dynamic addresses. The
+            <see cref="P:Stemmer.Cvb.GenApi.IRegisterNode.Address"/> property is the 
+            sum of the initial address constant and the current values of the 
+            nodes of this collection.
+            </para><para>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+            <value>Collection containing all address nodes.</value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.CacheMode">
+            <summary>
+            Gets or sets the caching mode of this register node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntRegNode.GetCacheMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.InvalidatorNodes">
+            <summary>
+            Gets the collection of nodes which, when changed, invalidate this 
+            node's cache.
+            </summary>
+            <remarks>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>Collection containing all invalidator nodes.</value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.IsSigned">
+            <summary>
+            Gets or sets whether this integer register is signed.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.Length">
+            <summary>
+            Gets the number of bytes the register occupies.
+            </summary>
+            <value>
+            Length of the register's memory in bytes.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntRegNode.PollingTime">
+            <summary>
+            Gets or sets the polling time of this value.
+            </summary>
+            <remarks>
+            <b>Attention:</b> here only this node is directly queried and not also
+            the nodes it depends on! This differs from the <see cref="N:Stemmer.Cvb.GenApi"/> 
+            implementation.
+            </remarks>
+            <value  >
+            If this node is not intended to be polled <see cref="F:System.TimeSpan.Zero"/>
+            is returned/set.
+            </value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntRegNode.GetPollingTime">
+            <inheritdoc/>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IntSwissKnifeNode">
+            <summary>
+            Read only node to calculate formulas on the client side with integer 
+            arithmetic.
+            </summary>
+            <remarks>
+            <para>
+            Due to the integer arithmetic used in this node a 
+            <see cref="M:System.Math.Floor(System.Double)"/> operation is performed after 
+            each calculation: The computation <c>2 * (3 / 2)</c> results to two and 
+            not three.
+            </para><para>
+            See the <see cref="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.Formula"/> property for available operations.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.#ctor(System.String)">
+            <summary>
+            Creates a new <b>IntSwissKnifeNode</b> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <remarks>
+            <para>
+            If the <paramref name="name"/> does not contain a namespace prefix the
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is used.
+            </para><para>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.NodeMap"/> before most 
+            operations are possible!.
+            </para>
+            </remarks>
+            <param name="name">Name with optional namespace prefix.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.#ctor(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new <b>IntSwissKnifeNode</b> with the given 
+            <paramref name="name"/> and <paramref name="nameSpace"/>.
+            </summary>
+            <remarks>
+            You must add this node to a <see cref="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.NodeMap"/> before most 
+            operations are possible!.
+            </remarks>
+            <param name="name">Node name without namespace prefix.</param>
+            <param name="nameSpace">Namespace to place the node in.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.GetAccessMode">
+            <summary>
+            Swiss knifes are always read only.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.AccessMode.RO"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.GetCacheMode">
+            <summary>
+            Here we may have multiple ones and can give no sane answer.
+            </summary>
+            <returns><see cref="F:Stemmer.Cvb.GenApi.CacheMode.NoCache"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IntSwissKnifeNode.GetPollingTime">
+            <summary>
+            Always time span zero as there may be multiple values.
+            </summary>
+            <returns><see cref="F:System.TimeSpan.Zero"/>.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.Variables">
+            <summary>
+            Dictionary containing all variables of this node. 
+            </summary>
+            <remarks>
+            The variable names (the key of the dictionary) must consist only of 
+            capitalized alphabetical characters.
+            </remarks>
+            <value>
+            Dictionary where the key is the variable name and the value is the node 
+            holding the variables value.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.Formula">
+            <summary>
+            Formula that is evaluated when the value is read. 
+            </summary>
+            <remarks>
+            <para>
+            Add the <see cref="P:Stemmer.Cvb.GevServer.IntSwissKnifeNode.Variables"/> before setting the formula as the 
+            formula's validity is checked on set.
+            </para><para>
+            The following operations are supported:
+            <list type="table">
+              <item>
+                <term>(, )</term>
+                <description>brackets for grouping/overriding operator precedence:
+                <c>3 * (2 + 3)</c> results to 15.</description>
+              </item>
+              <item>
+                <term>+, -, *, /</term>
+                <description>addition, subtraction, multiplication and devision:
+                <c>3 * 7 + 4 / 2</c> results to 23.
+                </description>
+              </item>
+              <item>
+                <term>%</term>
+                <description>remainder: <c>7 % 4</c> results to 3.</description>
+              </item>
+              <item>
+                <term>**</term>
+                <description>power: <c>2 ** 3</c> results to 8.</description>
+              </item>
+              <item>
+                <term>&amp;, |, ^, ~</term>
+                <description>bitwise AND; OR, XOR and NOT: <c>2 | 1</c> results to 
+                3.</description>
+              </item>
+              <item>
+                <term>&amp;&amp;, ||</term>
+                <description>logical AND and OR: <c>1 &amp;&amp; 0</c> results to
+                0.</description>
+              </item>
+              <item>
+                <term>&lt;&gt;, =, &gt;, &lt;, &lt;=, &gt;=</term>
+                <description>logical UNEQUAL, EQUAL, GREATER, LESS, LESS OR EQUAL
+                and GREATER OR EQUAL: <c>3 &gt;= 2</c> results to 1.</description>
+              </item>
+              <item>
+                <term>&lt;&lt;, &gt;&gt;</term>
+                <description>shift left and shift right: <c>1 &lt;&lt; 2</c> 
+                results to 4.</description>
+              </item>
+              <item>
+                <term>? :</term>
+                <description>conditional operator <c>&lt;condition&gt; ? &lt;true 
+                case&gt; : &lt;false case&gt;</c>.</description>
+              </item>
+              <item>
+                <term>SGN</term>
+                <description>Signum function: -1 if value smaller than 0; 0 if 
+                value equal to 0; 1 if value greater than 0: <c>SGN(42)</c> 
+                results to 1.</description>
+              </item>
+              <item>
+                <term>NEG</term>
+                <description>Negative function: <c>NEG(-42)</c> results to 42.
+                </description>
+              </item>
+            </list>
+            </para><para>
+            Keep in mind that a <see cref="M:System.Math.Floor(System.Double)"/> operation is 
+            executed after each calculation. Logical operations result in 1 for 
+            <see langword="true"/> and 0 for <see langword="false"/>. Any number 
+            that is evaluated in a logical 
+            <see langword="true"/>/<see langword="false"/> condition is 
+            <see langword="true"/> as long as it is not 0.
+            </para>
+            </remarks>
+            <value>String containing the formula.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ISwissKnifeNode`1">
+            <summary>
+            Interface for GenICam GenApi <b>SwissKnife</b> nodes of type <b>TNode</b>.
+            </summary>
+            <typeparam name="TNode">Node type of <b>SwissKnife</b>.</typeparam>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ISwissKnifeNode`1.Variables">
+            <summary>
+            Dictionary containing all variables of this node. 
+            </summary>
+            <remarks>
+            The variable names (the key of the dictionary) must consist only of 
+            capitalized alphabetical characters.
+            </remarks>
+            <value>
+            Dictionary where the key is the variable name and the value is the node 
+            holding the variables value.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ISwissKnifeNode`1.Formula">
+            <summary>
+            Formula that is evaluated when the value is read. 
+            </summary>
+            <remarks>
+            <para>
+            Add the <see cref="P:Stemmer.Cvb.GevServer.ISwissKnifeNode`1.Variables"/> before setting the formula as the 
+            formula's validity is checked on set.
+            </para><para>
+            See the concrete objects description of the formula for the supported 
+            operations.
+            </para>
+            </remarks>
+            <value>String containing the formula.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.GevServer</c> contains 
+            interfaces and classes for using the Common Vision Blox GigE Vision 
+            Server in Cvb.Net. The Common Vision Blox GigE Vision Server presents a 
+            CVB image source as a GigE Vision camera. For additional information see 
+            the GEV Server part in the Common Vision Blox Online Reference.
+            </summary>   
+            <remarks>
+            The central class of this namespace is the
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer" /> and should be used as the 
+            starting point if you want to explore the available types.
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeCollection`1">
+            <summary>
+            Collection of (child) nodes.
+            </summary>
+            <typeparam name="TNode">Concrete node type.</typeparam>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.#ctor(Stemmer.Cvb.GevServer.Node,Stemmer.Cvb.GevServer.GevServerLib.NodeList)">
+            <summary>
+            Creates the collection from the given <paramref name="parent"/>
+            <see cref="T:Stemmer.Cvb.GevServer.Node"/> and the child list <paramref name="kind"/>.
+            </summary>
+            <param name="parent">Parent of this collection.</param>
+            <param name="kind">Kind of nodes to extract.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Dispose">
+            <summary>
+            Dispose of this collection.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Dispose(System.Boolean)">
+            <summary>
+            Dispose implementation.
+            </summary>
+            <param name="disposing">
+            <see langword="true"/> if called from <see cref="M:System.IDisposable.Dispose"/>;
+            <see langword="false"/> if called from finalizer.
+            </param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.IsDisposed">
+            <summary>
+            Gets whether this collection has been disposed.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.UpdateCollection">
+            <summary>
+            Reads out all currently available nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.Parent">
+            <summary>
+            The parent node of this collection.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.Nodes">
+            <summary>
+            The list storing all the nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.Kind">
+            <summary>
+            Gets what kind of collection this is.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.Count">
+            <summary>
+            Gets the number of nodes in this collection.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeCollection`1.IsReadOnly">
+            <summary>
+            Gets whether this collection is read only.
+            </summary>
+            <remarks>
+            This collection becomes read-only when the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>
+            leaves the <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Add(`0)">
+            <summary>
+            Adds a <see cref="T:Stemmer.Cvb.GevServer.Node"/> <paramref name="item"/> to this collection.
+            </summary>
+            <param name="item"><b>Node</b> object to add.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Clear">
+            <summary>
+            Clears this collection.
+            </summary>
+            <remarks>
+            Also disposes of all inline <see cref="T:Stemmer.Cvb.GevServer.EnumEntryNode"/>s.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Contains(`0)">
+            <summary>
+            Gets whether the given <see cref="T:Stemmer.Cvb.GevServer.Node"/> <paramref name="item"/> is
+            in this collection.
+            </summary>
+            <param name="item"><b>Node</b> object to be found.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="item"/> is inside this 
+            collection; <see langword="false"/> if not.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies this collection to the given <paramref name="array"/> starting 
+            at the given <paramref name="arrayIndex"/>.
+            </summary>
+            <param name="array">Array to copy to.</param>
+            <param name="arrayIndex">Start index in the given 
+            <paramref name="array"/>.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.GetEnumerator">
+            <summary>
+            Gets the enumerator for the <see cref="T:Stemmer.Cvb.GevServer.Node"/>s of this collection.
+            </summary>
+            <returns>New enumerator object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeCollection`1.Remove(`0)">
+            <summary>
+            Remove a single <see cref="T:Stemmer.Cvb.GevServer.Node"/> <paramref name="item"/> from this
+            collection.
+            </summary>
+            <param name="item"><b>Node</b> object to remove.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="item"/> was removed;
+            <see langword="false"/> if not in this collection.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeDictionary`1">
+            <summary>
+            A dictionary holding dependent nodes of a <see cref="P:Stemmer.Cvb.GevServer.NodeDictionary`1.Parent"/> node.
+            </summary>
+            <typeparam name="TNode"></typeparam>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionary`1.Parent">
+            <summary>
+            The parent node of this collection.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionary`1.Kind">
+            <summary>
+            Gets what kind of collection this is.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionary`1.UpdateCollection">
+            <summary>
+            Reads out all currently available nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionary`1.IsReadOnly">
+            <summary>
+            Gets whether this dictionary is read only.
+            </summary>
+            <remarks>
+            Read only when no <see cref="P:Stemmer.Cvb.GevServer.NodeDictionary`1.Parent"/> <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> is set or
+            the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> is not in the 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionary`1.AddNode(System.String,`0)">
+            <summary>
+            Adds a new node to this dictionary.
+            </summary>
+            <param name="key">Key identifying the given <paramref name="value"/>.</param>
+            <param name="value">Node associated to <paramref name="key"/>.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionary`1.RemoveNode(System.String)">
+            <summary>
+            Removes a <b>TNode</b> identified by the given <paramref name="key"/>.
+            </summary>
+            <param name="key">Key of item to be removed.</param>
+            <returns>
+            <see langword="true"/> if the key was removed;
+            <see langword="false"/> if not present.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeDictionaryBase`1">
+            <summary>
+            Base class for all <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> node dictionaries.
+            </summary>
+            <typeparam name="TNode"></typeparam>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Dispose">
+            <summary>
+            Disposes of this dictionary and all its nodes.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Dispose(System.Boolean)">
+            <summary>
+            Dispose implementation.
+            </summary>
+            <param name="disposing"><see langword="true"/> if called from 
+            <see cref="M:System.IDisposable.Dispose"/>; <see langword="false"/> if called
+            from finalizer.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.IsDisposed">
+            <summary>
+            Gets whether this dictionary has been disposed.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Nodes">
+            <summary>
+            Gets the dictionary holding all node objects.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.AddNode(System.String,`0)">
+            <summary>
+            Adds a new <b>TNode</b> <paramref name="value"/> associated to the 
+            given <paramref name="key"/>.
+            </summary>
+            <param name="key">Key to identify <paramref name="value"/>.</param>
+            <param name="value"><b>TNode</b> to store.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.RemoveNode(System.String)">
+            <summary>
+            Removes the node at the given <paramref name="key"/>.
+            </summary>
+            <param name="key">Node key to identify entry to remove.</param>
+            <returns>
+            <see langword="true"/> if the <paramref name="key"/> was actually
+            removed; <see langword="false"/> otherwise.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Item(System.String)">
+            <summary>
+            Indexer of this dictionary to get/add <b>TNode</b> objects.
+            </summary>
+            <param name="key">Node key to find <b>TNode</b> object.</param>
+            <returns>
+            The <b>TNode</b> associated with the <paramref name="key"/>.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Count">
+            <summary>
+            Gets the number of <b>TNode</b>s in this dictionary.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.GetNode(System.String)">
+            <summary>
+            Actual implementation for getting nodes.
+            </summary>
+            <param name="key">Node key to find <b>TNode</b> object.</param>
+            <returns>
+            The <b>TNode</b> associated with the <paramref name="key"/>.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.IsReadOnly">
+            <summary>
+            Gets whether this dictionary is read only.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Keys">
+            <summary>
+            Gets the keys for all nodes.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Values">
+            <summary>
+            Gets all the <b>TNode</b>s in this dictionary.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.ContainsKey(System.String)">
+            <summary>
+            Gets whether this dictionaries contains the given <paramref name="key"/>.
+            </summary>
+            <param name="key">Key to find.</param>
+            <returns>
+            <see langword="true"/> if key was found; <see langword="false"/> if not.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.Remove(System.String)">
+            <summary>
+            Removes the node identified by the given <paramref name="key"/>.
+            </summary>
+            <param name="key">Key to identify the node to remove.</param>
+            <returns>
+            <see langword="true"/> if <b>TNode</b> object was removed;
+            <see langword="false"/> if not.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeDictionaryBase`1.TryGetNode(System.String,`0@)">
+            <summary>
+            Tries to get the <b>TNode</b> <paramref name="value"/> with the given
+            <paramref name="key"/>.
+            </summary>
+            <param name="key">Key of node to find.</param>
+            <param name="value">Variable to receive found node.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="key"/> was found;
+            <see langword="false"/> if not.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeMapDebugView">
+            <summary>
+            View for node map in the debugger.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.Dictionary">
+            <summary>
+            Stores the node map.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.#ctor(Stemmer.Cvb.GevServer.NodeMap)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="dictionary">Node map dictionary.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.ModuleName">
+            <summary>
+            Module name.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.ModelName">
+            <summary>
+            Model name.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.VendorName">
+            <summary>
+            Vendor name.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.TransportLayerNamespace">
+            <summary>
+            Namespace of the transport technology.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.XMLFileSchemaVersion">
+            <summary>
+            Version of the XML file's schema.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Info.XMLFileVersion">
+            <summary>
+            Version of the XML file.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Information">
+            <summary>
+            Stores the info.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMapDebugView.Items">
+            <summary>
+            Lists the items.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMapDebugView.#ctor(Stemmer.Cvb.GevServer.NodeMap)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="dictionary">Node map dictionary.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeMap">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> <b>NodeMap</b>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.Dispose(System.Boolean)">
+            <summary>
+            Disposes of all <see cref="T:Stemmer.Cvb.GevServer.Node"/>s if <paramref name="disposing"/>.
+            </summary>
+            <param name="disposing">
+            <see langword="true"/> if called from <see cref="M:System.IDisposable.Dispose"/>;
+            <see langword="false"/> if called from finalizer.
+            </param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.Server">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> object this node map belongs to.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.TryGetValue``1(System.String,``0@)">
+            <summary>
+            Tries to get the <paramref name="node"/> with the given 
+            <paramref name="name"/>.
+            </summary>
+            <typeparam name="TNode">Type of node to retrieve.</typeparam>
+            <param name="name">Name with or without the namespace prefix.</param>
+            <param name="node">Node instance; <see langword="null"/> if not found.
+            </param>
+            <returns><b>true</b> if node with given <paramref name="name"/> exists
+            and is of type <b>TNode</b>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.Add(Stemmer.Cvb.GevServer.Node)">
+            <summary>
+            Adds the given <paramref name="node"/> to this <b>NodeMap</b>.
+            </summary>
+            <remarks>
+            The key will be the full 
+            <paramref name="node"/>.<see cref="P:Stemmer.Cvb.GevServer.Node.Name"/>.
+            </remarks>
+            <param name="node">Node to add.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.AddNode(System.String,Stemmer.Cvb.GevServer.Node)">
+            <summary>
+            Adds the given <paramref name="value"/> to this <b>NodeMap</b>.
+            </summary>
+            <param name="key">
+            Must be <paramref name="value"/>.<see cref="P:Stemmer.Cvb.GevServer.Node.Name"/>.
+            </param>
+            <param name="value">The <see cref="T:Stemmer.Cvb.GevServer.Node"/> to add.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.Remove(Stemmer.Cvb.GevServer.Node)">
+            <summary>
+            Removes the <paramref name="node"/> from this <b>NodeMap</b>.
+            </summary>
+            <param name="node"><see cref="T:Stemmer.Cvb.GevServer.Node"/> to remove.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="node"/> has been removed;
+            <see langword="false"/> if not present in this <b>NodeMap</b>.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeMap.RemoveNode(System.String)">
+            <summary>
+            Removes a <see cref="T:Stemmer.Cvb.GevServer.Node"/> from this <b>NodeMap</b> by its 
+            <paramref name="key"/>.
+            </summary>
+            <param name="key">Key to identify the <b>Node</b> to remove.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="key"/> has been removed;
+            <see langword="false"/> if not present in this <b>NodeMap</b>.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.IsReadOnly">
+            <summary>
+            Gets whether this dictionary is read only.
+            </summary>
+            <remarks>
+            Read only when the <see cref="P:Stemmer.Cvb.GevServer.NodeMap.Server"/> is not in the 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.ModelName">
+            <summary>
+            Gets the model name of the <see cref="P:Stemmer.Cvb.GevServer.NodeMap.Server"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.ModuleName">
+            <summary>
+            Gets this <b>NodeMap</b>s module name.
+            </summary>
+            <value>
+            This is the <i>Device</i> <b>NodeMap</b>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.TransportLayerNamespace">
+            <summary>
+            Gets this <b>NodeMap</b>s transport layer namespace.
+            </summary>
+            <value>
+            This is always <i>GEV</i>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.VendorName">
+            <summary>
+            Gets the device vendor name of the <see cref="P:Stemmer.Cvb.GevServer.NodeMap.Server"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.XmlFileSchemaVersion">
+            <summary>
+            Gets the GenICam GenApi schema version this <see cref="P:Stemmer.Cvb.GevServer.NodeMap.Server"/> 
+            creates.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.NodeMap.XmlFileVersion">
+            <summary>
+            Gets or sets the version of this server's GenApi XML description.
+            </summary>
+            <remarks>
+            <para>
+            It is mandatory to increase the version information when you change
+            anything about the GenApi XML description. 
+            </para><para>
+            To distinguish between different GenApi XML feature sets use the 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.UserVersion"/> property.
+            </para>
+            </remarks>
+            <value>
+            See <see cref="T:Stemmer.Cvb.GenApi.GenApiVersion"/> for a description of the version
+            components.
+            </value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.NodeExtensions">
+            <summary>
+            Extension methods for register implementation.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetAddress(Stemmer.Cvb.GevServer.ValueNode)">
+            <summary>
+            Reads the register address from the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to get value from.</param>
+            <returns>Register address.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetLength(Stemmer.Cvb.GevServer.ValueNode)">
+            <summary>
+            Gets the register length in bytes from the given 
+            <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to get value from.</param>
+            <returns>Register value length in bytes.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetAccessMode(Stemmer.Cvb.GevServer.ValueNode)">
+            <summary>
+            Gets the access mode from the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to get the access mode from.</param>
+            <returns>The current access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.SetAccessMode(Stemmer.Cvb.GevServer.ValueNode,Stemmer.Cvb.GenApi.AccessMode)">
+            <summary>
+            Sets the access mode on the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to set the access mode on.</param>
+            <param name="value">New access mode to set.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetCacheMode(Stemmer.Cvb.GevServer.ValueNode)">
+            <summary>
+            Gets the current cache mode of the given register 
+            <paramref name="node"/>.
+            </summary>
+            <param name="node">Register node to get cache mode from.</param>
+            <returns>The current cache mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.SetCacheMode(Stemmer.Cvb.GevServer.ValueNode,Stemmer.Cvb.GenApi.CacheMode)">
+            <summary>
+            Sets the cache mode on the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to set the cache mode on.</param>
+            <param name="value">New cache mode to set.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetPollingTime(Stemmer.Cvb.GevServer.ValueNode)">
+            <summary>
+            Gets the polling time on the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to get polling time from.</param>
+            <returns>The current polling time.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.SetPollingTime(Stemmer.Cvb.GevServer.ValueNode,System.TimeSpan)">
+            <summary>
+            Sets the polling time on the given <paramref name="node"/>.
+            </summary>
+            <param name="node">Node to set polling time on.</param>
+            <param name="value">New time span for polling time.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetAccessModeOn``2(Stemmer.Cvb.GevServer.IHasValueConfig{``0,``1})">
+            <summary>
+            Gets the access mode on the given <paramref name="node"/>.
+            </summary>
+            <remarks>
+            <para>
+            The value configuration is followed until a register has been found and
+            from that the access mode is returned. 
+            </para><para>
+            If no register node is found, <see cref="F:Stemmer.Cvb.GenApi.AccessMode.RW"/> is returned.
+            </para>
+            </remarks>
+            <param name="node">The node to start query on.</param>
+            <returns>The access mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetCacheModeOn``2(Stemmer.Cvb.GevServer.IHasValueConfig{``0,``1})">
+            <summary>
+            Gets the cache mode on the given <paramref name="node"/>.
+            </summary>
+            <remarks>
+            <para>
+            The value configuration is followed until a register has been found and
+            from that the access mode is returned. 
+            </para><para>
+            If no register node is found, <see cref="F:Stemmer.Cvb.GenApi.CacheMode.NoCache"/> is 
+            returned.
+            </para>
+            </remarks>
+            <param name="node">The node to start query on.</param>
+            <returns>Cache mode.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.NodeExtensions.GetPollingTimeOn``2(Stemmer.Cvb.GevServer.IHasValueConfig{``0,``1})">
+            <summary>
+            Gets the polling time on the given <paramref name="node"/>.
+            </summary>
+            <remarks>
+            <para>
+            The value configuration is followed until a register has been found and
+            from that the access mode is returned. 
+            </para><para>
+            If no register node is found, <see cref="F:System.TimeSpan.Zero"/> is returned.
+            </para>
+            <param name="node">The node to start query on.</param>
+            </remarks>
+            <returns>Polling time.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.SelectorNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GenApi.SelectorNode"/> that is configurable.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.SelectorNode.#ctor(System.IntPtr)">
+            <summary>
+            Creates this <b>SelectorNode</b> object.
+            </summary>
+            <param name="handle"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.SelectorNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.SelectorNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.SelectorNode.IsSelector">
+            <summary>
+            Gets whether this node selects at least one other.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.SelectorNode.SelectedNodes">
+            <summary>
+            Gets the collection of all nodes selected by this one.
+            </summary>
+            <value>Collection to enumerate all selected nodes.</value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Stream">
+            <summary>
+            The stream to send <see cref="T:Stemmer.Cvb.Image"/>s or other data.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Stream.#ctor(Stemmer.Cvb.GevServer.GevServer)">
+            <summary>
+            Creates the stream from the given <paramref name="parent"/> server.
+            </summary>
+            <param name="parent">Parent server object.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Stream.Parent">
+            <summary>
+            Gets the parent server object.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Stream.IsRunning">
+            <summary>
+            Gets whether this stream is running.
+            </summary>
+            <remarks>
+            <para>
+            Streaming can only be enabled by the remote client. Send is only 
+            possible as long as the stream is active (running).
+            </para><para>
+            Note that acquisition start/stop is an asynchronous action without any
+            means to synchronize. Use the <b>TrySend</b> methods to avoid 
+            exceptions.
+            </para>
+            </remarks>
+            <value>
+            <b>true</b> if <see cref="P:Stemmer.Cvb.GevServer.Stream.Parent"/>'s <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.AcquisitionEnabled"/>; <b>false</b> otherwise.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Stream.ResendBuffersCount">
+            <summary>
+            Gets or sets the number of resend buffers.
+            </summary>
+            <remarks>
+            <para>
+            This number specifies for how many full frames a packet resend can be
+            done; set to 0 if no packet resend is to be supported.
+            </para><para>
+            This property can only be change if the parent is in 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> 
+            <see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/>. 
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Stream.Send(Stemmer.Cvb.Image,System.Action)">
+            <summary>
+            Sends the given <paramref name="image"/> to the remote client.
+            </summary>
+            <remarks>
+            <para>
+            The given <paramref name="image"/> must fit into the payload size 
+            set at creation/<see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.
+            </para><para>
+            If packet resend is enabled (<see cref="P:Stemmer.Cvb.GevServer.Stream.ResendBuffersCount"/> larger 
+            than zero), then the given <paramref name="image"/> must remain 
+            unchanged until <paramref name="imageReleased"/> has been called! In 
+            case packet resend is disabled <paramref name="imageReleased"/> will be
+            called immediately.
+            </para>
+            </remarks>
+            <param name="image">Image to be sent.</param>
+            <param name="imageReleased">Delegate to be called when the given
+            <paramref name="image"/> is not needed anymore for packet resend. If
+            <see langword="null"/> the <paramref name="image"/> will be copied 
+            to the resend buffer.
+            </param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Stream.TrySend(Stemmer.Cvb.Image,System.Action)">
+            <summary>
+            Tries to send the given <paramref name="image"/> to the remote client.
+            </summary>
+            <remarks>
+            <para>
+            The given <paramref name="image"/> must fit into the payload size 
+            set at creation/<see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.
+            </para><para>
+            If packet resend is enabled (<see cref="P:Stemmer.Cvb.GevServer.Stream.ResendBuffersCount"/> larger 
+            than zero), then the given <paramref name="image"/> must remain 
+            unchanged until <paramref name="imageReleased"/> has been called! In 
+            case packet resend is disabled <paramref name="imageReleased"/> will be
+            called immediately.
+            </para>
+            </remarks>
+            <param name="image">Image to be sent.</param>
+            <param name="imageReleased">Delegate to be called when the given
+            <paramref name="image"/> is not needed anymore for packet resend. If
+            <see langword="null"/> the <paramref name="image"/> will be copied 
+            to the resend buffer.
+            </param>
+            <returns>
+            <b>true</b> if successfully sent; <b>false</b> on any error. Parameter
+            errors and disposed exception will still be thrown.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Stream.Send(Stemmer.Cvb.GevServer.ImageBufferDescription,System.IntPtr,System.Int64,System.Action)">
+            <summary>
+            Sends the image at the given <paramref name="basePtr"/>.
+            </summary>
+            <remarks>
+            <para>
+            The given image buffer  must fit into the payload size set at 
+            creation/<see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/> state.
+            </para><para>
+            If packet resend is enabled (<see cref="P:Stemmer.Cvb.GevServer.Stream.ResendBuffersCount"/> larger 
+            than zero), then the given image buffer must remain unchanged until 
+            <paramref name="bufferReleased"/> has been called! In case packet 
+            resend is disabled <paramref name="bufferReleased"/> will be called 
+            immediately.
+            </para>
+            </remarks>
+            <param name="bufferDescription">Description of the image at 
+            <paramref name="basePtr"/>.</param>
+            <param name="basePtr">Address of the image buffer to send.</param>
+            <param name="bufferSize">Length in bytes of the buffer at 
+            <paramref name="basePtr"/>.</param>
+            <param name="bufferReleased">Mandatory delegate to be called when the 
+            given image buffer is not needed anymore for packet resend.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Stream.TrySend(Stemmer.Cvb.GevServer.ImageBufferDescription,System.IntPtr,System.Int64,System.Action)">
+            <summary>
+            Tries to send the image at the given <paramref name="basePtr"/>.
+            </summary>
+            <param name="bufferDescription">Description of the image at 
+            <paramref name="basePtr"/>.</param>
+            <param name="basePtr">Address of the image buffer to send.</param>
+            <param name="bufferSize">Length in bytes of the buffer at 
+            <paramref name="basePtr"/>.</param>
+            <param name="bufferReleased">Delegate to be called when the given image
+            buffer is not needed anymore for packet resend.</param>
+            <returns>
+            <b>true</b> if successfully sent; <b>false</b> on any error. Parameter
+            errors and disposed exception will still be thrown.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableNode">
+            <summary>
+            Configurable <see cref="T:Stemmer.Cvb.GenApi.INode"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.ToolTip">
+            <summary>
+            Gets or sets the short descriptive text of this node.
+            </summary>
+            <remarks>
+            <para>
+            See <see cref="P:Stemmer.Cvb.GevServer.IConfigurableNode.Description"/> for the long description.
+            </para><para>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.Description">
+            <summary>
+            Gets or sets the long descriptive text of this node.
+            </summary>
+            <remarks>
+            <para>
+            See <see cref="P:Stemmer.Cvb.GevServer.IConfigurableNode.ToolTip"/> for the short description.
+            </para><para>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.ImposedAccessMode">
+            <summary>
+            Overrides the node's default <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/>.
+            </summary>
+            <value>
+            Imposed access mode; <see langword="null"/> if no imposing is done or
+            set to clear.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.Visibility">
+            <summary>
+            Gets or sets the complexity level of this node.
+            </summary>
+            <remarks>
+            <para>
+            For additional information on the different levels see the 
+            <see cref="T:Stemmer.Cvb.GenApi.Visibility"/> documentation.
+            </para><para>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.AliasNode">
+            <summary>
+            Gets or sets the node that is an alias value for this node.
+            </summary>
+            <remarks>
+            <para>
+            Alias nodes give an additional view on a value or can contain summary
+            information for e.g. <see cref="T:Stemmer.Cvb.GevServer.CategoryNode"/>s.
+            </para><para>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+            <value>
+            Alias node instance; <see langword="null"/> for none.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.IsImplementedConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is implemented
+            in the device or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            implemented when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.IsAvailableConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is currently
+            available or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            available when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNode.IsLockedConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is currently
+            read only or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            read only when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/>.
+            </value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.IConfigurableNodeMap">
+            <summary>
+            An <see cref="T:Stemmer.Cvb.GenApi.INodeMap"/> that can be configured.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNodeMap.Item(System.String)">
+            <summary>
+            Indexer to retrieve or add a node with the given 
+            <paramref name="name"/> from/to this node map.
+            </summary>
+            <param name="name">Name with or without the namespace prefix.</param>
+            <returns><see cref="T:Stemmer.Cvb.GenApi.Node"/> instance.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="name"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+            Thrown if <paramref name="name"/> does not exist in this collection
+            when getting a node.
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IConfigurableNodeMap.Add(Stemmer.Cvb.GevServer.IConfigurableNode)">
+            <summary>
+            Adds the given <paramref name="node"/> to this <b>NodeMap</b>.
+            </summary>
+            <remarks>
+            The key will be the full 
+            <paramref name="node"/>.<see cref="P:Stemmer.Cvb.GevServer.Node.Name"/>.
+            </remarks>
+            <param name="node">Node to add.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.IConfigurableNodeMap.Remove(Stemmer.Cvb.GevServer.IConfigurableNode)">
+            <summary>
+            Removes the <paramref name="node"/> from this <b>NodeMap</b>.
+            </summary>
+            <param name="node"><see cref="T:Stemmer.Cvb.GevServer.Node"/> to remove.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="node"/> has been removed;
+            <see langword="false"/> if not present in this <b>NodeMap</b>.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.IConfigurableNodeMap.XmlFileVersion">
+            <summary>
+            Gets or sets the XML version.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ImageBufferDescription">
+            <summary>
+            Describes a GenICam Pixel Format Naming Convention (PFNC) compatible 
+            image memory buffer.
+            </summary>
+            <remarks>
+            This buffer needn't be CVB <see cref="T:Stemmer.Cvb.Image"/> compatible. You can use
+            all PFNC values even packed ones.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ImageBufferDescription.#ctor(Stemmer.Cvb.Size2D,Stemmer.Cvb.ColorModel,Stemmer.Cvb.DataType)">
+            <summary>
+            Creates a default image buffer description.
+            </summary>
+            <remarks>
+            Tries to map the given <paramref name="colorModel"/> and 
+            <paramref name="dataType"/> to a <see cref="T:Stemmer.Cvb.PfncFormat"/>.
+            </remarks>
+            <param name="size">Width and height in pixels.</param>
+            <param name="colorModel">Color model of the image to send.</param>
+            <param name="dataType">CVB data type of the image to send.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ImageBufferDescription.#ctor(Stemmer.Cvb.Size2D,Stemmer.Cvb.PfncFormat)">
+            <summary>
+            Creates a default image buffer description.
+            </summary>
+            <param name="size">Width and height in pixels.</param>
+            <param name="pixelFormat">GenICam PFNC format value.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ImageBufferDescription.ImageDataBlock">
+            <summary>
+            Gets the native data for the server call.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ImageBufferDescription.PixelFormat">
+            <summary>
+            Gets or sets the image pixel format value.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ImageBufferDescription.Size">
+            <summary>
+            Gets or sets the image size.
+            </summary>
+            <value>
+            Unit is pixels.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ImageBufferDescription.Offset">
+            <summary>
+            Gets or sets the image's offset on the sensor.
+            </summary>
+            <remarks>
+            The server always sends an image with the given <see cref="P:Stemmer.Cvb.GevServer.ImageBufferDescription.Size"/>. The
+            offset is only for information. 
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ImageBufferDescription.LinePadding">
+            <summary>
+            Gets or sets the line padding.
+            </summary>
+            <remarks>
+            Line padding is a contiguous block at the end of each line that holds
+            no meaningful data. This is normally used to align lines.
+            </remarks>
+            <value>
+            Line padding in bytes.
+            </value>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.LogicalNetworkInterface">
+            <summary>
+            An IP network interface the <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> can be bound to.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.LogicalNetworkInterface.GetAllAvailable">
+            <summary>
+            Gets all available network interfaces usable by the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.
+            </summary>
+            <returns>Array containing all available network interfaces.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.LogicalNetworkInterface.Address">
+            <summary>
+            The address of the interface.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.LogicalNetworkInterface.IPv4Mask">
+            <summary>
+            The subnet mask of the <see cref="P:Stemmer.Cvb.GevServer.LogicalNetworkInterface.Address"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.LogicalNetworkInterface.GetNetworkInterface">
+            <summary>
+            Gets the physical network interface this logical one belongs to.
+            </summary>
+            <returns>Physical network interface of this logical one.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.MessageChannel">
+            <summary>
+            The message channel to create and send GenICam GenApi events.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.MessageChannel.#ctor(Stemmer.Cvb.GevServer.GevServer)">
+            <summary>
+            Creates the stream from the given <paramref name="parent"/> server.
+            </summary>
+            <param name="parent">Parent server object.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.MessageChannel.Parent">
+            <summary>
+            Gets the parent server object.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.MessageChannel.Events">
+            <summary>
+            Gets the dictionary containing all registered events.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.MessageChannel.CreateGenApiEvent(System.String,Stemmer.Cvb.GevServer.Namespace)">
+            <summary>
+            Creates a new event with the given <paramref name="name"/>.
+            </summary>
+            <remarks>
+            Adds several nodes necessary for event activation and basic information
+            like ID and timestamp of last update.
+            </remarks>
+            <param name="name">Unique name of the event.</param>
+            <param name="nameSpace">Namespace of the event.</param>
+            <returns>The event object to <see cref="M:Stemmer.Cvb.GevServer.MessageChannel.Send(Stemmer.Cvb.GevServer.GenApiEvent)"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.MessageChannel.Send(Stemmer.Cvb.GevServer.GenApiEvent)">
+            <summary>
+            Sends the given <paramref name="genApiEvent"/> to the remote client.
+            </summary>
+            <param name="genApiEvent">GenApi event to send.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.MessageChannel.TrySend(Stemmer.Cvb.GevServer.GenApiEvent)">
+            <summary>
+            Tries to send the given <paramref name="genApiEvent"/> to the remote 
+            client.
+            </summary>
+            <param name="genApiEvent">GenApi event to send.</param>
+            <returns>
+            <b>true</b> if successfully sent; <b>false</b> on any error. Parameter
+            errors and disposed exception will still be thrown.
+            </returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Native">
+            <summary>
+            Helper for P/Invoke error handling.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Native.Call``1(Stemmer.Cvb.INativeHandle,Stemmer.Cvb.GevServer.Native.NativeOutFunc{``0})">
+            <summary>
+            Call a native function <paramref name="fn"/> without one returned value.
+            </summary>
+            <param name="obj">Object to call <paramref name="fn"/> on.</param>
+            <param name="fn">Function to call.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Native.Call(Stemmer.Cvb.INativeHandle,System.Func{System.IntPtr,System.Int32})">
+            <summary>
+            Call a native function <paramref name="fn"/> without any returned value.
+            </summary>
+            <param name="obj">Object to call <paramref name="fn"/> on.</param>
+            <param name="fn">Function to call.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Native.ToIPAddress(System.Int32)">
+            <summary>
+            Creates an <see cref="T:System.Net.IPAddress"/> from the given 
+            <see langword="int"/> <paramref name="ip"/>.
+            </summary>
+            <param name="ip">IPv4 address as an <see langword="int"/>.</param>
+            <returns>New <see cref="T:System.Net.IPAddress"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Native.ToInt32(System.Net.IPAddress)">
+            <summary>
+            Converts the given <paramref name="address"/> into an 
+            <see langword="int"/>.
+            </summary>
+            <param name="address">IP version 4 address to convert.</param>
+            <returns><see langword="int"/> representation of 
+            <paramref name="address"/>.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Node">
+            <summary>
+            Base class of all server nodes.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.#ctor(System.IntPtr)">
+            <summary>
+            Creates a node from the given <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Native GevServer node handle.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.FromHandle(System.IntPtr)">
+            <summary>
+            Factory to create the appropriate <b>Node</b> object based on the given
+            <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Native node handle.</param>
+            <returns>New <see cref="T:Stemmer.Cvb.GevServer.Node"/> object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.Handle">
+            <summary>
+            Native CVB GevServer Node handle.
+            </summary>
+            <remarks>It is normally not necessary to work with this handle in 
+            CVB.Net. Note that using this handle in connection with the legacy
+            CVB managed wrappers may actually be disruptive to your application.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsDisposed">
+            <summary>
+            Tests whether the native handle has been disposed.
+            </summary>
+        </member>
+        <member name="E:Stemmer.Cvb.GevServer.Node.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the 
+            <see cref="M:System.IDisposable.Dispose"/> method.  
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.Dispose">
+            <summary>
+            Disposes the native object wrapped by this object immediately.
+            </summary>
+            <remark>Call this method to release the resources allocated by this
+            node immediately. Remember that after calling Dispose, any subsequent
+            access to references to this image will result in an 
+            <see cref="T:System.ObjectDisposedException"/>.</remark>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.Dispose(System.Boolean)">
+            <summary>
+            IDispose helper function.
+            </summary>
+            <param name="disposing"><b>true</b> when called via 
+            <see cref="M:System.IDisposable.Dispose"/>, <b>false</b> when called by the
+            finalizer.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.NodeMap">
+            <summary>
+            Gets the parent <see cref="T:Stemmer.Cvb.GevServer.NodeMap"/> of this 
+            <b>GevServerNode</b>.
+            </summary>
+            <value>
+            <see langword="null"/> if not associated with a server node map, yet.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.ToolTip">
+            <summary>
+            Gets or sets the short descriptive text of this node.
+            </summary>
+            <remarks>
+            See <see cref="P:Stemmer.Cvb.GevServer.Node.Description"/> for the long description.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.Description">
+            <summary>
+            Gets or sets the long descriptive text of this node.
+            </summary>
+            <remarks>
+            See <see cref="P:Stemmer.Cvb.GevServer.Node.ToolTip"/> for the short description.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.AccessMode">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/> of this node.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.GetAccessMode">
+            <summary>
+            Implementation for getting the access mode.
+            </summary>
+            <returns>The current access mode.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.ImposedAccessMode">
+            <summary>
+            Overrides the node's default <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/>.
+            </summary>
+            <value>
+            Imposed access mode; <see langword="null"/> if no imposing is done or
+            set to clear.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsImplementedConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is implemented
+            in the device or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            implemented when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsAvailableConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is currently
+            available or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            available when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsLockedConfig">
+            <summary>
+            Gets or sets the node that specifies whether a node is currently
+            read only or not.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>
+            <see cref="T:Stemmer.Cvb.GevServer.IConfigurableIntegerNode"/> which states that this node is 
+            read only when unequal zero. <see langword="null"/> for keeping the 
+            original <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/>.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.CacheMode">
+            <summary>
+            Gets the cache mode of this node.
+            </summary>
+            <remarks>
+            For non-register nodes the cache mode of the register in the value
+            path of the node chain up the the register is used.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.GetCacheMode">
+            <summary>
+            Gets the current (dependent) cache mode of this node.
+            </summary>
+            <returns>Current cache mode.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.Visibility">
+            <summary>
+            Gets or sets the complexity level of this node.
+            </summary>
+            <remarks>
+            For additional information on the different levels see the 
+            <see cref="T:Stemmer.Cvb.GenApi.Visibility"/> documentation.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.AliasNode">
+            <summary>
+            Gets or sets the node that is an alias value for this node.
+            </summary>
+            <remarks>
+            Alias nodes give an additional view on a value or can contain summary
+            information for e.g. <see cref="T:Stemmer.Cvb.GevServer.CategoryNode"/>s.
+            </remarks>
+            <value>
+            Alias node instance; <see langword="null"/> for none.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.Name">
+            <summary>
+            Gets the full name of this node.
+            </summary>
+            <value>
+            String containing the namespace of the node (<i>Std</i>, <i>Cust</i> or
+            <i>Priv</i> and the node's name separated by double colons (::)).
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.Namespace">
+            <summary>
+            Gets the namespace this node is in.
+            </summary>
+            <remarks>
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Private"/> nodes will not be in the GenApi XML
+            description.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.ParseNamespace(System.String)">
+            <summary>
+            Gets the <see cref="P:Stemmer.Cvb.GevServer.Node.Namespace"/> from the given <paramref name="name"/>.
+            </summary>
+            <param name="name">Name to determine namespace of.</param>
+            <returns>
+            <b>Namespace</b> derived from <paramref name="name"/>. If none is set
+            <see cref="F:Stemmer.Cvb.GevServer.Namespace.Custom"/> is assumed.
+            </returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.ParseName(System.String)">
+            <summary>
+            Gets the name part of the given node <paramref name="name"/>.
+            </summary>
+            <param name="name">Name to get the name part of.</param>
+            <returns>Name of the node.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.EnsureNodeNameOnly(System.String)">
+            <summary>
+            Throws if the given <paramref name="name"/> has a namespace prefix.
+            </summary>
+            <param name="name">Name to check.</param>
+            <returns>
+            The given <paramref name="name"/>.
+            </returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsImplemented">
+            <summary>
+            <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/> helper to check whether this node is 
+            implemented.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsAvailable">
+            <summary>
+            <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/> helper to check whether this node is 
+            available.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsReadable">
+            <summary>
+            <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/> helper to check whether this node is 
+            readable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsWritable">
+            <summary>
+            <see cref="P:Stemmer.Cvb.GevServer.Node.AccessMode"/> helper to check whether this node is 
+            writable.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.EventID">
+            <summary>
+            Nodes with an event identifier may become invalidated if an 
+            event/message is delivered from the device.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsFeature">
+            <summary>
+            Gets whether this node is considered a feature node.
+            </summary>
+            <remarks>
+            Feature nodes are in a way public/user interface nodes. All nodes that
+            are directly referenced by the <i>Root</i> <see cref="T:Stemmer.Cvb.GevServer.CategoryNode"/>
+            or indirectly via other <b>CategoryNode</b>s that are children of
+            <i>Root</i> are considered features.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.Node.IsDeprecated">
+            <summary>
+            Gets whether this node is considered deprecated.
+            </summary>
+            <remarks>
+            Deprecated nodes are only available because of backward compatibility.
+            New applications should not use these features.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.Node.ToDebugString">
+            <summary>
+            Debug helper to display a value if possible.
+            </summary>
+            <returns>Node's value</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.DefaultNode">
+            <summary>
+            Dummy class for all unsupported node types.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.DefaultNode.#ctor(System.IntPtr)">
+            <summary>
+            Creates the node from the given <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Native node handle.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.DefaultNode.GetAccessMode">
+            <summary>
+            No <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/> available.
+            </summary>
+            <returns>Nothing.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.DefaultNode.GetCacheMode">
+            <summary>
+            No <see cref="T:Stemmer.Cvb.GenApi.CacheMode"/> available.
+            </summary>
+            <returns>Nothing.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.DriverType">
+            <summary>
+            GigE Vision driver to use for communication and streaming.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.DriverType.Auto">
+            <summary>
+            Checks whether <see cref="F:Stemmer.Cvb.GevServer.DriverType.Filter"/> is available or else uses
+            <see cref="F:Stemmer.Cvb.GevServer.DriverType.Socket"/>.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.DriverType.Socket">
+            <summary>
+            Socket driver.
+            </summary>
+            <remarks>
+            Used on non-Windows systems or for loop-back communication.
+            </remarks>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.DriverType.Filter">
+            <summary>
+            Filter driver.
+            </summary>
+            <remarks>
+            Default driver for Windows (see <see cref="F:Stemmer.Cvb.GevServer.DriverType.Auto"/>). High performance
+            with low CPU load for remote client transfer.
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.Namespace">
+            <summary>
+            Possible name spaces of a <see cref="T:Stemmer.Cvb.GevServer.Node"/>.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.Namespace.Standard">
+            <summary>
+            Feature node is described in GenIcam Standard Features Naming Convention.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.Namespace.Custom">
+            <summary>
+            Node is a custom creation.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.Namespace.Private">
+            <summary>
+            Node is not in the XML description.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GevServerLib.EventID">
+            <summary>
+            Native Event ID.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.GevServerLib.EventDelegate">
+            <summary>
+            Native callback function delegate.
+            </summary>
+            <param name="pPrivate">Not needed in .NET assembly.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.StringNode">
+            <summary>
+            An <see cref="T:Stemmer.Cvb.GenApi.IStringNode"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringNode.Value">
+            <summary>
+            Gets/sets the string value.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringNode.FromString(System.String)">
+            <summary>
+            Same as assigning to <see cref="P:Stemmer.Cvb.GevServer.StringNode.Value"/> .
+            </summary>
+            <param name="value">Value to assign.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringNode.ToString">
+            <summary>
+            Returns <see cref="P:Stemmer.Cvb.GevServer.StringNode.Value"/>.
+            </summary>
+            <returns>The <see cref="P:Stemmer.Cvb.GevServer.StringNode.Value"/>.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.StringRegNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GevServer.StringNode"/> that is a register.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringRegNode.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.NodeMap">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.AccessMode">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.GenApi.AccessMode"/> of this node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringRegNode.GetAccessMode">
+            <summary>
+            Reads the access mode directly from this register node.
+            </summary>
+            <returns>The current access mode.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.Address">
+            <summary>
+            Gets the registers address.
+            </summary>
+            <remarks>
+            <b>Attention:</b> the register address may change dependent on
+            selecting nodes or other states.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.AddressNodes">
+            <summary>
+            Gets the collection of nodes which define the nodes address.
+            </summary>
+            <remarks>
+            <para>
+            This collection does not contain the address constant from the creation 
+            of the node; only the additional nodes for dynamic addresses. The
+            <see cref="P:Stemmer.Cvb.GenApi.IRegisterNode.Address"/> property is the 
+            sum of the initial address constant and the current values of the 
+            nodes of this collection.
+            </para><para>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </para>
+            </remarks>
+            <value>Collection containing all address nodes.</value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.CacheMode">
+            <summary>
+            Gets or sets the caching mode of this register node.
+            </summary>
+            <remarks>
+            Set operation is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringRegNode.GetCacheMode">
+            <inheritdoc/>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.InvalidatorNodes">
+            <summary>
+            Gets the collection of nodes which, when changed, invalidate this 
+            node's cache.
+            </summary>
+            <remarks>
+            Change is only possible as long as the 
+            <see cref="T:Stemmer.Cvb.GevServer.GevServer"/>.<see cref="P:Stemmer.Cvb.GevServer.GevServer.State"/> is 
+            <see cref="F:Stemmer.Cvb.GevServer.GevServerState.Configuration"/>.
+            </remarks>
+            <value>Collection containing all invalidator nodes.</value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.Length">
+            <summary>
+            Gets the number of bytes the register occupies.
+            </summary>
+            <value>
+            Length of the register's memory in bytes.
+            </value>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.StringRegNode.PollingTime">
+            <summary>
+            Gets or sets the polling time of this value.
+            </summary>
+            <remarks>
+            <b>Attention:</b> here only this node is directly queried and not also
+            the nodes it depends on! This differs from the <see cref="N:Stemmer.Cvb.GenApi"/> 
+            implementation.
+            </remarks>
+            <value  >
+            If this node is not intended to be polled <see cref="F:System.TimeSpan.Zero"/>
+            is returned/set.
+            </value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.StringRegNode.GetPollingTime">
+            <inheritdoc/>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ReplyStatus">
+            <summary>
+            Status codes to be sent the remote client on <see cref="E:Stemmer.Cvb.GevServer.ValueNode.Read"/>
+            and <see cref="E:Stemmer.Cvb.GevServer.ValueNode.Written"/> events.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.Success">
+            <summary>
+            Operation successfully performed.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.AccessDenied">
+            <summary>
+            Requested resource not accessible.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.Busy">
+            <summary>
+            Device to busy to perform the operation.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.NotImplemented">
+            <summary>
+            Requested resource is actually not implemented.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.DataOverrun">
+            <summary>
+            Internal memory overrun.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.InvalidParameter">
+            <summary>
+            Invalid parameter to resource.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.WrongConfig">
+            <summary>
+            Requested resource is not accessible in current configuration.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.GevServer.ReplyStatus.LocalProblem">
+            <summary>
+            Something went wrong on server side.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ReplyStatusEventArgs">
+            <summary>
+            Notify the remote client about the success of the event operation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ReplyStatusEventArgs.Status">
+            <summary>
+            The current event status.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ValueNode">
+            <summary>
+            <see cref="T:Stemmer.Cvb.GevServer.Node"/> having a value.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.#ctor(System.IntPtr)">
+            <summary>
+            Creates the <b>ValueNode</b>.
+            </summary>
+            <param name="handle">Native <see cref="T:Stemmer.Cvb.GevServer.GevServer"/> node handle.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.Dispose(System.Boolean)">
+            <summary>
+            Additionally disposes of the registered events.
+            </summary>
+            <param name="disposing">
+            <see langword="true"/> if called from <see cref="M:System.IDisposable.Dispose"/>;
+            <see langword="false"/> if called by finalizer.
+            </param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ValueNode.IsStreamable">
+            <summary>
+            Gets or sets whether this node should be used, when the camera settings
+            are stored.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ValueNode.PollingTime">
+            <summary>
+            Gets the polling time of this value.
+            </summary>
+            <remarks>
+            <b>Attention:</b> here only this node is directly queried and not also
+            the nodes it depends on! This differs from the <see cref="N:Stemmer.Cvb.GenApi"/>
+            implementation.
+            </remarks>
+            <value  >
+            If this node is not intended to be polled, <see cref="F:System.TimeSpan.Zero"/>
+            is returned.
+            </value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.GetPollingTime">
+            <summary>
+            Gets the polling time for this node.
+            </summary>
+            <returns>Polling time; <see cref="F:System.TimeSpan.Zero"/> if not intended to
+            be polled.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.FromString(System.String)">
+            <summary>
+            Sets the value of the node from the string <paramref name="value"/>.
+            </summary>
+            <param name="value">New value as a string.</param>
+        </member>
+        <member name="E:Stemmer.Cvb.GevServer.ValueNode.Read">
+            <summary>
+            This event is fired when the client reads a value.
+            </summary>
+            <remarks>
+            You can set a value to this <b>ValueNode</b> and the result will be
+            delivered to the client.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.OnRead">
+            <summary>
+            Calls the <see cref="E:Stemmer.Cvb.GevServer.ValueNode.Read"/> event and returns the
+            <see cref="T:Stemmer.Cvb.ErrorCodes"/> to deliver to the native server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="E:Stemmer.Cvb.GevServer.ValueNode.Written">
+            <summary>
+            This event is fired when the client has written a value.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueNode.OnWritten">
+            <summary>
+            Calls the <see cref="E:Stemmer.Cvb.GevServer.ValueNode.Written"/> event and returns the
+            <see cref="T:Stemmer.Cvb.ErrorCodes"/> to deliver to the native server.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Stemmer.Cvb.GevServer.ValueVariant`2">
+            <summary>
+            A variant stores one value of either type <b>T1</b> or <b>T2</b>.
+            </summary>
+            <remarks>
+            Value access is type safe.
+            </remarks>
+            <typeparam name="T1">First type to store.</typeparam>
+            <typeparam name="T2">Second type to store.</typeparam>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.#ctor(`0)">
+            <summary>
+            Creates a new variant from the given <paramref name="value"/>.
+            </summary>
+            <param name="value">Value to store.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.#ctor(`1)">
+            <summary>
+            Creates a new variant from the given <paramref name="value"/>.
+            </summary>
+            <param name="value">Value to store.</param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ValueVariant`2.IsSet">
+            <summary>
+            Gets whether a value is set at all.
+            </summary>
+            <value><see langword="true"/> if a value is set.</value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.Reset">
+            <summary>
+            Resets the value.
+            </summary>
+            <remarks>
+            After this call <see cref="P:Stemmer.Cvb.GevServer.ValueVariant`2.IsSet"/> returns <see langword="false"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ValueVariant`2.IsT1">
+            <summary>
+            Gets whether a value of type <b>T1</b> is set.
+            </summary>
+            <value>
+            <see langword="true"/> if value is set and it is of type <b>T1</b>.
+            </value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.AsT1">
+            <summary>
+            Gets the value as <b>T1</b>.
+            </summary>
+            <returns>Value as <b>T1</b>.</returns>
+            <exception cref="T:System.InvalidCastException">
+            Thrown if value stored is not of type <b>T1</b>
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.Assign(`0)">
+            <summary>
+            Assigns the given <paramref name="value"/> to this variant.
+            </summary>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.op_Implicit(`0)~Stemmer.Cvb.GevServer.ValueVariant{`0,`1}">
+            <summary>
+            Implicitly creates a new variant from the given <paramref name="value"/>.
+            </summary>
+            <param name="value">Value to create variant from.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.op_Implicit(Stemmer.Cvb.GevServer.ValueVariant{`0,`1})~`0">
+            <summary>
+            Implicitly converts the variant <paramref name="value"/> to its 
+            <b>T1</b> value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:Stemmer.Cvb.GevServer.ValueVariant`2.IsT2">
+            <summary>
+            Gets whether a value of type <b>T2</b> is set.
+            </summary>
+            <value>
+            <see langword="true"/> if value is set and it is of type <b>T2</b>.
+            </value>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.AsT2">
+            <summary>
+            Gets the value as <b>T2</b>.
+            </summary>
+            <returns>Value as <b>T2</b>.</returns>
+            <exception cref="T:System.InvalidCastException">
+            Thrown if value stored is not of type <b>T2</b>
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.Assign(`1)">
+            <summary>
+            Assigns the given <paramref name="value"/> to this variant.
+            </summary>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.op_Implicit(`1)~Stemmer.Cvb.GevServer.ValueVariant{`0,`1}">
+            <summary>
+            Implicitly creates a new variant from the given <paramref name="value"/>.
+            </summary>
+            <param name="value">Value to create variant from.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.op_Implicit(Stemmer.Cvb.GevServer.ValueVariant{`0,`1})~`1">
+            <summary>
+            Implicitly converts the variant <paramref name="value"/> to its 
+            <b>T1</b> value.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.GevServer.ValueVariant`2.ToVariant``2">
+            <summary>
+            Translates this variant to another variant.
+            </summary>
+            <remarks>
+            <b>Attention:</b> use with care. The translations are not totally fool
+            proof.
+            </remarks>
+            <typeparam name="O1">First target type.</typeparam>
+            <typeparam name="O2">Second target type.</typeparam>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

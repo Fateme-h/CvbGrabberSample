@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-Isolated-A907BFDF-0753-41BA-BE64-4FF54977AC6F</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Stemmer.Cvb">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Aux">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Aux.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Barcode">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Dnc">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Dnc.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Extensions">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Forms">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Foundation">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Foundation.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.GevServer">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.GevServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Match3D">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Match3D.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Minos">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Minos.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Movie2">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Movie2.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Polimago">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Polimago.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.SampleDatabase">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.SampleDatabase.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.ShapeFinder">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.ShapeFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Spectral">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Spectral.dll</HintPath>
+    </Reference>
+    <Reference Include="Stemmer.Cvb.Wpf">
+      <HintPath>C:\Program Files\STEMMER IMAGING\Common Vision Blox\Lib\Net\Stemmer.Cvb.Wpf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

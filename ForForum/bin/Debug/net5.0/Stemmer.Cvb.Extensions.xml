@@ -1,0 +1,498 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.Extensions.RawPixelBufferLayout">
+            <summary>
+            Raw pixel buffer layout to be used with the 
+            <c>ToPixelBuffer</c> method when serializing 
+            multi-planar images into a pixel buffer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Extensions.RawPixelBufferLayout.Interleaved">
+            <summary>
+            Generate interleaved memory layout, i. e. the resulting buffer will
+            contain the pixel data for all planes for position (0, 0), followed
+            by all planes for position (1, 0) and so on.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Extensions.RawPixelBufferLayout.Planar">
+            <summary>
+            Generate planar memory layout, i. e. the resulting buffer contain all
+            the pixel data for plane 0 followed by all the pixel data for plane 1
+            and so on.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Extensions.ImageExtensions">
+            <summary>
+            Extension methods on the <see cref="T:Stemmer.Cvb.Image"/> object.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.GetPixel(Stemmer.Cvb.Image,System.Drawing.Point)">
+            <summary>
+            Gets the pixel values of all planes at the given position.
+            </summary>
+            <param name="location">Position in pixel coordinates.</param>
+            <param name="img">Object to work on.</param>
+            <returns>The pixel values; <see cref="F:System.Double.NaN"/> if the value could
+            not be dereferenced.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToBitmap(Stemmer.Cvb.Image,System.Int32,System.Int32,System.Drawing.Imaging.PixelFormat,Stemmer.Cvb.Rect,Stemmer.Cvb.PlaneConfiguration,System.Double,System.Int32,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Create a <see cref="T:System.Drawing.Bitmap"/> from this CVB image.
+            </summary>
+            <param name="width">Width of the Bitmap to be returned; may be 0, in
+            which case the width is calculated taking into account the aspect
+            ratio of this image (if height != 0) or will be set to the width of 
+            this image(if width and height are 0)</param>
+            <param name="height">Height of the Bitmap to be returned; may be 0, in
+            which case the height is calculated taking into account the aspect
+            ratio of this image (if width != 0) or will be set to the height of 
+            this image (if width and height are 0)</param>
+            <param name="sourceRect">Subregion of the image to paint into the
+            bmData</param>
+            <param name="planes">Plane configuration to use for painting</param>
+            <param name="gain">Gain to multiply during painting</param>
+            <param name="offset">Offset to add during painting</param>
+            <param name="pfm">Pixel format to use</param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel</param>
+            <param name="img">Image object to work on.</param>
+            <returns>Newly created bitmap</returns>
+            <exception cref="T:System.ObjectDisposedException">If this image has already
+            been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToBitmap(Stemmer.Cvb.Image,System.Int32,System.Int32,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Convert this <see cref="T:Stemmer.Cvb.Image"/> into a 
+            <see cref="T:System.Drawing.Bitmap"/> of selectable size.
+            </summary>
+            <param name="width">Width of the Bitmap to be returned; may be 0, in
+            which case the width is calculated taking into account the aspect
+            ratio of this image (if height != 0) or will be set to the width of 
+            this image(if width and height are 0)</param>
+            <param name="height">Height of the Bitmap to be returned; may be 0, in
+            which case the height is calculated taking into account the aspect
+            ratio of this image (if width != 0) or will be set to the height of 
+            this image (if width and height are 0)</param>
+            <param name="img"><see cref="T:Stemmer.Cvb.Image"/> object to work on.</param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel</param>
+            <returns>Newly created bitmap</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToBitmap(Stemmer.Cvb.Image,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Convert this <see cref="T:Stemmer.Cvb.Image"/> into a 
+            <see cref="T:System.Drawing.Bitmap"/> of identical size.
+            </summary>
+            <param name="img"><see cref="T:Stemmer.Cvb.Image"/> object to work on.
+            </param>
+            <param name="mode">treatment for images with more than 8 bits per
+            pixel</param>
+            <returns>Newly created bmData</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToBitmap(Stemmer.Cvb.Image)">
+            <summary>
+            Convert this <see cref="T:Stemmer.Cvb.Image"/> into a 
+            <see cref="T:System.Drawing.Bitmap"/> of identical size
+            and convert data with bit depth higher than 8 via 
+            <see cref="F:Stemmer.Cvb.HighBitScaleMode.Global"/> scaling.
+            </summary>
+            <param name="img"><see cref="T:Stemmer.Cvb.Image"/> object to work on.
+            </param>
+            <returns>Newly created bitmap.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPointF(Stemmer.Cvb.Point2Dd)">
+            <summary>
+            implicit conversion operator to System.Drawing.PointF
+            </summary>
+            <param name="pt">operand to be converted</param>
+            <returns>converted rhs</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPoint(Stemmer.Cvb.Point2Dd)">
+            <summary>
+            implicit conversion operator to System.Drawing.Point
+            </summary>
+            <param name="pt">operand to be converted</param>
+            <returns>converted point</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPoints(Stemmer.Cvb.Point2Dd[])">
+            <summary>
+            Convert a Point2Dd array into a Point array.
+            </summary>
+            <param name="arr">Array to be converted.</param>
+            <returns>Converted array.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPointF(Stemmer.Cvb.Point2D)">
+            <summary>
+            Conversion to System.Drawing.PointF.
+            </summary>
+            <param name="pt">operand to be converted</param>
+            <returns>converted point</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPoint(Stemmer.Cvb.Point2D)">
+            <summary>
+            Conversion to System.Drawing.Point.
+            </summary>
+            <param name="pt">operand to be converted</param>
+            <returns>converted point</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToRectangle(Stemmer.Cvb.Rect)">
+            <summary>
+            Convert a <see cref="T:Stemmer.Cvb.Rect"/> to a <see cref="T:System.Drawing.Rectangle"/>.
+            </summary>
+            <param name="rect"><see cref="T:Stemmer.Cvb.Rect"/> to be converted.</param>
+            <returns>New <see cref="T:System.Drawing.Rectangle"/>.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToSize(Stemmer.Cvb.Size2D)">
+            <summary>
+            Convert a CvbSize to a <see cref="T:System.Drawing.Size"/>.
+            </summary>
+            <param name="size">Size object to be converted.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.Add(Stemmer.Cvb.Point2Dd,System.Drawing.Point)">
+            <summary>
+            Add a CvbPointD and a Point.
+            </summary>
+            <param name="lhs">operand 1</param>
+            <param name="rhs">operand 2</param>
+            <returns>sum of operand 1 and operand 2</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.ImageExtensions.ToPixelBuffer``1(Stemmer.Cvb.Image,Stemmer.Cvb.Extensions.RawPixelBufferLayout)">
+            <summary>
+            Create a byte buffer with the serialized image pixel data.
+            </summary>
+            <typeparam name="TPixel">Type of the pixel array to produce. Must 
+            match the type of the pixels as described by the image's data type
+            descriptor.</typeparam>
+            <param name="image">Image object for which the pixels are to be 
+            serialized. Note that the input image must have the same data type
+            on all input planes and that the data type must be mappable to
+            one of the native CLR types.</param>
+            <param name="layout">Plane layout to use when serializing the
+            image's pixel data (actual setting will not have an effect on images
+            with only one plane).</param>
+            <returns>Array with the serialized pixel data</returns>
+            <exception cref="T:System.ArgumentNullException">if the <paramref name="image"/>
+            parameter is null</exception>
+            <exception cref="T:System.InvalidOperationException">if the 
+            <paramref name="image"/> is multi-planar and the different planes
+            have different data type(s) or if the data type of the plane(s) of the
+            <paramref name="image"/> is/are not compatible with the 
+            <c>TPixel</c> generic parameter</exception>
+            <exception cref="T:System.Exception">if serialization failed</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.Extensions.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.Extensions</c> contains static
+            classes with extension methods that make cooperation with other APIs 
+            like <c>System.Drawing</c>. Please note that the assembly 
+            Stemmer.Cvb.Extensions.dll is dependent on other assemblies that may
+            not be present on all supported platforms.
+            </summary>  
+        </member>
+        <member name="T:Stemmer.Cvb.Extensions.Properties.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.DataTypePlaneMismatch">
+            <summary>
+              Looks up a localized string similar to Not all image planes have the same data type..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.EntityInaccessible">
+            <summary>
+              Looks up a localized string similar to The {0} cannot currently be accessed..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.FileNotFound">
+            <summary>
+              Looks up a localized string similar to The {0} file &apos;{1}&apos; does not exist..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.GenericObjectDisposed">
+            <summary>
+              Looks up a localized string similar to The {0} object has already been disposed of and may not be used any longer..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.IdenticalPlanesRequired">
+            <summary>
+              Looks up a localized string similar to This method may only be used on images which have identical data type for all planes..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.ImplementationError">
+            <summary>
+              Looks up a localized string similar to An internal error occurred. Please report this to support@stemmer-imaging.de along with the call stack if possible..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.InformationMissing">
+            <summary>
+              Looks up a localized string similar to The required information for {0} is missing..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.InsufficientData">
+            <summary>
+              Looks up a localized string similar to Not enough data for {0}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.InvalidBuffertype">
+            <summary>
+              Looks up a localized string similar to The specified result buffer type does not match the image&apos;s CLR type..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.InvalidCombination">
+            <summary>
+              Looks up a localized string similar to The options {0} and {1} cannot be combined in the same operation..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.InvalidDatatype">
+            <summary>
+              Looks up a localized string similar to This method may not be used with an image whose pixels cannot be mapped to CLR types..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.LinearOnly">
+            <summary>
+              Looks up a localized string similar to Operation {0} only supported on linear VPATs..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.LoadFailure">
+            <summary>
+              Looks up a localized string similar to Loading the {0} from file {1} failed..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.NoInterface">
+            <summary>
+              Looks up a localized string similar to Device does not support Interface {0}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.OutsideImage">
+            <summary>
+              Looks up a localized string similar to {0} must be located inside the image (location: {1}, image size: {2}).
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.PixelFormatNotSupported">
+            <summary>
+              Looks up a localized string similar to The pixel format {0} is not supported..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.ReadOnlyCollection">
+            <summary>
+              Looks up a localized string similar to This {0} collection is read-only..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.SaveFailure">
+            <summary>
+              Looks up a localized string similar to Saving the {0} to file {1} failed..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.ThreadContext">
+            <summary>
+              Looks up a localized string similar to Control {0} accessed from a thread other than the thread it was created on..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.UnableToCreateBuffer">
+            <summary>
+              Looks up a localized string similar to Unable to create image or object buffer from {0}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.UnsupportedValue">
+            <summary>
+              Looks up a localized string similar to {0} is not in the supported range [{1}]..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.ValueOutOfRange">
+            <summary>
+              Looks up a localized string similar to Value is out of range ({0} &lt;= {1} &lt; {2})..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.VisualToolHasNoDisplayParent">
+            <summary>
+              Looks up a localized string similar to This Visual Tool currently has no display parent..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Extensions.Properties.Messages.VisualToolHasNoImage">
+            <summary>
+              Looks up a localized string similar to This Visual Tool&apos;s display parent currently has no image..
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Extensions.DrawingExtensions">
+            <summary>
+            Extension methods for the members of the
+            <see cref="N:System.Drawing"/> <c>namespace</c>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.DrawImage(System.Drawing.Graphics,Stemmer.Cvb.Image,Stemmer.Cvb.Rect,Stemmer.Cvb.Rect,Stemmer.Cvb.PlaneConfiguration,System.Double,System.Int32,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Draw a <see cref="T:Stemmer.Cvb.Image"/> object into a <see cref="T:System.Drawing.Graphics"/>
+            object.
+            </summary>
+            <param name="dc"><see cref="T:System.Drawing.Graphics"/> object to paint to</param>
+            <param name="img">Image to paint</param>
+            <param name="sourceRect">Subsection of the image to paint</param>
+            <param name="targetRect">Rectangle in the target dc to paint to
+            </param>
+            <param name="planes">Plane configuration to use</param>
+            <param name="gain">Gain to apply</param>
+            <param name="offset">Offset to apply</param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel. Note that setting this mode to 
+            <code>HighbitScaleMode.ViewPort</code>
+            cause the function to ignore the gain and offset setting.</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="dc"/> is
+            null or <paramref name="img"/> is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the
+            <paramref name="img"/> has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.DrawImage(System.Drawing.Graphics,Stemmer.Cvb.Image,Stemmer.Cvb.Rect,Stemmer.Cvb.Rect,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Draw a <see cref="T:Stemmer.Cvb.Image"/> object into a <see cref="T:System.Drawing.Graphics"/>
+            object.
+            </summary>
+            <param name="dc"><see cref="T:System.Drawing.Graphics"/> object to paint to</param>
+            <param name="img">Image to paint</param>
+            <param name="sourceRect">Subsection of the image to paint</param>
+            <param name="targetRect">Rectangle in the target dc to paint to</param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="dc"/> is
+            null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.DrawImage(System.Drawing.Graphics,Stemmer.Cvb.Image,Stemmer.Cvb.Rect,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Draw a <see cref="T:Stemmer.Cvb.Image"/> object into a <see cref="T:System.Drawing.Graphics"/>
+            object.
+            </summary>
+            <param name="dc"><see cref="T:System.Drawing.Graphics"/> object to paint to</param>
+            <param name="img">Image to paint</param>
+            <param name="targetRect">Rectangle in the target dc to paint to
+            </param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="dc"/> is
+            null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.DrawImage(System.Drawing.Graphics,Stemmer.Cvb.Image,Stemmer.Cvb.HighBitScaleMode)">
+            <summary>
+            Draw a <see cref="T:Stemmer.Cvb.Image"/> object into a <see cref="T:System.Drawing.Graphics"/>
+            object. Target rectangle is defined by the image's extent.
+            </summary>
+            <param name="dc"><see cref="T:System.Drawing.Graphics"/> object to paint to</param>
+            <param name="img">Image to paint</param>
+            <param name="mode">Treatment for images with more than 8 bits per
+            pixel</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="dc"/> is
+            null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToImage(System.Drawing.Bitmap)">
+            <summary>
+            Creates a new <see cref="T:Stemmer.Cvb.Image"/> and copies the data from 
+            the given <paramref name="bitmap"/>.
+            </summary>
+            <param name="bitmap">Bitmap to copy into new <see cref="T:Stemmer.Cvb.Image"/>.
+            </param>
+            <returns>New <see cref="T:Stemmer.Cvb.Image"/> object.</returns>
+            <exception cref="T:System.NotImplementedException">Bitmap pixel format not
+            supported.</exception>
+            <exception cref="T:System.InsufficientMemoryException">The new image buffer
+            could not be created.</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If image format could not be cloned.
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToSize2D(System.Drawing.Size)">
+            <summary>
+            Converts the given <see cref="T:System.Drawing.Size"/> <paramref name="sz"/> to a 
+            <c>CvbSize</c>.
+            </summary>
+            <param name="sz">Size to convert.</param>
+            <returns>New <c>SizeD</c></returns>.
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToSize2D(System.Drawing.SizeF)">
+            <summary>
+            Converts the given <see cref="T:System.Drawing.SizeF"/> <paramref name="sz"/> to a 
+            <c>SizeD</c>.
+            </summary>
+            <param name="sz">Size to convert.</param>
+            <returns>New <c>SizeD</c></returns>.
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToCvbWrappedImage(System.Drawing.Imaging.BitmapData)">
+            <summary>
+            Wraps, without copying, the given bmData pixel buffer in a 
+            <see cref="T:Stemmer.Cvb.Image"/>Image.
+            </summary>
+            <param name="bmData">Bitmap data to wrap.</param>
+            <returns>Newly created image.</returns>
+            <exception cref="T:System.NotImplementedException">Bitmap pixel format not
+            supported.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.GetPixelFormatInfo(System.Drawing.Imaging.PixelFormat)">
+            <summary>
+            Converts the bitmap <paramref name="pixFormat"/> into CVB 
+            understandable layout information.
+            </summary>
+            <param name="pixFormat">Bitmap pixel format.</param>
+            <returns>The pixel format info to create a CVB image.</returns>
+            <exception cref="T:System.NotImplementedException">Bitmap pixel format not
+            supported.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToPoint2Dd(System.Drawing.PointF)">
+            <summary>
+            Create a PointD from a <see cref="T:System.Drawing.PointF"/> object.
+            </summary>
+            <param name="p">data to initialize with</param>
+            <returns>Converted <see cref="T:Stemmer.Cvb.Point2Dd"/> object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToPoint2Dd(System.Drawing.Point)">
+            <summary>
+            Create a PointD from a <see cref="T:System.Drawing.Point"/>.
+            </summary>
+            <param name="p">Point to initialize with</param>
+            <returns>Converted <see cref="T:Stemmer.Cvb.Point2Dd"/> object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToPoint2D(System.Drawing.Point)">
+            <summary>
+            Create a CvbPoint from a Point.
+            </summary>
+            <param name="p">Point to be converted.</param>
+            <returns>Converted <see cref="T:Stemmer.Cvb.Point2D"/> object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToSize2Dd(System.Drawing.SizeF)">
+            <summary>
+            Converts the given <see cref="T:System.Drawing.SizeF"/> <paramref name="sz"/> to a 
+            <c>CvbSizeD</c>.
+            </summary>
+            <param name="sz">Size to convert.</param>
+            <returns>New <c>SizeD</c></returns>.
+        </member>
+        <member name="M:Stemmer.Cvb.Extensions.DrawingExtensions.ToColor(System.Drawing.Color)">
+            <summary>
+            Convert the given <see cref="T:System.Drawing.Color"/> to a 
+            <see cref="T:Stemmer.Cvb.RgbColor"/> structure.
+            </summary>
+            <param name="clr">Color to be converted.</param>
+            <returns>Converted color.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.VPAEntry">
+            VPAT entry storage
+        </member>
+        <member name="T:Stemmer.Cvb.ImgLib">
+            <summary>
+            Internal class holding the method specifications and types for p/invoke.
+            </summary>
+        </member>
+    </members>
+</doc>

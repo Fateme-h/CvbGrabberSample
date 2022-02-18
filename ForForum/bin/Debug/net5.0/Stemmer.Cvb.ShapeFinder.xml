@@ -1,0 +1,1554 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.ShapeFinder</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.ShapeFinder.GradientType">
+            <summary>
+            Type of Gradient used for feature extraction
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.GradientType.Roberts">
+            <summary>
+            Roberts edge filter.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.GradientType.Sobel">
+            <summary>
+            Sobel edge filter.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.PrecisionMode">
+            <summary>
+            Controls precision over accuracy for ShapeFinder 1 type searches. 
+            Lower precision typically also results in higher search speed. Note that
+            with ShapeFinder 1 precision will normally not exceed pixel accuracy.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.PrecisionMode.SubPixel">
+            <summary>
+            Sub pixel accuracy
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.PrecisionMode.High">
+            <summary>
+            Pixel accuracy
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.PrecisionMode.Medium">
+            <summary>
+            roughly 2 pixel accuracy
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.PrecisionMode.Low">
+            <summary>
+            roughly 4 pixel accuracy
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.ClassifierObject">
+            <summary>
+            Base class for ShapeFinder classifiers.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.ClassifierObject.SearchAllResultCountMax">
+            <summary>
+            Maximum number of results to be returned in a SearchAll call
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.#ctor(System.IntPtr)">
+            <summary>
+            Create a classifier around a native handle.
+            </summary>
+            <param name="handle">native handle</param>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.#ctor(System.String,System.String)">
+            <summary>
+            Load a saved classifier from a file.
+            </summary>
+            <param name="fileName">name of the file to be loaded</param>
+            <param name="typeName">type name to be used for generating error
+            messages</param>
+            <exception cref="T:System.IO.FileNotFoundException">If the classifier file does 
+            not exist</exception>
+            <exception cref="T:System.IO.FileLoadException">If loading an existing classifier
+            file failed either because the file is unreadable or because it does
+            not contain a ShapeFinder classifier of the correct type</exception>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="fileName"/>
+            is null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.VerifyClassifierVersion(System.IntPtr)">
+            <summary>
+            Verification function for classifier handles versus ShapeFinder 
+            version.
+            </summary>
+            <param name="handle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Init(System.IntPtr)">
+            <summary>
+            Initializations common to all constructors
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Dispose(System.Boolean)">
+            <summary>
+            IDispose helper function.
+            </summary>
+            <param name="disposing"><c>true</c> when called via 
+            <see cref="M:System.IDisposable.Dispose"/>, <c>false</c> when called by the
+            finalizer.</param>
+        </member>
+        <member name="E:Stemmer.Cvb.ShapeFinder.ClassifierObject.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the 
+            <see cref="M:System.IDisposable.Dispose"/> method.  
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Dispose">
+            <summary>
+            IDisposable implementation.
+            </summary>
+            <remark>Call this method to release the resources allocated by this
+            object immediately. Remember that after calling Dispose, any 
+            subsequent access to references to this object will result in an 
+            ObjectDisposedException.</remark>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.SwapHandle(System.IntPtr)">
+            <summary>
+            Exchange the internal native handle for a new one
+            </summary>
+            <param name="newHandle">new handle to set</param>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Transform(Stemmer.Cvb.Matrix2D)">
+            <summary>
+            Transform this ShapeFinder classifier using a 2x2 matrix.
+            </summary>
+            <param name="m">matrix to transform the this classifier with</param>
+            <exception cref="T:System.ObjectDisposedException">If this classifier 
+            has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Translate(Stemmer.Cvb.Point2D)">
+            <summary>
+            Translate this classifier by a selectable <paramref name="offset"/>.
+            </summary>
+            <param name="offset">offset vector by which to translate the 
+            classifier</param>
+            <exception cref="T:System.ObjectDisposedException">If this classifier 
+            has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Save(System.String)">
+            <summary>
+            Write the classifier to a file.
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+            <exception cref="T:System.ArgumentNullException">when 
+            <paramref name="fileName"/> is null</exception>    
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Transform(Stemmer.Cvb.ShapeFinder.ClassifierObject,Stemmer.Cvb.Matrix2D)">
+            <summary>
+            Transform a ShapeFinder classifier using a 2x2 matrix.
+            </summary>
+            <param name="obj">ShapeFinder classifier to be transformed</param>
+            <param name="matrix">matrix to transform the <paramref name="obj"/>
+            with</param>
+            <returns>native handle of the transformed classifier (pass this into
+            the ctor of the correct derived object)</returns>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="obj"/> is
+            null</exception>
+            <exception cref="T:System.ObjectDisposedException">If <paramref name="obj"/> 
+            has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.Translate(Stemmer.Cvb.ShapeFinder.ClassifierObject,Stemmer.Cvb.Point2D)">
+            <summary>
+            Translate this classifier by a selectable <paramref name="offset"/>.
+            </summary>
+            <param name="offset">offset vector by which to translate the 
+            classifier</param>
+            <param name="obj">classifier object to be translated</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="obj"/> is
+            null</exception>
+            <exception cref="T:System.ObjectDisposedException">If <paramref name="obj"/>
+            has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.GetVisualization(System.Int32)">
+            <summary>
+            Create and return a color coded image representation of this 
+            ShapeFinder classifier. The colors in the output image correspond to
+            the gradient directions, the positions to the displacement vectors.
+            This visual representation might be useful during interactive 
+            supervision and debugging.
+            </summary>
+            <param name="layer">layer of the classifier to be visualized; a value
+            of -1 superimposes all layers</param>
+            <returns>image representation of the selected classifier layer(s)
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">If this classifier has
+            already been disposed</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the 
+            <paramref name="layer"/> parameter exceeds the range [-1...NumLayers]
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierObject.GetVisualization">
+            <summary>
+            Create and return a color coded image representation of this 
+            ShapeFinder classifier. The colors in the output image correspond to
+            the gradient directions, the positions to the displacement vectors.
+            This visual representation might be useful during interactive 
+            supervision and debugging.
+            </summary>
+            <returns>image representation of the selected classifier layer(s)
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">If this classifier has
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.Handle">
+            <summary>
+            Native ShapeFinder2 classifier handle.
+            </summary>
+            <remarks>It is normally not necessary to work with this handle in 
+            CVB.Net. Note that using this handle in connection with the legacy
+            CVB managed wrappers may actually be disruptive to your application.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.FileName">
+            <summary>
+            Name of the file from which this classifier was loaded (string.Empty 
+            if this image list was neither loaded nor saved since its 
+            construction).
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.IsDisposed">
+            <summary>
+            Tests if the native handle has already been disposed.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.Comment">
+            <summary>
+            Comment assigned to the classifier.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.GradientType">
+            <summary>
+            Gradient type this classifier uses for feature extraction.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.FeatureWindow">
+            <summary>
+            Feature window of this classifier (i.e. the bounding rectangle into
+            which all the classifier's features fit) relative to the classifier's
+            origin.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.NumLayers">
+            <summary>
+            Number of layers in the classifier (and in the accumulator generated
+            by the search function). In ShapeFinder classifiers layers may be
+            associated with specific classes or rotation information. In 
+            ShapeFinder2 the layer count is a purely informational value.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.ClassifierObject.handle_">
+            <summary>
+            Handle to the unmanaged ShapeFinder classifier.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.Classifier">
+            <summary>
+            ShapeFinder classifier object.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.Classifier.ShapeFinderSubpixelMode">
+            <summary>
+            Sub pixel mode to use when performing a sub pixel accurate search.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.Classifier.ShapeFinderSubpixelNeighborhood">
+            <summary>
+            Size of the neighborhood to use in the calculation of sub pixel
+            accurate results.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.#ctor(Stemmer.Cvb.ShapeFinder.Classifier)">
+            <summary>
+            Copy constructor for ShapeFinder classifiers
+            </summary>
+            <param name="other">classifier to be duplicated</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="other"/>
+            is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If <paramref name="other"/>
+            has already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.#ctor(System.IntPtr)">
+            <summary>
+            Create a classifier around a native handle.
+            </summary>
+            <param name="handle">native handle</param>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.#ctor(System.String)">
+            <summary>
+            Load a saved classifier from a file.
+            </summary>
+            <param name="fileName">name of the file to be loaded</param>
+            <exception cref="T:System.IO.FileNotFoundException">If the classifier file does 
+            not exist</exception>
+            <exception cref="T:System.IO.FileLoadException">If loading an existing classifier
+            file failed either because the file is unreadable or because it does
+            not contain a ShapeFinder2 classifier</exception>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="fileName"/>
+            is null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.VerifyClassifierVersion(System.IntPtr)">
+            <summary>
+            Verify whether the handle passed into this function refers to a 
+            ShapeFinder 1 classifier (this function will be used by the load
+            constructor...).
+            </summary>
+            <param name="handle">handle to be verified</param>
+            <returns>true if the handle refers to a ShapeFinder 1 classifier,
+            false otherwise</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Classifier.ContrastThreshold">
+            <summary>
+            Threshold for the gradient slope.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">when trying to set a 
+            value smaller than 1</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Classifier.AngularTolerance">
+            <summary>
+            Acceptance parameter for feature gradient angles. In ShapeFinder the
+            angle of a feature is quantized into the range [0...255], i.e. in 
+            steps of roughly 1.41 degrees. When determining whether features 
+            extracted from an image match features stored in a classifier, the
+            gradient's angle of the two features is compared not for strict 
+            equality, but for whether or not it falls into a certain range of
+            differences. This acceptance window is defined by the Angular 
+            tolerance parameter. Valid values range from 0 (always match for 
+            identity only) to 16.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">when trying to set a 
+            value smaller than 0 or bigger than 16</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Classifier.FeatureCount">
+            <summary>
+            Number of features this classifier contains.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>    
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.NativeSearch(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder.PrecisionMode,Stemmer.Cvb.ShapeFinder.SearchResult@,Stemmer.Cvb.Image@)">
+            <summary>
+            Search for the best pattern match in the <paramref name="plane"/> and
+            build an accumulator for SearchAll type operation.
+            </summary>
+            <param name="plane">image plane to search in</param>
+            <param name="aoi">area of interest to search in</param>
+            <param name="mode">precision mode to use</param>
+            <param name="accumulator">accumulator of results that may be used
+            for building a custom "SearchAll"</param>
+            <param name="res">search result structure corresponding to the best
+            result that can be obtained from the <paramref name="accumulator"/>
+            </param>
+            <returns>the best matching result</returns>
+            <exception cref="T:System.ObjectDisposedException">If this classifier or the
+            Parent of <paramref name="plane"/> has already been disposed
+            </exception>
+            <exception cref="T:System.ArgumentNullException">If the Parent of 
+            <paramref name="plane"/> is null</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the data type of the image plane
+            to be processed is not 8 bits per pixel unsigned</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.SearchAll(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder.PrecisionMode,System.Int32,System.Int32)">
+            <summary>
+            Search for all matches inside an image <paramref name="plane"/>.
+            </summary>
+            <param name="plane">image plane in which to search</param>
+            <param name="aoi">area of interest in which to search</param>
+            <param name="mode">precision to use</param>
+            <param name="locality">minimum distance between two results (if two
+            results come closer than this distance (measured with the L1 norm)
+            the one with the lower quality will be discarded)</param>
+            <param name="threshold">minimum quality a result must have for being
+            considered (quality corresponds to the number of model features
+            found in the image)</param>
+            <returns>list of the found results</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="locality"/> or
+            <paramref name="threshold"/> are less than 1</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.SearchBest(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder.PrecisionMode)">
+            <summary>
+            Search for the best pattern match in the <paramref name="plane"/>
+            </summary>
+            <param name="plane">image plane to search in</param>
+            <param name="aoi">area of interest to search in</param>
+            <param name="mode">precision mode to use</param>
+            <returns>the best matching result</returns>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="plane"/>'s
+            Parent is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If 
+            <paramref name="plane"/> is less than 0 or greater or equal to the 
+            number of planes in the image</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the data type of the image plane
+            to be processed is not 8 bits per pixel unsigned</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.DeleteFeatures(Stemmer.Cvb.Rect)">
+            <summary>
+            Delete features in a given <paramref name="window"/> from this 
+            classifier.
+            </summary>
+            <param name="window">rectangle in which to delete features (relative
+            to the classifier's <see cref="P:Stemmer.Cvb.ShapeFinder.ClassifierObject.FeatureWindow"/>)
+            </param>
+            <exception cref="T:System.ObjectDisposedException">If this classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.TruncateFeatures(System.Int32)">
+            <summary>
+            Shorten the list of classifier features based on each feature's
+            quality.
+            </summary>
+            <param name="count">desired feature count after truncation; if count
+            exceeds the value of <see cref="P:Stemmer.Cvb.ShapeFinder.Classifier.FeatureCount"/> then this function 
+            will not do anything</param>
+            <exception cref="T:System.ObjectDisposedException">If this classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.ReverseContrasts">
+            <summary>
+            Reverse the contrasts on this ShapeFinder classifier.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If this classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.Merge(Stemmer.Cvb.ShapeFinder.Classifier)">
+            <summary>
+            Merge this classifier with another one, storing the result of the
+            merge operation inside this classifier. Merging two classifiers means
+            that their feature lists for each stored layers will be concatenated.
+            Note that both classifiers involved must use the same gradient type.
+            </summary>
+            <param name="clf">classifier to be merged to this one</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="clf"/> is
+            null</exception>
+            <exception cref="T:System.ObjectDisposedException">If this classifir or
+            <paramref name="clf"/> have been disposed</exception>
+            <exception cref="T:System.InvalidOperationException">when trying to merge a 
+            classifier with a different gradient type</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.Classifier.Append(Stemmer.Cvb.ShapeFinder.Classifier)">
+            <summary>
+            Append another classifier to this one. Appending means that the layers
+            contained in <paramref name="clf"/> will be appended to the layers 
+            of this classifier, so the layers (which may be considered models)
+            of the two classifiers are left unchanged. Note that both classifiers 
+            involved must use the same gradient type.
+            </summary>
+            <param name="clf">classifier to be appended to this one</param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="clf"/> is
+            null</exception>
+            <exception cref="T:System.ObjectDisposedException">If this classifir or
+            <paramref name="clf"/> have been disposed</exception>
+            <exception cref="T:System.InvalidOperationException">when trying to merge a 
+            classifier with a different gradient type</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.ClassifierFactory">
+            <summary>
+            Object that holds methods for generating ShapeFinder classifiers.
+            In case of ShapeFinder 1 the learner contains only static methods as 
+            no complex state aggregations are required here.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.ClassifierFactory.ContrastThresholdMin">
+            <summary>
+            Minimum contrast for features eligible for entering the classifier.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.GradientHistogram(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder.GradientType)">
+            <summary>
+            Calculate the gradient histogram over the <paramref name="aoi"/> in 
+            an image <paramref name="plane"/>. The gradient histogram may be 
+            useful to determine a suitable contrast threshold value for classifier 
+            generation and search operations.
+            </summary>
+            <param name="plane">image plane in which to claculate the histogram
+            </param>
+            <param name="aoi">area of interest in which to calculate the
+            histogram</param>
+            <param name="gradient">gradient operator to use for the calculating
+            the histogram</param>
+            <returns>the calculated histogram</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of 
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of 
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Rect,System.Int32,Stemmer.Cvb.ShapeFinder.GradientType)">
+            <summary>
+            Create a ShapeFinder classifier from the input image
+            <paramref name="plane"/>.
+            </summary>
+            <param name="plane">image plane to create the classifier from</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <param name="contrastThreshold">minimum contrast a feature must have
+            for entering the model</param>
+            <param name="gradientType">gradient operator to use for calculating
+            the model</param>
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of the
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+            <exception cref="T:System.ArgumentException">If the <paramref name="position"/>
+            lies outside the image <paramref name="plane"/>, the
+            <paramref name="teachWindow"/> lies outside the image
+            <paramref name="plane"/> or the <paramref name="contrastThreshold"/>
+            is less than 1
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.CreateCircle(System.Double,System.Int32,Stemmer.Cvb.ShapeFinder.GradientType)">
+            <summary>
+            Create a classifier that is able to detect a circle of a given
+            <paramref name="radius"/>.
+            </summary>
+            <param name="radius">radius of the circle classifier; must be bigger
+            than 0</param>
+            <param name="contrastThreshold">minimum contrast of the circle 
+            features (must be greater than 0)</param>
+            <param name="gradientType">type of gradient extractor to use</param>
+            <returns>newly created classifier</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.CreateLineSegment(Stemmer.Cvb.Angle,System.Int32,System.Int32,Stemmer.Cvb.ShapeFinder.GradientType)">
+            <summary>
+            Create a ShapeFinder classifier for the recognition of a straight 
+            line of specific <paramref name="length"/> and 
+            <paramref name="orientation"/>.
+            </summary>
+            <param name="orientation">angle of the line segment</param>
+            <param name="length">length of the line segment in pixels 
+            (must be greater than 0)</param>
+            <param name="contrastThreshold">minimum contrast of the line segment
+            features (must be greater than 0)</param>
+            <param name="gradientType"></param>
+            <returns>A classifier representing the line segment defined by the
+            input parameters.</returns>
+            <exception cref="T:System.ArgumentException">if <paramref name="length"/> is
+            less than or equal to zero or if <paramref name="contrastThreshold"/> 
+            is less than or equal to zero.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.CreateRotationInvariant(Stemmer.Cvb.ShapeFinder.Classifier,Stemmer.Cvb.Angle,Stemmer.Cvb.Angle,System.Int32,System.Int32)">
+            <summary>
+            Generate a rotation symmetric classifier from the input classifier.
+            Rotation symmetric in this context means that the resulting classifier
+            will be able to identify the trained object in more than just the
+            trained orientation (range that can be covered is controlled by the
+            <paramref name="startAngle"/> and <paramref name="stopAngle"/> 
+            parameters). The angular sensitivity and the capability to report 
+            the found angle are controlled view the <paramref name="numLayers"/>
+            and the <paramref name="rotationsPerLayer"/> parameter. For example
+            it is possible to put all the rotations into just one layer 
+            (<paramref name="numLayers"/> = 1, 
+            <paramref name="rotationsPerLayer"/> = 255) so that the classifier
+            will be able to correctly identify the object but not its orientation.
+            The other extreme would be to have one rotation per layer, so that the
+            layer information from the search function directly corresponds to 
+            orientation. Note that ShapeFinder (1) has very limited angular 
+            resolution - if you are interested in detecting orientation with a
+            high degree of accuracy, consider using ShapeFinder2. Note that the
+            product of <paramref name="numLayers"/> and 
+            <paramref name="rotationsPerLayer"/> should not become too high, 
+            otherwise the classifier will become fairly big and slow to process.
+            </summary>
+            <param name="source">classifier to generate the rotation symmetric
+            classifier from</param>
+            <param name="numLayers">number of layers to generate for the 
+            orientation; layers will be used for identifying the orientation of 
+            the object in the result feedback of the search functions</param>
+            <param name="rotationsPerLayer">number of rotational states to be 
+            added per layer; decides over the angular resolution (which will
+            never be better than roughly 1.4 degrees!)</param>
+            <param name="startAngle">rotation start angle in radians; must be
+            within the range [-pi...pi] and less than or equal to 
+            <paramref name="stopAngle"/></param>
+            <param name="stopAngle">rotation stop angle in radians; must be within
+            the range [-pi...pi] and greater or equal to 
+            <paramref name="startAngle"/></param>
+            <returns>newly created rotation invariant classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="source"/>
+            is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If 
+            <paramref name="startAngle"/> or <paramref name="stopAngle"/> 
+            exceeds the range [-pi...pi] or if <paramref name="startAngle"/>
+            is greater than <paramref name="stopAngle"/> or if
+            <paramref name="numLayers"/> or <paramref name="rotationsPerLayer"/>
+            are less than 1</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.ShapeFinder</c> contains 
+            the classes and definitions needed for using the ShapeFinder 
+            functionality from SF.dll.
+            </summary> 
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.Properties.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.FileNotFound">
+            <summary>
+              Looks up a localized string similar to The {0} file &apos;{1}&apos; does not exist..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.GenericObjectDisposed">
+            <summary>
+              Looks up a localized string similar to The {0} object has already been disposed of and may not be used any longer..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.GradientTypesDontMatch">
+            <summary>
+              Looks up a localized string similar to This operation requires the classifiers involved to use the same gradient type..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.ImplementationError">
+            <summary>
+              Looks up a localized string similar to An internal error occurred. Please report this to support@stemmer-imaging.de along with the call stack if possible..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.InvalidFormat">
+            <summary>
+              Looks up a localized string similar to Invalid classifier format detected while loading the {0} from file {1}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.LoadFailure">
+            <summary>
+              Looks up a localized string similar to Loading the {0} from file {1} failed..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.NoClassifierGenerated">
+            <summary>
+              Looks up a localized string similar to Classifier generation failed. Most likely cause is the lack of actual features inside the selected area..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.OutsideExtractableRectangle">
+            <summary>
+              Looks up a localized string similar to The position {0} is outside the extractable rectange {1} for this image..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.SaveFailure">
+            <summary>
+              Looks up a localized string similar to Saving the {0} to file {1} failed..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.UnsupportedRange">
+            <summary>
+              Looks up a localized string similar to The {0} range (Max - Min) must be {1}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.UnsupportedValue">
+            <summary>
+              Looks up a localized string similar to {0} is not in the supported range [{1}]..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.Properties.Messages.ValueOutOfRange">
+            <summary>
+              Looks up a localized string similar to Value is out of range ({0} &lt;= {1} &lt; {2})..
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder.SearchResult">
+            <summary>
+            Search result obtained with a ShapeFinder (1) classifier.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.PrecisionMode">
+            <summary>
+            <see cref="P:Stemmer.Cvb.ShapeFinder.SearchResult.PrecisionMode"/> that was used for generating this result
+            (may be useful for the interpretation of the result quality).
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.Position">
+            <summary>
+            Result location (X) in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.X">
+            <summary>
+            Result location (X) in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.Y">
+            <summary>
+            Result location (Y) in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.Layer">
+            <summary>
+            Accumulator layer of the classifier with which the best match was
+            achieved. The interpretation of the layer index depends on the way
+            the classifier was generated. For example it is possible to 
+            concatenate several classifiers into one using the
+            <see cref="M:Stemmer.Cvb.ShapeFinder.Classifier.Append(Stemmer.Cvb.ShapeFinder.Classifier)"/> function to generate one classifier 
+            that can identify a number of objects simultaneously; in this case the
+            layer index corresponds to the object that has been found. If you 
+            used the method <see cref="M:Stemmer.Cvb.ShapeFinder.ClassifierFactory.CreateRotationInvariant(Stemmer.Cvb.ShapeFinder.Classifier,Stemmer.Cvb.Angle,Stemmer.Cvb.Angle,System.Int32,System.Int32)"/> then the
+            layer number can be translated into a rotation state.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder.SearchResult.Quality">
+            <summary>
+            Quality measure of the result. Corresponds to the number of features
+            that have been found to match.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder.SearchResult.Empty">
+            <summary>
+            The element that identifies a situation where nothing was found.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder.SearchResult.#ctor(Stemmer.Cvb.ShapeFinder.PrecisionMode,Stemmer.Cvb.Point2Dd,System.Int32,System.Double)">
+            <summary>
+            Construct a search result.
+            </summary>
+            <param name="precisionMode">mode</param>
+            <param name="position">position</param>
+            <param name="layer">layer info</param>
+            <param name="quality">quality</param>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.ContrastMode">
+            <summary>
+            Contrast mode for feature extraction.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ContrastMode.Normal">
+            <summary>
+            Normal contrast features.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ContrastMode.Inverse">
+            <summary>
+            Inverted contrast features.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.PrecisionMode">
+            <summary>
+            Search mode to be used.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.NoCorrelation">
+            <summary>
+            In the NoCorrelation mode, only the ShapeFinder edge model will be
+            searched. Not subsequent additional correlation step will be carried
+            out to improve result accuracy. Results in this mode are pixel-
+            accurate only. This search mode is the fastest available.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationCoarse">
+            <summary>
+            In the CorrelationCoarse mode, after the initial edge model search a
+            correlation and hill climbing will be performed on the preliminary 
+            result using the coarse layer of the model. This usually improves the 
+            overall result quality and allows for sub-pixel accurate results. As
+            the correlations will be calculate on the coarse layer this mode is 
+            a trade-off between speed and accuracy.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationFine">
+            <summary>
+            In the CorrelationFine mode, after the initial edge model search a
+            correlation and hill climbing will be performed on the preliminary 
+            result using the fine layer of the model. This usually improves the 
+            overall result quality and allows for sub-pixel accurate results.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.Classifier">
+            <summary>
+            ShapeFinder2 classifier object.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.#ctor(System.IntPtr)">
+            <summary>
+            Create a classifier around a native handle.
+            </summary>
+            <param name="handle">native handle</param>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.#ctor(System.String)">
+            <summary>
+            Load a saved classifier from a file.
+            </summary>
+            <param name="fileName">name of the file to be loaded</param>
+            <exception cref="T:System.IO.FileNotFoundException">If the classifier file does 
+            not exist</exception>
+            <exception cref="T:System.IO.FileLoadException">If loading an existing classifier
+            file failed either because the file is unreadable or because it does
+            not contain a ShapeFinder2 classifier</exception>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="fileName"/>
+            is null</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.VerifyClassifierVersion(System.IntPtr)">
+            <summary>
+            Verify whether the handle passed into this function refers to a 
+            ShapeFinder 2 classifier (this function will be used by the load
+            constructor...).
+            </summary>
+            <param name="handle">handle to be verified</param>
+            <returns>true if the handle refers to a ShapeFinder 1 classifier,
+            false otherwise</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.Init">
+            <summary>
+            Initializations common to all ShapeFinder2 classifiers
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.PixelListToPointArray(System.IntPtr,System.Boolean)">
+            <summary>
+            Utility function that converts an unmanaged pixel list into a managed
+            list.
+            </summary>
+            <param name="pixelList">unmanaged pixel list to be converted</param>
+            <param name="releaseList">set to true if the pixel list should be
+            released after this operation</param>
+            <returns>list of points extracted from the pixel list</returns>
+            <exception cref="T:System.ArgumentNullException">If a null pointer has been
+            passed as the pixel list</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.ResultListFromPixelList(Stemmer.Cvb.ShapeFinder2.PrecisionMode,System.IntPtr,System.Boolean)">
+            <summary>
+            Build a managed result list from an unmanaged pixel list.
+            </summary>
+            <param name="precision">precision at which the search was performed.
+            </param>
+            <param name="pixelList">Native pixellist result</param>
+            <param name="releaseOnExit">set to true if this function should 
+            call ReleaseObject on the unmanaged handle after completion</param>
+            <returns>managed result list object (null if pixelList was 
+            IntPtr.Zero)</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.SearchAll(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder2.PrecisionMode,System.Double,System.Int32,System.Int32,Stemmer.Cvb.ValueRange{Stemmer.Cvb.Angle},Stemmer.Cvb.ValueRange{System.Double})">
+            <summary>
+            Use this classifier to perform a ShapeFinder search on an image
+            <paramref name="plane"/>.
+            </summary>
+            <param name="plane">image plane in which to use the ShapeFinder2 
+            classifier</param>
+            <param name="aoi">The area of interest in the <paramref name="plane"/>
+            to search in; reducing the area of interest will decrease search
+            time but not necessarily linearly (i.e. a reduction to half the image 
+            will not necessarily reduce the processing time by a factor of 2). 
+            Note that strictly speaking the area parameter applies only to the 
+            ShapeFinder2 edge model search; if you use one of the correlation 
+            modes (<paramref name="precision"/> set to either 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationCoarse"/> or 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationFine"/>) it 
+            is possible for reported results to actually lie outside the area if
+            hill climbing did lead them out of the area.
+            </param>
+            <param name="precision">search mode to use (see description of 
+            <see cref="T:Stemmer.Cvb.ShapeFinder2.PrecisionMode"/> for a description of the different search 
+            modes</param>
+            <param name="relativeThreshold">Threshold used for eliminating less
+            promising candidates in the edge model search step of ShapeFinder2.
+            During the edge model search phase, ShapeFinder2 gathers a list of 
+            candidates for possible object sites, and each candidate is assigned
+            a quality derived from the number of features present at its site.
+            The relative threshold is applied when deciding whether or not a new
+            candidate may enter the list: If its quality is less than 
+            relativeThreshold percent of the so far best candidate, it may not
+            enter the candidate list. Eliminating less promising candidates in 
+            this way has the advantage that the time needed for calculating their
+            correlation in the (optional) correlation search step of ShapeFinder2
+            may be drastically reduced. Relative threshold must be given as a 
+            per cent value in in the range [0...1]</param>
+            <param name="minimumThreshold">minimum gray value different that must
+            be visible in the image before an edge location may be considered a
+            feature; minimumThreshold must be given a value great than 0</param>
+            <param name="coarseLocality">Minimum distance between two results in 
+            the coarse layer during the ShapeFinder2 edge model search. If two of
+            the candidates are closer than coarseLocality pixels in the coarse
+            layer, the one with the lower quality will be eliminated. Keep in mind
+            that this locality operates on the coarse layer: Setting it to a value
+            of 10 will effectively lead to a minimum distance of 40 if the size 
+            factor (2^Scale) between the coarse and the fine layer is 4. Also
+            note that if you perform a correlation step 
+            (<paramref name="precision"/> set to
+            either <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationCoarse"/> or 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationFine"/>) the actually reported 
+            results can (and are indeed not unlikely to) be less than 
+            coarseLocality * 2^Scale if the hill climbing algorithm brings them 
+            closer together.
+            </param>
+            <param name="rotationRange">range of rotations to be reported</param>
+            <param name="scaleRange">range of scales to be reported</param>
+            <returns>list of all results that were found</returns>
+            <exception cref="T:System.ObjectDisposedException">If this classifier or the
+            Image (Parent of <paramref name="plane"/>) has already been disposed
+            </exception>
+            <exception cref="T:System.ArgumentNullException">If the Parent of 
+            <paramref name="plane"/> is null</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the selected 
+            <paramref name="plane"/> of the <paramref name="plane"/> has a data
+            type other than 8 bits per pixel unsigned or if an unspecified error
+            occurred</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the 
+            <paramref name="plane"/> <paramref name="relativeThreshold"/> or the
+            relative threshold exceed their valid ranges or if
+            <paramref name="minimumThreshold"/> is 0 or less or
+            <paramref name="coarseLocality"/> is less than 0</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Classifier.SearchAll(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Rect,Stemmer.Cvb.ShapeFinder2.PrecisionMode,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Use this classifier to perform a ShapeFinder search on an image
+            <paramref name="plane"/>.
+            </summary>
+            <param name="plane">the image plane to search in; must have 8 bits per
+            pixel in the plane in which the ShapeFinder2 classifier should search
+            </param>
+            <param name="aoi">The area of interest in the <paramref name="plane"/>
+            to search in; reducing the area of interest will decrease search
+            time but not necessarily linearly (i.e. a reduction to half the image 
+            will not necessarily reduce the processing time by a factor of 2). 
+            Note that strictly speaking the area parameter applies only to the 
+            ShapeFinder2 edge model search; if you use one of the correlation 
+            modes (<paramref name="precision"/> set to either 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationCoarse"/> or 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationFine"/>) it 
+            is possible for reported results to actually lie outside the area if
+            hill climbing did lead them out of the area.
+            </param>
+            <param name="precision">search mode to use (see description of 
+            <see cref="T:Stemmer.Cvb.ShapeFinder2.PrecisionMode"/> for a description of the different search 
+            modes</param>
+            <param name="relativeThreshold">Threshold used for eliminating less
+            promising candidates in the edge model search step of ShapeFinder2.
+            During the edge model search phase, ShapeFinder2 gathers a list of 
+            candidates for possible object sites, and each candidate is assigned
+            a quality derived from the number of features present at its site.
+            The relative threshold is applied when deciding whether or not a new
+            candidate may enter the list: If its quality is less than 
+            relativeThreshold percent of the so far best candidate, it may not
+            enter the candidate list. Eliminating less promising candidates in 
+            this way has the advantage that the time needed for calculating their
+            correlation in the (optional) correlation search step of ShapeFinder2
+            may be drastically reduced. Relative threshold must be given as a 
+            per cent value in in the range [0...1]</param>
+            <param name="minimumThreshold">minimum gray value different that must
+            be visible in the image before an edge location may be considered a
+            feature; minimumThreshold must be given a value great than 0</param>
+            <param name="coarseLocality">Minimum distance between two results in 
+            the coarse layer during the ShapeFinder2 edge model search. If two of
+            the candidates are closer than coarseLocality pixels in the coarse
+            layer, the one with the lower quality will be eliminated. Keep in mind
+            that this locality operates on the coarse layer: Setting it to a value
+            of 10 will effectively lead to a minimum distance of 40 if the size 
+            factor (2^Scale) between the coarse and the fine layer is 4. Also
+            note that if you perform a correlation step 
+            (<paramref name="precision"/> set to
+            either <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationCoarse"/> or 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.PrecisionMode.CorrelationFine"/>) the actually 
+            reported results can (and are indeed not unlikely to) be less than 
+            coarseLocality * 2^Scale if the hill climbing algorithm brings them 
+            closer together.
+            </param>
+            <returns>list of all results that were found</returns>
+            <exception cref="T:System.ObjectDisposedException">If this classifier or the
+            Parent of <paramref name="plane"/> has already been disposed
+            </exception>
+            <exception cref="T:System.ArgumentNullException">If the Parent of
+            <paramref name="plane"/> is null</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the selected 
+            <paramref name="plane"/> has a data
+            type other than 8 bits per pixel unsigned or if an unspecified error
+            occurred</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the 
+            <paramref name="relativeThreshold"/> exceeds its valid ranges or if
+            <paramref name="minimumThreshold"/> is 0 or less or
+            <paramref name="coarseLocality"/> is less than 0</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.Extent">
+            <summary>
+            Training window of the classes in the classifier relative to the 
+            anchor point.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.FineFeatures">
+            <summary>
+            Features the classifier uses on the finely granular level.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.CoarseFeatures">
+            <summary>
+            Features the classifier uses on the coarsely granular level.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.CoarseScale">
+            <summary>
+            Scale factor between the fine and the coarse feature level.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.Rotation">
+            <summary>
+            Range of rotations for which this classifier has been generated.
+            Rotations are given in degrees.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.Scale">
+            <summary>
+            Range of scales for which this classifier has been generated.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.ContrastMode">
+            <summary>
+            Contrast mode for which this classifier has been created.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.RotationStep">
+            <summary>
+            Step size at which the rotations in the classifier have been 
+            generated. Rotations steps are given in degrees.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.Classifier.ScaleStep">
+            <summary>
+            Step size at which the scales in the classifier have been 
+            generated.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">If the classifier has 
+            already been disposed</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.Filter">
+            <summary>
+            Filter functions exported and used by the ShapeFinder library.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Filter.Edge(Stemmer.Cvb.ImagePlane)">
+            <summary>
+            Apply the ShapeFinder2 Edge filter to the input image plane.
+            </summary>
+            <param name="plane">image plane to be filtered</param>
+            <returns>filtered image</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of 
+            <paramref name="plane"/> is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of  
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the image plane's data type is not
+            8 bits per pixel unsigned or if an unspecific error occurred
+            </exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.Filter.Pyramid(Stemmer.Cvb.Image)">
+            <summary>
+            Apply the ShapeFinder2 pyramid filter to the input image.
+            </summary>
+            <param name="image">image to be filtered</param>
+            <returns>filtered image</returns>
+            <exception cref="T:System.ArgumentNullException">If the 
+            <paramref name="image"/> is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the 
+            <paramref name="image"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">If the image plane's data type is not
+            8 bits per pixel unsigned or if an unspecific error occurred
+            </exception>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.ClassifierFactory">
+            <summary>
+            Object that aggregates the learning parameters and produces a 
+            ShapeFinder2 classifier
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.RotationRangeMax">
+            <summary>
+            The maximum range of rotations (in degrees) that may be set on the 
+            learner.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.RotationRangeDefault">
+            <summary>
+            The default range of rotations (in degrees) to be set on the learner.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ScaleRangeMax">
+            <summary>
+            The maximum range of scales that may be set on the learner.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ScaleRangeDefault">
+            <summary>
+            The default range of scales to be set on the learner.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.FeatureCountMin">
+            <summary>
+            Minimum number of features a classifier must have.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.FeatureCountDefault">
+            <summary>
+            Default number of features a classifier must have.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ContrastThresholdMin">
+            <summary>
+            Minimum contrast for features eligible for entering the classifier.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ContrastThresholdDefault">
+            <summary>
+            Default contrast for features eligible for entering the classifier.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.MaxCoarseLayerDefault">
+            <summary>
+            Default value for the coarse layer limit.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.RotationRange">
+            <summary>
+            Range of rotations that the classifier should be able to cover. Bigger
+            ranges will cause higher processing time.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the rotation range
+            to be set exceeds the one defined in <see cref="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.RotationRangeMax"/>
+            </exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ScaleRange">
+            <summary>
+            Range of rotations that the classifier should be able to cover. Bigger
+            ranges will cause higher processing time. Angles are measured in
+            degrees.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the rotation range
+            to be set exceeds the one defined in <see cref="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.RotationRangeMax"/>
+            </exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.FeatureCount">
+            <summary>
+            Minimum number of features the result classifier should have
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the feature count
+            is below the minimum defined by <see cref="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.FeatureCountMin"/>
+            </exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ContrastThreshold">
+            <summary>
+            Minimum contrast a feature must have to enter into the classifier.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the contrast 
+            threshold is below the minimum defined by 
+            <see cref="F:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ContrastThresholdMin"/>
+            </exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.MaxCoarseLayerScale">
+            <summary>
+            Maximum exponent of the scale factor between the coarse layer (used 
+            for feature search) and the image. The scale factor is determined by
+            2^scale, e.g. for MaxCoarseLayerScale = 3, the scale factor is 2^3 = 
+            8. When set to -1 (default) the coarse layer scale will be determined
+            automatically by ShapeFinder2 depending on the image size and number
+            features that were extracted.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the scale is less 
+            than -1</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ContrastMode">
+            <summary>
+            Contrast mode to be used for feature extraction.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ProfileSize">
+            <summary>
+            Profile size gives the number of profile points to be used for 
+            correlation around each feature. With the default value of 1, only the
+            feature locations will be used for the optional correlation steps 
+            during a ShapeFinder2 search. When set to values > 1 a number of 
+            additional points on a line perpendicular to the edge through the
+            feature will be used. Only odd values are valid here. The spacing of
+            the additional points is controlled by the <see cref="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ProfileDelta"/>
+            property.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the ProfileSize is 
+            less than 1</exception>
+            <exception cref="T:System.ArgumentException">If the ProfileSize is not an
+            odd number</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ProfileDelta">
+            <summary>
+            Distance (in pixels) between adjacent profile points. This value only
+            has an effect if the <see cref="P:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.ProfileSize"/> property is > 1.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">If the ProfileDelta is 
+            less than 1</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Rect,System.Collections.Generic.IEnumerable{Stemmer.Cvb.Point2D})">
+            <summary>
+            Create a ShapeFinder2 classifier from the input image
+            <paramref name="plane"/>.
+            </summary>
+            <param name="plane">image plane to create the classifier from</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <param name="dontCarePoints">list of points relative to 
+            <paramref name="position"/> from which no features for the classifier
+            should be extracted</param>; an empty list or null handle is 
+            acceptable here if no don't care points are to be used
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of the 
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Rect)">
+            <summary>
+            Create a ShapeFinder2 classifier from the input image 
+            <paramref name="plane"/>. If the input <paramref name="plane"/> has
+            overlay information, then this overlay information will be extracted
+            and used as don't care points.
+            </summary>
+            <param name="plane">image plane to create the classifier from</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of the 
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Angle,System.Double,Stemmer.Cvb.Rect)">
+            <summary>
+            Create a ShapeFinder2 classifier from the input image
+            <paramref name="plane"/>. If the input <paramref name="plane"/> has
+            overlay information, then this overlay information will be extracted
+            and used as don't care points.
+            </summary>
+            <param name="plane">image plane to create the classifier from</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <param name="angleOffset">initial rotation of the object; this angle
+            will be added to the measured angle of the found object(s) at the end 
+            of the search function</param>
+            <param name="scaleFactor">initial scale factor of the object; this
+            scale factor will be multiplied with the measured scale factor of the
+            found object(s) at the end of the search function</param>
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of the
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Angle,System.Double,Stemmer.Cvb.Rect,System.Collections.Generic.IEnumerable{Stemmer.Cvb.Point2D})">
+            <summary>
+            Create a ShapeFinder2 classifier from the input 
+            </summary>
+            <param name="plane">plane in the input image from which to create
+            the classifier</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <param name="angleOffset">initial rotation of the object; this angle
+            will be added to the measured angle of the found object(s) at the end 
+            of the search function</param>
+            <param name="scaleFactor">initial scale factor of the object; this
+            scale factor will be multiplied with the measured scale factor of the
+            found object(s) at the end of the search function</param>
+            <param name="dontCarePoints">list of points relative to 
+            <paramref name="position"/> from which no features for the classifier
+            should be extracted</param>; an empty list or null handle is 
+            acceptable here if no don't care points are to be used
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of the
+            <paramref name="plane"/> parameter is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.ClassifierFactory.Learn(Stemmer.Cvb.ImagePlane,Stemmer.Cvb.Point2D,Stemmer.Cvb.Angle,System.Double,Stemmer.Cvb.Rect,System.IntPtr)">
+            <summary>
+            Create a ShapeFinder2 classifier from the input image
+            <paramref name="plane"/>.
+            </summary>
+            <param name="plane">image plane to create the classifier from</param>
+            <param name="position">position in the input image at which to extract
+            the classifier</param>
+            <param name="teachWindow">teach window for the classifier learning
+            process relative to <paramref name="position"/></param>
+            <param name="angleOffset">initial rotation of the object; this angle
+            will be added to the measured angle of the found object(s) at the end 
+            of the search function</param>
+            <param name="scaleFactor">initial scale factor of the object; this
+            scale factor will be multiplied with the measured scale factor of the
+            found object(s) at the end of the search function</param>
+            <param name="dontCarePoints">list of points relative to 
+            <paramref name="position"/> from which no features for the classifier
+            should be extracted</param>; an IntPtr.Zero handle is 
+            acceptable here if no don't care points are to be used
+            <returns>the newly created classifier</returns>
+            <exception cref="T:System.ArgumentNullException">If the Parent of
+            <paramref name="plane"/> is null</exception>
+            <exception cref="T:System.ObjectDisposedException">If the Parent of
+            <paramref name="plane"/> has already been disposed</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">when trying to learn a classifier from
+            an image plane that does not have the data type 8 bits per pixel
+            unsigned, or if an unspecific error occurs</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.ShapeFinder2</c> contains 
+            the classes and definitions needed for using the ShapeFinder 2 
+            functionality from SF.dll.
+            </summary> 
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.SymmetryParameters">
+            <summary>
+            Structure that is used by ShapeFinder2 to get/set the symmetry 
+            Properties of a ShapeFinder2 classifier.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.A0">
+            <summary>
+            minimum rotation angle.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.A1">
+            <summary>
+            maximum rotation angle.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.R0">
+            <summary>
+            minimum scale.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.R1">
+            <summary>
+            maximum scale.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.ContrastMode">
+            <summary>
+            Contrast mode 0 as is, 1 revers.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.SymmetryParameters.#ctor(Stemmer.Cvb.ValueRange{Stemmer.Cvb.Angle},Stemmer.Cvb.ValueRange{System.Double})">
+            <summary>
+            Initializing constructor
+            </summary>
+            <param name="rotation"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.SearchAllParameters">
+            <summary>
+            Defines SF2 SearchAll parameters.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.LocXY">
+            <summary>
+            locality in X and Y direction
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.LocA">
+            <summary>
+            locality in angle
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.LocR">
+            <summary>
+            locality in scale
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.MaxNumSolutions">
+            <summary>
+            maximum number of objects to find.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.RelativeThreshold">
+            <summary>
+            relative threshold in %.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.MinimalThreshold">
+            <summary>
+            minimum threshold of the gradient.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.Precision">
+            <summary>
+            precision booster to be used (0, 1 or 2).
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.#ctor(System.Int32,System.Double,System.Int32,Stemmer.Cvb.ShapeFinder2.PrecisionMode)">
+            <summary>
+            SearchAll params to be used.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.ShapeFinder2.SearchAllParameters.Default">
+            <summary>
+            default SearchAll params.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinder2.SearchResult">
+            <summary>
+            A single ShapeFinder2 search result.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.ShapeFinder2.SearchResult.#ctor(Stemmer.Cvb.ShapeFinder2.PrecisionMode,System.Double[])">
+            <summary>
+            Create a search result from the data returned by the unmanaged 
+            ShapeFinder2 functions.
+            </summary>
+            <param name="mode">precision mode that was used for the search</param>
+            <param name="data">data that was returned in the result list</param>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.PrecisionMode">
+            <summary>
+            <see cref="P:Stemmer.Cvb.ShapeFinder2.SearchResult.PrecisionMode"/> that was used for generating this result
+            (may be useful for the interpretation of the result quality).
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.Position">
+            <summary>
+            Result location in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.X">
+            <summary>
+            Result location in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.Y">
+            <summary>
+            Result location in the image.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.Rotation">
+            <summary>
+            Rotation angle of the result (offset by the rotation offset that was
+            specified when creating the classifier).
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.Scale">
+            <summary>
+            Scale of the result relative the originally trained object (multiplied
+            with the initial scale that was specified when creating the 
+            classifier).
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.ShapeFinder2.SearchResult.Quality">
+            <summary>
+            Quality measure of the result. If the <see cref="P:Stemmer.Cvb.ShapeFinder2.SearchResult.PrecisionMode"/> was
+            NoCorrelation then the result quality equals the number of model
+            features that have been found in the image. Otherwise the quality is
+            the correlation result from either the coarse or the fine features,
+            depending on the <see cref="P:Stemmer.Cvb.ShapeFinder2.SearchResult.PrecisionMode"/> setting.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.VPAEntry">
+            VPAT entry storage
+        </member>
+        <member name="T:Stemmer.Cvb.ImgLib">
+            <summary>
+            Internal class holding the method specifications and types for p/invoke.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.ShapeFinderLib">
+            <summary>
+            Import class for the DllImport functions of ShapeFinder(2)
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Runtime.InteropServices.SafeShapeFinderClassifierHandle">
+            <summary>
+            Safe-destruct handle wrapper for IntPtr-based resources that are Minos
+            Classifiers (which are not proper pseudo on the 32 bit platform since
+            CVB 7.2.1)
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Runtime.InteropServices.SafeShapeFinderClassifierHandle.#ctor(System.IntPtr)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="handle">native handle for which to create the image 
+            object</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Runtime.InteropServices.SafeShapeFinderClassifierHandle.ReleaseHandle">
+            <summary>
+            Release internally memorized handle.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

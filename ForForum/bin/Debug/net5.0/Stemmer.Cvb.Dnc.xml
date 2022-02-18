@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.Dnc</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.Dnc.NativeHandleExtensions">
+            <summary>
+            Extensions for <see cref="T:Stemmer.Cvb.INativeHandle"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.NativeHandleExtensions.NativeCall(Stemmer.Cvb.INativeHandle,Stemmer.Cvb.Runtime.InteropServices.Processing.StandardProcessingFunctionVoid,System.String)">
+            <summary>
+            Do a native call with automatic error handling.
+            </summary>
+            <param name="wrapper">The object on which to perform the
+            <paramref name="action"/>.</param>
+            <param name="action">Native action to perform.</param>
+            <param name="errorString">Error message in case the
+            native call fails.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.NativeHandleExtensions.NativeCall``1(Stemmer.Cvb.INativeHandle,Stemmer.Cvb.Runtime.InteropServices.Processing.StandardProcessingFunction1{``0},System.String)">
+            <summary>
+            Do a native call with automatic error handling.
+            </summary>
+            <typeparam name="TOut">Return type.</typeparam>
+            <param name="wrapper">The object on which to perform the
+            <paramref name="action"/>.</param>
+            <param name="action">Native action to perform.</param>
+            <param name="errorString">Error message in case the
+            native call fails.</param>
+            <returns>The result of the <paramref name="action"/>.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.Dnc.TeachParameters">
+            <summary>
+            Parameters for teaching a Dnc finder.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.HeightSensitivity">
+            <summary>
+            Minimum gradient magnitude to accept a local gradient as a feature
+            in the depth images.
+            The value specifies a threshold (in millimeters) above which local height changes
+            are observed as characteristic features. A typical value is 1 mm.
+            This value is also used implicitly during later search tasks.
+            The minimum value is 0.0.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.DerivativePatchSize">
+            <summary>
+            Smoothing area in pixels for gradient and normal calculation.
+            The value controls the local environment in the depth images of the examples which
+            is used to calculate gradients and normals.Minimum is 3. Larger values effectively
+            result in a smoothing of the depth images. The value should be odd.
+            Typical values are in the range 3..9. Smaller values should be favored, since
+            the example images of the CAD object are flawless and free of noise.
+            </summary>
+            <remarks>
+            The corresponding value of <see cref="P:Stemmer.Cvb.Dnc.Search.SearchParameters.DerivativePatchSize"/>
+            of a detection task should be equal, or - in case of sensor noise - bigger.
+            The minimum value is 3.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.LocalDistributionSize">
+            <summary>
+            Size of area in which local features are distributed (in pixels).
+            To account for the finite and discrete example positions the local features are
+             somewhat smeared out. This value specifies the local active range of a single
+             feature. A typical value is 8.
+             The minimum value is 0.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.NumGradientFeatures">
+            <summary>
+            Number of gradient features retained in the classifier.
+            To speed up the calculation of correspondences during a detection task, the possibly
+             dense gradient features from the examples are thinned out to a minimum necessary number.
+            This number strongly depends on the object itself. Typical values are between 100 and 1000.
+             A value of 0 means that all gradient features should be used.
+             The minimum value is 0.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.NumNormalFeatures">
+            <summary>
+            Number of normal vector features retained in the classifier.
+            To speed up the calculation of correspondences during a detection task, the
+             dense normal features from the examples are thinned out to a minimum necessary number.
+            This number strongly depends on the object itself. Typical values are between 100 and 1000.
+             A value of 0 means that all normal features should be used.
+             The minimum value is 0.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.ICPShrink">
+            <summary>
+            ICP-subsample factor.
+            To speed up search tasks, a voxel representation of the examples is pre-calculated. The subsample
+             factor determins the amount of data used to perform an ICP-operation.It strongly influences the
+             recognition speed and the amount of memory used. The recommended value is 4.
+             The minimum value is 1.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.DistanceKernelSize">
+            <summary>
+            Factor for Distance transform calculation.
+            A so called Huber kernel is used for the calculation of a distance transform of an example.
+             To some extend a Huber kernel can possibly enlarge the convergence basin of ICP-operations,
+             relative to the Euclidian distance transform (factor = 1).
+             A recommended value is 2. The minimum value is 1.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.TeachParameters.Default">
+            <summary>
+            Default TeachParameters object.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Dnc.Search.SearchParameters">
+            <summary>
+            Definition of search parameters.
+            Search parameters strongly influence the search results. Likewise, they have
+            great influence on the timing of a search operation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.HypothesesThreshold">
+            <summary>
+            Minimum feature score for hypotheses generation.
+            The value controls which areas of the depth image are
+            used as candidates for closer examination.
+            Typical values are in the range between 0.9 ... 1.0.
+            The minimum value is 0.5.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.DerivativePatchSize">
+            <summary>
+            Smoothing area in pixels for gradient and normal calculation.
+            The value should be odd.
+            Typical values are in the range 3..9.
+            The minimum value is 3.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.IndifferentRadius">
+            <summary>
+            Fraction of template size which accounts for a single object.
+            The minimum value is 0.5.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.PartsToFind">
+            <summary>
+            Maximum number of objects to find.
+            A value of zero means that all objects should be found.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.RawResultsOnly">
+            <summary>
+            If this flag is set, candidate locations are considered as hits without further
+            investigation of these candidates. In this case, only parameters HypothesesThreshold,
+            PartsToFind and MinScore are decisive for finding objects. 
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.ICPShrink">
+            <summary>
+            Subsample factor for ICP.
+            The minimum allowed value of 1 means no reduction(highest accuracy). With increasing 
+            reduction, the processing speed increases, but at the same time the accuracy of the 
+            results also decrease.Typical values are in a range 1..4.
+            The minimum value is 1.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.ICPMaxIterations">
+            <summary>
+            The value specifies the maximum number of iterations of the ICP algorithm.
+            Increasing the value may increase the accuracy of the result, while possibly
+            increasing the processing time. A typical value is 10.
+            The minimum value is 1.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.PrecisionThreshold">
+            <summary>
+            This value determines which deviation is considered tolerable,
+            inconsistent or occlusion. The value depends on the quality of the point cloud data.
+            A typical value is 2 mm, the minimum allowed value is 0.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.MinCoverage">
+            <summary>
+            This value is a threshold (0..1) that specifies the minimum required coverage of the model
+            view by the point cloud data in order for the hit to be counted. A typical value may
+            be 0.8. It is influenced by PrecisionThreshold.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.MaxOcclusion">
+            <summary>
+            This value is a threshold (0..1) that specifies the maximum allowed part of the model
+            view which is occluded by the point cloud data in order for the hit to be counted.
+            Occlusion is defined to be point cloud data lying between the model and the sensor.
+            A typical value may be 0.2. It is influenced by PrecisionThreshold.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.MaxInconsistency">
+            <summary>
+            This value is a threshold (0..1) that specifies the maximum allowed part of the model
+            view to be inconsistent with the point cloud data in order for the hit to be counted.
+            Inconsistency is defined to be point cloud data which is beyond the model.
+            A typical value may be 0.2. It is influenced by PrecisionThreshold.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.MinScore">
+            <summary>
+            This value is a threshold (0..1) that determines whether the candidate is counted as a hit.
+            For this, a hash similarity score between final model view and point cloud data must exceed
+            this limit. A typical value may be 0.8.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchParameters.Default">
+            <summary>
+            Default search parameters.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Dnc.Search.SearchResult">
+            <summary>
+            Single result of a <see cref="M:Stemmer.Cvb.Dnc.Search.Finder.Find(Stemmer.Cvb.DensePointCloud,Stemmer.Cvb.Dnc.Search.SearchParameters)"/>
+            operation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchResult.Position">
+            <summary>
+            Translation vector of objects origin from point cloud origin.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchResult.RotationVector">
+            <summary>
+            Normalized rotation axis vector of objects orientation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchResult.Theta">
+            <summary>
+            Rotation angle of objects orientation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.SearchResult.Score">
+            <summary>
+            Score Detection confidence value (0..1).
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.#ctor(Stemmer.Cvb.Point3Dd,Stemmer.Cvb.Point3Dd,Stemmer.Cvb.Angle,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="position">Translation vector of objects origin from point cloud origin.</param>
+            <param name="rotationVector">Normalized rotation axis vector of objects orientation.</param>
+            <param name="theta">Rotation angle of objects orientation.</param>
+            <param name="score">Score Detection confidence value (0..1).</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.op_Equality(Stemmer.Cvb.Dnc.Search.SearchResult,Stemmer.Cvb.Dnc.Search.SearchResult)">
+            <summary>
+            Equality comparison operator.
+            </summary>
+            <param name="lhs">Left hand side operand.</param>
+            <param name="rhs">Right hand side operand.</param>
+            <returns>True if <paramref name="lhs"/> == <paramref name="rhs"/>,
+            otherwise false.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.op_Inequality(Stemmer.Cvb.Dnc.Search.SearchResult,Stemmer.Cvb.Dnc.Search.SearchResult)">
+            <summary>
+            Inequality comparison operator.
+            </summary>
+            <param name="lhs">Left hand side operand.</param>
+            <param name="rhs">Right hand side operand.</param>
+            <returns>True if <paramref name="lhs"/> != <paramref name="rhs"/>,
+            otherwise false.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance
+            the given <paramref name="obj"/> are equal.
+            </summary>
+            <param name="obj">Object to compare.</param>
+            <returns>True if equal, false if not.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.Equals(Stemmer.Cvb.Dnc.Search.SearchResult)">
+            <summary>
+            Indicates whether this instance
+            the given <paramref name="obj"/> are equal.
+            </summary>
+            <param name="obj">Object to compare.</param>
+            <returns>True if equal, false if not.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.SearchResult.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.Dnc.Search.Finder">
+            <summary>
+            DNC finder used to perform a search on a PointCloud.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.FromFile(System.String)">
+            <summary>
+            Loads a finder from the given <paramref name="fileName"/>.
+            </summary>
+            <param name="fileName">File to load.</param>
+            <returns>Loaded finder.</returns>
+            <exception cref="T:System.ArgumentException">When <paramref name="fileName"/> is null or empty.</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">When an error occurs during loading or
+            creating the finder.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.FromHandle(System.IntPtr)">
+            <summary>
+            Create a finder from the given <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Native handle.</param>
+            <returns>Created finder.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Handle of the finder object.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="E:Stemmer.Cvb.Dnc.Search.Finder.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the
+            <see cref="M:System.IDisposable.Dispose"/> method.
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.Finder.Handle">
+            <summary>
+            Native handle of the Finder.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Dnc.Search.Finder.IsDisposed">
+            <summary>
+            Gets if the native handle has been disposed.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.Dispose(System.Boolean)">
+            <summary>
+            IDisposable helper function.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.Dispose">
+            <summary>
+            IDisposable implementation.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.Find(Stemmer.Cvb.DensePointCloud,Stemmer.Cvb.Dnc.Search.SearchParameters)">
+            <summary>
+            Search for objects on the given <paramref name="pointCloud"/>.
+            </summary>
+            <param name="pointCloud">PointCloud to search on.</param>
+            <param name="parameters">Search parameters to use.</param>
+            <returns>Found results.</returns>
+            <exception cref="T:System.ArgumentNullException">When <paramref name="pointCloud"/> is null.</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">When an error occurs during the search.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.Save(System.String)">
+            <summary>
+            Saves the finder to the given <paramref name="fileName"/>.
+            </summary>
+            <param name="fileName">Path to save the finder to.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When an error occurs during saving.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.GetTeachParameters">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.Dnc.TeachParameters"/> with which
+            this Finder was trained.
+            </summary>
+            <returns><see cref="T:Stemmer.Cvb.Dnc.TeachParameters"/> with which
+            this Finder was trained.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Dnc.Search.Finder.GetTeachParameters(System.Double@,System.Double@)">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.Dnc.TeachParameters"/> with which
+            this Finder was trained, including resolution and fringe.
+            </summary>
+            <param name="resolution">Variable to receive the resolution.</param>
+            <param name="fringe">Variable to receive the fringe.</param>
+            <returns><see cref="T:Stemmer.Cvb.Dnc.TeachParameters"/> with which
+            this Finder was trained.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.DncLib">
+            <summary>
+            PInvoke wrapper class for the C DNC lib.
+            </summary>
+        </member>
+    </members>
+</doc>

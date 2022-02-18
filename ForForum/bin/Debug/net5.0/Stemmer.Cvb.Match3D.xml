@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.Match3D</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.Match3D.AlignmentParameters">
+            <summary>
+            Parameters to configure the 
+            <see cref="M:Stemmer.Cvb.Match3D.Align.DownsampledPointClouds(Stemmer.Cvb.PointCloud,Stemmer.Cvb.PointCloud,Stemmer.Cvb.Match3D.AlignmentParameters)"/> 
+            algorithm.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Match3D.AlignmentParameters.#ctor">
+            <summary>
+            Default constructor using reasonable default values.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentParameters.MaxModelPoints">
+            <summary>
+            Number of points from the model point cloud to retain and use.
+            Higher numbers tend to lead to much higher processing times. Good
+            start values are in the order of 500.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentParameters.MaxScenePoints">
+            <summary>
+            Number of points from the scene point cloud to retain and use.
+            Higher numbers tend to lead to much higher processing times. Good
+            start values are in the order of 500.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentParameters.MaxDistanceStdDev">
+            <summary>
+            Maximum distance(in unnamed point cloud units) at which two points 
+            shall be considered corresponding. Point correspondences are selected 
+            up to MeanDistance +  (MaxStdDevDistance * StdDevDistance). 
+            A reasonable value to start with is 1.
+            
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentParameters.DeltaThresholdRms">
+            <summary>
+            Root mean square distance between the model
+            and scene point cloud at which to stop the iteration. A reasonable
+            value to start with is 1e-6.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentParameters.MaxIterations">
+            <summary>
+            Number of iterations at which to stop
+            (unless the <see name="DeltaThresholdRms"/> criterion has been 
+            reached already). A reasonable value to start with is 20.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Match3D.AlignmentResult">
+            <summary>
+            Result of a Match3D alignment operation.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Match3D.AlignmentResult.#ctor(Stemmer.Cvb.AffineMatrix3D,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="transformation"></param>
+            <param name="finalRmsDistance"></param>
+            <param name="numIterations"></param>
+            <param name="unreliable"></param>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentResult.Transformation">
+            <summary>
+            Transformation which maps the scene to the model.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentResult.RootMeanSquareDistance">
+            <summary>
+            Final root mean square distance between model and scene.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentResult.NumIterations">
+            <summary>
+            Number of iteration steps it took to align the model with the scene.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Match3D.AlignmentResult.IsUnreliable">
+            <summary>
+            If <code>true</code>, then the result is not reliable because too
+            few matching points were found.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Match3D.Align">
+            <summary>
+            Functionality of the CVMatch3D.dll.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Match3D.Align.MatchParameters">
+            <summary>
+            Parameters for matching point clouds.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Match3D.Align.MatchParameters.MaxIterations">
+            <summary>
+            Maximum number of iterations to be executed.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Match3D.Align.MatchParameters.DeltaRmsThreshold">
+            <summary>
+            Iteration stops if deviation of RMS from former iteration is below
+            this threshold.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Match3D.Align.MatchParameters.MaxStdDevDistance">
+            <summary>
+            Point correspondences are selected up to 
+            meanDistance + maxStdDevDistance * stdDevDistance.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Match3D.Align.DownsampledPointClouds(Stemmer.Cvb.PointCloud,Stemmer.Cvb.PointCloud,Stemmer.Cvb.Match3D.AlignmentParameters)">
+            <summary>
+            This function matches the PointCloudScene to PointCloudModel by the 
+            iterative closest point algorithm (ICP) presented by 
+            Arun KS, Huang TS, Blostein SD 1987 in their pater "Least-squares 
+            fitting of two 3D point sets.", IEEE Trans Pattern Anal Machine Intell 
+            9:698–700.
+            </summary>
+            <param name="model">Model point cloud.</param>
+            <param name="scene">Scene (current) point cloud.</param>
+            <param name="pars">Alignment parameter set to use.</param>
+            <exception cref="T:System.ArgumentNullException">if one of the input point 
+            clouds is null</exception>
+            <exception cref="T:System.ObjectDisposedException">if one of the input point
+            clouds has already been disposed</exception>
+            <returns>An <see cref="T:Stemmer.Cvb.Match3D.AlignmentResult"/> object.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Match3D.Align.RootMeanSquareDistance(Stemmer.Cvb.PointCloud,Stemmer.Cvb.PointCloud)">
+            <summary>
+            Calculate the root mean square distance of two point clouds.
+            </summary>
+            <param name="model">Model point cloud to calculate with.</param>
+            <param name="scene">Scene point cloud to calculate with.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">if one of the input point 
+            clouds is null</exception>
+            <exception cref="T:System.ObjectDisposedException">if one of the input point
+            clouds has already been disposed</exception>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,893 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.Spectral</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.Spectral.ContinuousCube">
+            <summary>
+            Cube owning a continuous buffer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.ContinuousCube.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Handle of the cube.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.CubeEncoding">
+            <summary>
+            Defines how the mapping between a typical x-y
+            image and samples-lines-bands is done.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeEncoding.BandInterleavedByLine">
+            <summary>
+            Sensors using the pushbroom approach (spatial scanning)
+            deliver images in the CVSVP_BIL manner: [samples bands lines].
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeEncoding.BandSequential">
+            <summary>
+            Sensors using tunable spectral filters (spectral scanning)
+            deliver images in the CVSVP_BSQ manner: [samples lines bands].
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeEncoding.BandInterleavedByPixel">
+            <summary>
+            Sensors using snapshot approach may deliver images in the
+            CVSVP_BIP manner: [bands samples lines].
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.CubeType">
+            <summary>
+            Types of cubes.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeType.ContinuousCube">
+            <summary>
+            Linear cube with owning buffer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeType.LinearNonOwningCube">
+            <summary>
+            Linear cube without owning buffer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeType.MappedCube">
+            <summary>
+            Mapped cube holds a reference of a <see cref="F:Stemmer.Cvb.Spectral.CubeType.ContinuousCube"/>.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.CubeType.StackedCube">
+            <summary>
+            Stacked cube with potentially non-linear buffer.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.Cube">
+            <summary>
+            Base class for cubes.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Create(System.Int32,System.Int32,System.Int32,Stemmer.Cvb.DataType,Stemmer.Cvb.Spectral.CubeEncoding)">
+            <summary>
+            Creates a new continuous cube.
+            </summary>
+            <param name="numSamples">Amount of samples.</param>
+            <param name="numLines">Amount of lines.</param>
+            <param name="numBands">Amount of bands.</param>
+            <param name="dataType">Data type of the cube.</param>
+            <param name="bufferLayout">Buffer layout of the cube.</param>
+            <returns>Newly created continuous cube.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When creating the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.FromFile(System.String,System.String)">
+            <summary>
+            Loads a cube from file.
+            </summary>
+            <param name="enviHeader">Header file to load.</param>
+            <param name="enviBinary">Binary file to load.</param>
+            <returns>Loaded cube.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When loading the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.FromImages(System.Collections.Generic.IEnumerable{Stemmer.Cvb.Image},Stemmer.Cvb.Spectral.CubeEncoding)">
+            <summary>
+            Creates a new stacked cube from the given <paramref name="images"/>.
+            </summary>
+            <param name="images">Images to use for creating the cube.</param>
+            <param name="bufferLayout">Buffer layout of the cube.</param>
+            <returns>Newly created stacked cube.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When creating the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.FromHandle(System.IntPtr)">
+            <summary>
+            Creates a new cube object from the given <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Cube handle.</param>
+            <returns>Newly created cube.</returns>
+            <exception cref="T:System.ArgumentException">When the given <paramref name="handle"/> is not valid.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Native handle to the cube object.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.#ctor(System.IntPtr,Stemmer.Cvb.Runtime.InteropServices.UseMemoryPressure)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Native handle to the cube object.</param>
+            <param name="useMemoryPressure">Guesses memory pressure if 
+            <see cref="F:Stemmer.Cvb.Runtime.InteropServices.UseMemoryPressure.Yes"/> is set.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="E:Stemmer.Cvb.Spectral.Cube.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the 
+            <see cref="M:System.IDisposable.Dispose"/> method.  
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.Handle">
+            <summary>
+            Native handle of the calibrator.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.IsDisposed">
+            <summary>
+            Gets if the native handle has been disposed.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Dispose(System.Boolean)">
+            <summary>
+            IDisposable helper function.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Dispose">
+            <summary>
+            IDisposable implementation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.MemoryPressure">
+            <summary>
+            Info how much memory pressure this cube provides.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.GuessMemoryPressure">
+            <summary>
+            Calculates the rough memory pressure of this cube.
+            Metadata is not part of the calculation.
+            </summary>
+            <returns>Rough estimated size of the cube.</returns>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.Kind">
+            <summary>
+            Gets the type of this cube.
+            </summary>
+            <exception cref="T:Stemmer.Cvb.CvbException">When getting the cube type failed.</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.DataType">
+            <summary>
+            Gets the data type of this cube.
+            </summary>
+            <exception cref="T:Stemmer.Cvb.CvbException">When getting the data type failed.</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.BufferView">
+            <summary>
+            Gets the buffer view of this cube.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.Cube.MetaData">
+            <summary>
+            Metadata of this cube.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Crop(Stemmer.Cvb.Spectral.Cuboid)">
+            <summary>
+            Creates a cropped cube.
+            </summary>
+            <param name="spectralCuboid">Cuboid with which to crop this cube.</param>
+            <returns>Cropped cube. The output cube type
+            depends on the input cube type.
+            <list type="table">
+            <listheader>
+            <term>Input Type</term>
+            <term>Output Type</term>
+            </listheader>
+            <item>
+            <term>Continuous</term>
+            <term>Mapped</term>
+            </item>
+            <item>
+            <term>Mapped</term>
+            <term>Mapped</term>
+            </item>
+            <item>
+            <term>Stacked</term>
+            <term>Continuous</term>
+            </item>
+            <item>
+            <term>LinearNonOwning</term>
+            <term>LinearNonOwning</term>
+            </item>
+            </list>
+            </returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When cropping the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Transpose(Stemmer.Cvb.Spectral.CubeEncoding)">
+            <summary>
+            Creates a transposed cube.
+            </summary>
+            <param name="targetEncoding">Target encoding of the resulting cube.</param>
+            <returns>Transposed cube. The output cube type
+            depends on the input cube type.
+            <list type="table">
+            <listheader>
+            <term>Input Type</term>
+            <term>Output Type</term>
+            </listheader>
+            <item>
+            <term>Continuous</term>
+            <term>Mapped</term>
+            </item>
+            <item>
+            <term>Mapped</term>
+            <term>Mapped</term>
+            </item>
+            <item>
+            <term>Stacked</term>
+            <term>Continuous</term>
+            </item>
+            <item>
+            <term>LinearNonOwning</term>
+            <term>LinearNonOwning</term>
+            </item>
+            </list>
+            </returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When transposing the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Save(System.String,System.String)">
+            <summary>
+            Saves the cube header and data to the specified files.
+            </summary>
+            <param name="enviHeader">File to save the header to.</param>
+            <param name="enviBinary">File to save the binary data to.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.SwapSamplesAndLines">
+            <summary>
+            Returns a new cube which is a copy of this cube,
+            with the dimensions for samples and lines swapped.
+            </summary>
+            <returns>Copy of this cube with the dimensions for samples
+            and lines swapped.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When swapping the samples and lines failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.GetSpectralDensity``1(System.Int32,System.Int32)">
+            <summary>
+            Retrieves the spectral density at the given pixel.
+            </summary>
+            <typeparam name="T">Type of the spectral density.
+            Can be int or double.</typeparam>
+            <param name="sampleIndex">Index of the sample to inspect.</param>
+            <param name="lineIndex">Index of the line do inspect.</param>
+            <returns>The spectral density at the given pixel.</returns>
+            <exception cref="T:System.ArgumentException">When <typeparamref name="T"/> is not int or double.</exception>
+            <exception cref="T:Stemmer.Cvb.CvbException">When getting the spectral density failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.TryGetLinearAccess(Stemmer.Cvb.Spectral.LinearAccessData@)">
+            <summary>
+            Tries to get the linear access data for this cube.
+            </summary>
+            <param name="linearAccess">Linear access data.</param>
+            <returns>True if linear access data was successfully fetched, false if not.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.GetLinearAccess">
+            <summary>
+            Gets the linear access data for this cube.
+            </summary>
+            <returns>Linear access data.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.Clone">
+            <summary>
+            Copies this cubes memory to a new cube.
+            </summary>
+            <returns>Copied cube.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When cloning the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.System#ICloneable#Clone">
+            <summary>
+            Copies this cubes memory to a new cube.
+            </summary>
+            <returns>Copied cube.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When cloning the cube failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cube.GetCubeKind(System.IntPtr)">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.Spectral.CubeType"/> of the given <paramref name="handle"/>.
+            </summary>
+            <param name="handle">Cube handle to get type for.</param>
+            <returns>Cube type of the given <paramref name="handle"/>.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.Cuboid">
+            <summary>
+            Range struct for cubes.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.Cuboid.#ctor(Stemmer.Cvb.ValueRange{System.Int32},Stemmer.Cvb.ValueRange{System.Int32},Stemmer.Cvb.ValueRange{System.Int32})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="samples">Range of samples.</param>
+            <param name="lines">Range of lines.</param>
+            <param name="bands">Range of bands.</param>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.Cuboid.Samples">
+            <summary>
+            Range of samples.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.Cuboid.Lines">
+            <summary>
+            Range of lines.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.Cuboid.Bands">
+            <summary>
+            Range of bands.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.LinearAccessData">
+            <summary>
+            Linear access to a <see cref="T:Stemmer.Cvb.Spectral.Cube"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.LinearAccessData.#ctor(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="basePtr">Base pointer.</param>
+            <param name="sampleIncrement">Increment to the next sample.</param>
+            <param name="lineIncrement">Increment to the next line.</param>
+            <param name="bandIncrement">Increment to the next band.</param>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.LinearAccessData.BasePtr">
+            <summary>
+            Base pointer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.LinearAccessData.SampleIncrement">
+            <summary>
+            Increment to the next sample.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.LinearAccessData.LineIncrement">
+            <summary>
+            Increment to the next line.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.LinearAccessData.BandIncrement">
+            <summary>
+            Increment to the next band.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.LinearNonOwningCube">
+            <summary>
+            Linear cube that doesn't own a buffer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.LinearNonOwningCube.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Handle of the cube.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.MappedCube">
+            <summary>
+            Cube mapping the memory of another cube.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MappedCube.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Handle of the cube.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.FieldId">
+            <summary>
+            Defines the available informations to get
+            from the meta data.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Interleave">
+            <summary>
+            Defines the way the spectral data of
+            the buffer is ordered (#ViewPerspective)
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Samples">
+            <summary>
+            The number of samples.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Lines">
+            <summary>
+            The number of lines.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Bands">
+            <summary>
+            The number of bands.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.DataType">
+            <summary>
+            Datatype as defined in the ENVI-format.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.ByteOrder">
+            <summary>
+            Byte order.
+            0 = Least significant byte first (LSF).
+            1 = Most significant byte first (MSF)
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.FileType">
+            <summary>
+            File type.
+            Default value: "ENVI Standard".
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.HeaderOffset">
+            <summary>
+            Header offset in bytes.
+            Number of bytes to skip when reading the ENVI-binary file.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Wavelength">
+            <summary>
+            Array of wavelengths in the unit defined by <see cref="F:Stemmer.Cvb.Spectral.FieldId.WavelengthUnit"/>.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.WavelengthUnit">
+            <summary>
+            Unit of the <see cref="F:Stemmer.Cvb.Spectral.FieldId.Wavelength"/> values.
+            - Micrometers
+            - um
+            - Nanometers
+            - nm
+            - Millimeters
+            - mm
+            - Centimeters
+            - cm
+            - Meters
+            - m
+            - Wavenumber
+            - Angstroms
+            - GHz
+            - MHz
+            - Index
+            - Unknown
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldId.Fwhm">
+            <summary>
+            Array of full-width-half-maximum values.
+            Unit defined by <see cref="F:Stemmer.Cvb.Spectral.FieldId.WavelengthUnit"/>.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.FieldDataType">
+            <summary>
+            Defines the data type of a field.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.Invalid">
+            <summary>
+            The field has no value.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.String">
+            <summary>
+            The field contains a string.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.WString">
+            <summary>
+            The field contains a wstring.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.Float">
+            <summary>
+            The field contains a float.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.Integer">
+            <summary>
+            The field contains an integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.StringArray">
+            <summary>
+            The field contains a string array.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.WStringArray">
+            <summary>
+            The field contains a wstring array.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.FloatArray">
+            <summary>
+            The field contains a float array.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.FieldDataType.IntegerArray">
+            <summary>
+            The field contains an integer array.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.EnviDataType">
+            <summary>
+            Datatype in ENVI format.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Uint8">
+            <summary>
+            8-bit Unsigned integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Int16">
+            <summary>
+            16-bit signed integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Int32">
+            <summary>
+            32-bit signed integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Float32">
+            <summary>
+            32-bit float.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Float64">
+            <summary>
+            64-bit float.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.ComplexFloat32">
+            <summary>
+            32-bit complex float.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.ComplexFloat64">
+            <summary>
+            64-bit complex float.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Uint16">
+            <summary>
+            16-bit unsigned integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.UInt32">
+            <summary>
+            32-bit unsigned integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Int64">
+            <summary>
+            64-bit signed integer.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.EnviDataType.Uint64">
+            <summary>
+            64-bit unsigned integer.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.ByteOrder">
+            <summary>
+            Byte order.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.ByteOrder.LeastSignificantByte">
+            <summary>
+            Least significant byte first.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Spectral.ByteOrder.MostSignificantByte">
+            <summary>
+            Most significant byte first
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.MetaData">
+            <summary>
+            Meta information attached to a <see cref="T:Stemmer.Cvb.Spectral.Cube"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.Create">
+            <summary>
+            Creates a default meta data object.
+            </summary>
+            <returns>Pointer to the newly created meta data.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.#ctor">
+            <summary>
+            Constructor.
+            Creates a default meta data object.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Native handle to the metadata object.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+        <member name="E:Stemmer.Cvb.Spectral.MetaData.ObjectDisposing">
+            <summary>
+            Raised when this object is about to be disposed via the 
+            <see cref="M:System.IDisposable.Dispose"/> method.  
+            </summary>
+            <remarks>
+            This event is raised right before this object is disposed. The dispose
+            itself cannot be canceled.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Handle">
+            <summary>
+            Native handle.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.IsDisposed">
+            <summary>
+            Gets if the native handle has been disposed.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.Dispose(System.Boolean)">
+            <summary>
+            IDisposable helper function.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.Dispose">
+            <summary>
+            IDisposable implementation.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Lines">
+            <summary>
+            Number of lines.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Samples">
+            <summary>
+            Number of samples.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Bands">
+            <summary>
+            Number of bands.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.InterleavedType">
+            <summary>
+            Interleaved type.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.ByteOrder">
+            <summary>
+            Byte order.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.DataType">
+            <summary>
+            Datatype in ENVI format.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.FileType">
+            <summary>
+            File type.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.HeaderOffset">
+            <summary>
+            Number of bytes to skip when reading the ENVI binary file.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.WavelengthUnit">
+            <summary>
+            Unit of the <see cref="P:Stemmer.Cvb.Spectral.MetaData.Wavelengths"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Wavelengths">
+            <summary>
+            Wavelength data.
+            Unit is defined in the <see cref="P:Stemmer.Cvb.Spectral.MetaData.WavelengthUnit"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Spectral.MetaData.Fwhm">
+            <summary>
+            Full-width-half-maximum values.
+            Unit is defined in the <see cref="P:Stemmer.Cvb.Spectral.MetaData.WavelengthUnit"/>.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadIntField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as an integer.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteIntField(Stemmer.Cvb.Spectral.FieldId,System.Nullable{System.Int32})">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadIntArrayField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as an integer array.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteIntArrayField(Stemmer.Cvb.Spectral.FieldId,System.Int32[])">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadDoubleField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as a double.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteDoubleField(Stemmer.Cvb.Spectral.FieldId,System.Nullable{System.Double})">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadDoubleArrayField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as a double array.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteDoubleArrayField(Stemmer.Cvb.Spectral.FieldId,System.Double[])">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadStringField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as a string.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+            <exception cref="T:System.InvalidOperationException">When the given <paramref name="field"/>
+            is not a string field.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteStringField(Stemmer.Cvb.Spectral.FieldId,System.String)">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+            <exception cref="T:System.InvalidOperationException">When the given <paramref name="field"/>
+            is not a string field.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.TryReadStringArrayField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the value of the given <paramref name="field"/>
+            as a string array.
+            </summary>
+            <param name="field">Field to read.</param>
+            <returns>The value of the field. (Or null if its not set)</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When reading the field failed.</exception>
+            <exception cref="T:System.InvalidOperationException">When the given <paramref name="field"/>
+            is not a string array field.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.WriteStringArrayField(Stemmer.Cvb.Spectral.FieldId,System.String[])">
+            <summary>
+            Writes the given <paramref name="value"/> to
+            the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to write.</param>
+            <param name="value">Value to write.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When writing the <paramref name="value"/> to
+            the <paramref name="field"/> failed.</exception>
+            <exception cref="T:System.InvalidOperationException">When the given <paramref name="field"/>
+            is not a string array field.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.GetArrayFieldSize(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the array size of the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to get array size for.</param>
+            <returns>Size of the array.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When getting the array size failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.ClearField(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Deletes the value and sets the given <paramref name="field"/>
+            to <see cref="F:Stemmer.Cvb.Spectral.FieldDataType.Invalid"/>.
+            </summary>
+            <param name="field">Field to clear.</param>
+            <exception cref="T:Stemmer.Cvb.CvbException">When clearing the field failed.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.MetaData.GetFieldType(Stemmer.Cvb.Spectral.FieldId)">
+            <summary>
+            Gets the <see cref="T:Stemmer.Cvb.Spectral.FieldDataType"/> of the given <paramref name="field"/>.
+            </summary>
+            <param name="field">Field to get type for.</param>
+            <returns>The type of the given <paramref name="field"/>.</returns>
+            <exception cref="T:Stemmer.Cvb.CvbException">When getting the type failed.</exception>
+        </member>
+        <member name="T:Stemmer.Cvb.Spectral.StackedCube">
+            <summary>
+            Cube owning a non-continuous buffer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Spectral.StackedCube.#ctor(System.IntPtr)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="handle">Handle of the cube.</param>
+            <exception cref="T:System.ArgumentException">When <paramref name="handle"/> is <see cref="F:System.IntPtr.Zero"/>.</exception>
+        </member>
+    </members>
+</doc>

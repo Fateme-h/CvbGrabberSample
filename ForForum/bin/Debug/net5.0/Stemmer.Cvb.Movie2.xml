@@ -1,0 +1,730 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stemmer.Cvb.Movie2</name>
+    </assembly>
+    <members>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoSettings">
+            <summary>
+            Settings for the <see cref="T:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine"/>.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings">
+            <summary>
+            Settings for the <see cref="T:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings.CodecIndex">
+            <summary>
+            Gets the native Movie2 Codec index.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings.Codec">
+            <summary>
+            Gets or sets the name of the Codec to use.
+            </summary>
+            <exception cref="T:System.ArgumentException">Given value is not found in the
+            list of installed Codecs.</exception>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings.UseMetadata">
+            <summary>
+            Gets or sets whether text metadata is to be written into the stream.
+            </summary>
+            <remarks>
+            Default is <c>false</c> as some players reject video streams 
+            containing text metadata.
+            </remarks>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings.GetAvailableCodecs">
+            <summary>
+            Gets the available codecs currently installed in the system.
+            </summary>
+            <returns>Array containing the names of the codecs.</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings.CreateMovie2">
+            <summary>
+            Factory method for creating a default unopened recorder handle.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.Movie2.RecordingEngine</c> 
+            contains the settings objects for the different available recording
+            engines.
+            </summary> 
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.RecordingSettings">
+            <summary>
+            Settings for a <see cref="T:Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.RecordingSettings.FrameRate">
+            <summary>
+            Gets or sets the frame rate the video uses for playback.
+            </summary>
+            <remarks>
+            This value is always used despite the rate images are added to the
+            recorder.
+            </remarks>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine">
+            <summary>
+            Recording engine that uses the DirectShow framework.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine.EngineType">
+            <summary>
+            The engine type.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine._settings">
+            <summary>
+            Engine settings object.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine.#ctor(Stemmer.Cvb.Movie2.RecordingEngine.DirectShowSettings)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="settings">Engine settings.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine.ConfigureHandle(System.IntPtr)">
+            <summary>
+            Configures the given <paramref name="recorderHandle"/>
+            for the use with this engine.
+            </summary>
+            <param name="recorderHandle">Movie2 recorder handle to configure.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.MetadataHandler">
+            <summary>
+            Handler for Movie2 metadata.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.MetadataHandler.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.MetadataHandler.Callback">
+            <summary>
+            Stores the delegate which is used to retrieve the metadata.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.MetadataHandler.Metadata">
+            <summary>
+            Stores the metadata text for the added frame.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineType">
+            <summary>
+            Defines the recording engine that the recorder should use.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineType.Undefined">
+            <summary>
+            Place holder for situations where the engine is undefined.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineType.DirectShow">
+            <summary>
+            Use DirectShow framework for recording AVI files.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineType.RawVideo">
+            <summary>
+            Use CVRawVideo for recording raw video.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine">
+            <summary>
+            Interface defining a recording engine
+            used in a <see cref="T:Stemmer.Cvb.Movie2.Recorder"/>.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine.MetadataHandler">
+            <summary>
+            Handler for metadata reading / writing.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine.EngineType">
+            <summary>
+            The engine type.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine.ConfigureHandle(System.IntPtr)">
+            <summary>
+            Configures the given <paramref name="recorderHandle"/>
+            for the use with this engine.
+            </summary>
+            <param name="recorderHandle">Movie2 recorder handle to configure.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine">
+            <summary>
+            Recording engine that uses the CVB Raw Video Container.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine.EngineType">
+            <summary>
+            The engine type.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine._settings">
+            <summary>
+            Engine settings object.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine.#ctor(Stemmer.Cvb.Movie2.RecordingEngine.RawVideoSettings)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="settings">Engine settings.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.RawVideoEngine.ConfigureHandle(System.IntPtr)">
+            <summary>
+            Configures the given <paramref name="recorderHandle"/>
+            for the use with this engine.
+            </summary>
+            <param name="recorderHandle">Movie2 recorder handle to configure.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineBase">
+            <summary>
+            Base class for all recording engines.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineBase.EngineType">
+            <summary>
+            The engine type.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineBase.MetadataHandler">
+            <summary>
+            Handler for metadata reading / writing.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.RecordingEngine.RecordingEngineBase.ConfigureHandle(System.IntPtr)">
+            <summary>
+            Configures the given <paramref name="recorderHandle"/>
+            for the use with this engine.
+            </summary>
+            <param name="recorderHandle">Movie2 recorder handle to configure.</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.NamespaceDoc">
+            <summary>
+            The namespace and assembly <c>Stemmer.Cvb.Movie2</c> contains the 
+            classes and definitions needed for using the Common Vision Blox Movie2
+            tool.
+            </summary> 
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.Properties.Messages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.GenericObjectDisposed">
+            <summary>
+              Looks up a localized string similar to The {0} object has already been disposed of and may not be used any longer..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.InvalidOperation">
+            <summary>
+              Looks up a localized string similar to {0} is not supported when {1}..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.UnsupportedValue">
+            <summary>
+              Looks up a localized string similar to {0} is not in the supported range..
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Properties.Messages.ValueNotGreaterZero">
+            <summary>
+              Looks up a localized string similar to {0} is not greater 0..
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.RecorderPixelFormat">
+            <summary>
+            Defines whether the recorder object writes <see cref="F:Stemmer.Cvb.Movie2.RecorderPixelFormat.Color"/> or
+            <see cref="F:Stemmer.Cvb.Movie2.RecorderPixelFormat.Mono"/> data.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecorderPixelFormat.Mono">
+            <summary>
+            Recorder writes single-plane monochrome data.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.RecorderPixelFormat.Color">
+            <summary>
+            Recorder writes three-plane RGB data.
+            </summary>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2.Recorder">
+            <summary>
+            Movie2 recorder for writing video files to disk.
+            </summary>
+        </member>
+        <member name="F:Stemmer.Cvb.Movie2.Recorder._handle">
+            <summary>
+            Stores the native Movie2 handle.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Recorder.EngineType">
+            <summary>
+            Recording engine this recorder uses.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.#ctor(System.String,Stemmer.Cvb.Size2D,Stemmer.Cvb.Movie2.RecorderPixelFormat,Stemmer.Cvb.Movie2.RecordingEngine.IRecordingEngine)">
+            <summary>
+            Creates a recorder object writing video streams with the given
+            <paramref name="size"/> and <paramref name="pixelFormat"/>.
+            </summary>
+            <remarks>
+            The stream is not opened and can be configured.
+            </remarks>
+            <param name="path">Path to write avi container to.</param>
+            <param name="size">Size of the video frames in pixels.</param>
+            <param name="pixelFormat">Defines whether mono or color images are 
+            written.</param>
+            <param name="engine">Recording engine to use.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.#ctor(System.String,Stemmer.Cvb.Size2D,Stemmer.Cvb.Movie2.RecorderPixelFormat,Stemmer.Cvb.Movie2.RecordingEngine.RecordingSettings)">
+            <summary>
+            Creates a recorder object writing video streams with the given
+            <paramref name="size"/> and <paramref name="pixelFormat"/>.
+            </summary>
+            <remarks>
+            The stream is not opened and can be configured.
+            </remarks>
+            <param name="path">Path to write avi container to.</param>
+            <param name="size">Size of the video frames in pixels.</param>
+            <param name="pixelFormat">Defines whether mono or color images are 
+            written.</param>
+            <param name="settings">Settings for initializing the recorder.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.#ctor(System.String,Stemmer.Cvb.Size2D,Stemmer.Cvb.Movie2.RecorderPixelFormat)">
+            <summary>
+            Opens a recorder object for writing a video stream in 
+            <paramref name="path"/> with the given <paramref name="size"/> and
+            <paramref name="pixelFormat"/> and default 
+            <see cref="T:Stemmer.Cvb.Movie2.RecordingEngine.RecordingSettings"/>.
+            Uses the <see cref="T:Stemmer.Cvb.Movie2.RecordingEngine.DirectShowEngine"/> per default.
+            </summary>
+            <param name="path">Path to write avi container to.</param>
+            <param name="size">Size of the video frames in pixels.</param>
+            <param name="pixelFormat">Defines whether mono or color images are 
+            written.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Dispose">
+            <summary>
+            IDisposable implementation.
+            </summary>
+            <remark>Call this method to release the resources allocated by this
+            object immediately. Remember that after calling Dispose, any 
+            subsequent access to references to this object will result in an 
+            ObjectDisposedException.</remark>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Dispose(System.Boolean)">
+            <summary>
+            IDispose helper function.
+            </summary>
+            <param name="disposing"><c>true</c> when called via 
+            <see cref="M:System.IDisposable.Dispose"/>, <c>false</c> when called by the
+            finalizer.</param>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Close">
+            <summary>
+            Closes the stream.
+            </summary>
+            <remarks>
+            Alias for <see cref="M:Stemmer.Cvb.Movie2.Recorder.Dispose"/>.
+            </remarks>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Recorder.Handle">
+            <summary>
+            Gets the native handle of the Movie2 recorder object.
+            </summary>
+        </member>
+        <member name="P:Stemmer.Cvb.Movie2.Recorder.IsDisposed">
+            <summary>
+            Gets whether this object has been disposed.
+            </summary>
+        </member>
+        <member name="E:Stemmer.Cvb.Movie2.Recorder.ObjectDisposing">
+            <summary>
+            Event that is fired when this object is being disposed.
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Write(Stemmer.Cvb.Image)">
+            <summary>
+            Writes the given <paramref name="image"/> into the stream.
+            </summary>
+            <param name="image">Image to write into the stream.</param>
+            <exception cref="T:System.ObjectDisposedException">Recorder has been disposed.
+            </exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="image"/> is
+            <c>null</c>.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.Write(Stemmer.Cvb.Image,System.String)">
+            <summary>
+            Writes the given <paramref name="image"/> with the given 
+            <paramref name="metadata"/> into the stream.
+            </summary>
+            <param name="image">Image to write into the stream.</param>
+            <param name="metadata">Metadata text to write into the stream.</param>
+            <exception cref="T:System.ObjectDisposedException">Recorder has been disposed.
+            </exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="image"/> is
+            <c>null</c>.</exception>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2.Recorder.CreateEngine(Stemmer.Cvb.Movie2.RecordingEngine.RecordingSettings)">
+            <summary>
+            Creates the recording engine based on the <paramref name="settings"/>.
+            </summary>
+            <param name="settings">Settings to create a recording engine with.</param>
+            <returns>Newly created recording engine.</returns>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2Error">
+            <summary>
+            Error callback for the Movie2.dll
+            </summary>
+            <param name="recorder">recorder object for which the callback has been invoked</param>
+            <param name="errorcode">error that occurred</param>
+            <param name="errormessage">error message</param>
+            <param name="errorlocation">additional error information</param>
+            <param name="userdata">private data pointer</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2ImageSnapped">
+            <summary>
+            ImageSnapped callback for Movie2.dll
+            </summary>
+            <param name="recorder">recorder on which an image has been snapped</param>
+            <param name="userdata">private data pointer</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2ImageUpdated">
+            <summary>
+            ImageUpdated callback for Movie2.dll
+            </summary>
+            <param name="recorder">recorder on which an image has been updated</param>
+            <param name="userdata">private data pointer</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2ProvideMetaData">
+            <summary>
+            Metadata callback for Movie2.dll
+            </summary>
+            <param name="recorder">recorder on which meta data are required</param>
+            <param name="stringbuffer">string buffer to be filled with the meta data</param>
+            <param name="buffersize">size of the string buffer</param>
+            <param name="userdata">private data pointer</param>
+        </member>
+        <member name="T:Stemmer.Cvb.Movie2Lib">
+            <summary>
+            static wrapper class for the imported functions
+            </summary>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.CreateMovie2Recorder(System.Int32)">
+            <summary>
+            Create a Movie2 recorder object
+            </summary>
+            <param name="engine">engine type to create the object for</param>
+            <returns>handle to the created object (check for IntPtr.Zero)</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.CreateMovie2RecorderEx(System.Int32,System.IntPtr)">
+            <summary>
+            Create a Movie2 recorder object
+            </summary>
+            <param name="engine">recording engine to be used</param>
+            <param name="image">image with which to initialize the recording object</param>
+            <returns>handle to the created object (check for IntPtr.Zero)</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetTargetFileName(System.IntPtr,System.String)">
+            <summary>
+            Set the name of the target file for recording
+            </summary>
+            <param name="recorder">recorder object on which to set</param>
+            <param name="filename">file name to receive the AVI file</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetTargetFileName(System.IntPtr,System.Text.StringBuilder,System.Int32@)">
+            <summary>
+            Retrieve the currently used file name for recording
+            </summary>
+            <param name="recorder">recorder object to be queried</param>
+            <param name="filename">file name that is currently set as target for the next(!) AVI file</param>
+            <param name="buffersize">size of the buffer pointed to by filename</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetFrameRate(System.IntPtr,System.Double)">
+            <summary>
+            Specify the frame rate to be written into the stream
+            </summary>
+            <param name="recorder">recorder object for which to set</param>
+            <param name="framerate">frame rate to be set</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetFrameRate(System.IntPtr,System.Double@)">
+            <summary>
+            Query the frame rate that is currently being used
+            </summary>
+            <param name="recorder">recorder object to be queried</param>
+            <param name="framerate">frame rate that has been specified for the recorder object</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetNumDroppedFrames(System.IntPtr,System.Int32@)">
+            <summary>
+            Query the current value of the "dropped frames" counter
+            </summary>
+            <param name="recorder">recorder on which to query</param>
+            <param name="numdropped">number of frames dropped since last start</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2ResetDroppedFramesCounter(System.IntPtr)">
+            <summary>
+            reset the dropped frames counter to zero
+            </summary>
+            <param name="recorder">recorder on which to reset</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetNumAcquiredFrames(System.IntPtr,System.Int32@)">
+            <summary>
+            get the number of frames that have been recorded so far
+            </summary>
+            <param name="recorder">recorder object handle</param>
+            <param name="numacquired">number of frames acquired so far</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2ResetAcquiredFramesCounter(System.IntPtr)">
+            <summary>
+            reset the counter for the frames that have been acquired into the AVI file
+            </summary>
+            <param name="recorder">recorder object on which to query</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetImage(System.IntPtr,System.IntPtr)">
+            <summary>
+            Set the image object to be used for recording
+            </summary>
+            <param name="recorder">recorder on which set the image</param>
+            <param name="image">image to be recorder</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetImage(System.IntPtr,System.IntPtr@)">
+            <summary>
+            Get the image that is currently being used for recording
+            </summary>
+            <param name="recorder">recorder object to be queried</param>
+            <param name="image">currently used image</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetSyncMode(System.IntPtr,System.Int32)">
+            <summary>
+            Set the synchronization mode to be used
+            </summary>
+            <param name="recorder">recorder object on which to set</param>
+            <param name="syncmode">synchronization mode to be applied</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetSyncMode(System.IntPtr,System.Int32@)">
+            <summary>
+            Get the synchronization mode that is currently being used
+            </summary>
+            <param name="recorder">recorder object to be queried</param>
+            <param name="syncmode">currently set synchronization mode</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetAcqMode(System.IntPtr,System.Int32)">
+            <summary>
+            Set the acquisition mode to be used
+            </summary>
+            <param name="recorder">recorder object on which to set</param>
+            <param name="acqmode">acquisition mode to be applied</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetAcqMode(System.IntPtr,System.Int32@)">
+            <summary>
+            Get the acquisition mode that is currently being used
+            </summary>
+            <param name="recorder">recorder object to be queried</param>
+            <param name="acqmode">currently set acquisition mode</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2RegisterImageSnappedCallback(System.IntPtr,Stemmer.Cvb.Movie2ImageSnapped,System.IntPtr,System.Int32@)">
+            <summary>
+            Register the callback that tells about ImageSnapped events
+            </summary>
+            <param name="recorder">recorder on which to register a callback</param>
+            <param name="callback">callback to be registered</param>
+            <param name="userdata">private data pointer</param>
+            <param name="cookie">cookie needed for de registration of the callback</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2RegisterImageUpdatedCallback(System.IntPtr,Stemmer.Cvb.Movie2ImageUpdated,System.IntPtr,System.Int32@)">
+            <summary>
+            Register the callback that tells about ImageUpdated events
+            </summary>
+            <param name="recorder">recorder on which to register a callback</param>
+            <param name="callback">callback to be registered</param>
+            <param name="userdata">private data pointer</param>
+            <param name="cookie">cookie needed for de registration of the callback</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2RegisterErrorCallback(System.IntPtr,Stemmer.Cvb.Movie2Error,System.IntPtr,System.Int32@)">
+            <summary>
+            Register the callback that tells about errors inside Movie2
+            </summary>
+            <param name="recorder">recorder on which to register a callback</param>
+            <param name="callback">callback to be registered</param>
+            <param name="userdata">private data pointer</param>
+            <param name="cookie">cookie needed for de registration of the callback</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2RegisterMetaDataCallback(System.IntPtr,Stemmer.Cvb.Movie2ProvideMetaData,System.IntPtr,System.Int32@)">
+            <summary>
+            Register the callback that tells about Metadata events
+            
+            Meta data are (ANSI-) strings with up to 64k characters, one per image being recorded. 
+            For example, the MetaData can be used to save the corresponding timestamp as a string 
+            for every recorded frame within the AVI container.
+            To read out the MetaData you can implement the CVB Notify Interface (INotify) of the Driver.dll 
+            in your own application. If you prefer the Grabber OCX you can use the ImageNotificationString Event. 
+            As examples the VCMovie2PlayerExample and the CSMovie2PlayerExample are included in Movie2. 
+            <br></br>
+            Please note that some media players or AVI Editors may get confused by the presence of a text stream 
+            in the AVI container. When an AVI Editor does not support the text stream 
+            the MetaData is lost after editing the AVI file. 
+            For Example VirtualDub with DirectStreamCopy writes only the text of the first frame to all other frames.
+            <br></br>
+            Our Movie Interactive 2 is the only application we know which can handle text streams as MetaData. 
+            So if you want to recompress your recorded movie and don´t want to lose the MetaData use Movie Interactive 2.
+            </summary>
+            <param name="recorder">recorder on which to register a callback</param>
+            <param name="callback">callback to be registered</param>
+            <param name="userdata">private data pointer</param>
+            <param name="cookie">cookie needed for de-registration of the callback</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2UnregisterCallback(System.IntPtr,System.Int32)">
+            <summary>
+            unregister a callback on a Movie2 recorder
+            </summary>
+            <param name="recorder">recorder on which to deregister</param>
+            <param name="cookie">cookie obtained during callback registration</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetNumCompressors(System.IntPtr,System.Int32@)">
+            <summary>
+            Get the number of available compression codecs
+            </summary>
+            <param name="recorder">recorder on which to query</param>
+            <param name="numcompressors">number of available compressors</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetCompressorName(System.IntPtr,System.Int32,System.Text.StringBuilder,System.Int32)">
+            <summary>
+            get the name of a compressor
+            </summary>
+            <param name="recorder">recorder on which to determine the compressor names</param>
+            <param name="index">index of the compressor whose name should be retrieved</param>
+            <param name="name">name of the compressor</param>
+            <param name="buffersize">size of the name buffer</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetCompressorIndex(System.IntPtr,System.Int32)">
+            <summary>
+            specify a recorder to be used
+            </summary>
+            <param name="recorder">recorder on which to choose the compressor</param>
+            <param name="index">index of the compressor to be used</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetCompressorIndex(System.IntPtr,System.Int32@)">
+            <summary>
+            retrieve the currently set compressor
+            </summary>
+            <param name="recorder">recorder on which to query the compressor</param>
+            <param name="index">currently set compressor index</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2ShowCodecPropertyPage(System.IntPtr,System.IntPtr)">
+            <summary>
+            show the current compressor's property page
+            </summary>
+            <param name="recorder">recorder whose property page to show</param>
+            <param name="hwnd">window handle on which to show the property page</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetIsRecording(System.IntPtr,System.Boolean@)">
+            <summary>
+            get the current recorder status
+            </summary>
+            <param name="recorder">recorder object to be query</param>
+            <param name="isrecording">recording status</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2PreStartRecording(System.IntPtr)">
+            <summary>
+            pre start recording on a recorder object
+            </summary>
+            <param name="recorder">recorder on which to prestart recording</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2StartRecording(System.IntPtr)">
+            <summary>
+            start recording on a recorder object
+            </summary>
+            <param name="recorder">recorder on which to start recording</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2StopRecording(System.IntPtr)">
+            <summary>
+            stop recording on a recorder object
+            </summary>
+            <param name="recorder">recorder on which to stop recording</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2PauseRecording(System.IntPtr)">
+            <summary>
+            pause recording on a recorder object
+            </summary>
+            <param name="recorder">recorder on which to pause recording</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2AddFrame(System.IntPtr)">
+            <summary>
+            add a frame on a recorder object
+            </summary>
+            <param name="recorder">recorder on which to add a frame</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2SetUseMetadata(System.IntPtr,System.Boolean)">
+            <summary>
+            specify whether or not meta data should be recorded
+            </summary>
+            <param name="recorder">recorder on which to select meta data usage</param>
+            <param name="usemetadata">specifies whether or not to use meta data</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Stemmer.Cvb.Movie2Lib.Movie2GetUseMetadata(System.IntPtr,System.Boolean@)">
+            <summary>
+            check whether or not meta data is being recorded
+            </summary>
+            <param name="recorder">recorder on which to check</param>
+            <param name="usemetadata">meta data status</param>
+            <returns>HRESULT</returns>
+        </member>
+    </members>
+</doc>
